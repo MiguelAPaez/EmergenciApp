@@ -2,4 +2,11 @@
     <string name="app_name">EmergenciApp</string>
     <string name="email">Correo Electrónico</string>
     <string name="password">Contraseña</string>
+    <string name="login">Ingresar</string>
+    <string name="message_intro">¿No tienes una cuenta aún?</string>
+    <string name="signup"><u>Regístrate</u></string>
+    <string name="rights">All rigths reserved - EmergenciApp 2020</string>
+
+    <string name="register_title">Registro Usuarios</string>
+
 </resources>
