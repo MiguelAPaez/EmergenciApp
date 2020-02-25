@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="idType">
+        <item>Tipo de Identificación</item>
+        <item>CC</item>
+        <item>TI</item>
+        <item>RC</item>
+        <item>Cédula de Extranjería</item>
+        <item>Pasaporte</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item>Género</item>
+        <item>Femenino</item>
+        <item>Masculino</item>
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="eps">
+        <item>EPS</item>
+        <item>Nueva EPS</item>
+        <item>Salud Vida</item>
+        <item>Coomeva</item>
+        <item>Salud Total</item>
+        <item>EPS Sanitas</item>
+        <item>Otro</item>
+    </string-array>
+
+</resources>

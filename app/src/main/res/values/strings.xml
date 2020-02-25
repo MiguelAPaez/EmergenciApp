@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">EmergenciApp</string>
+    <string name="email">Correo Electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Ingresar</string>
+    <string name="message_intro">¿No tienes una cuenta aún?</string>
+    <string name="signup"><u>Regístrate</u></string>
+    <string name="rights">All rigths reserved - EmergenciApp 2020</string>
+    <string name="logo_description">Logo de EmergenciApp</string>
+
+    <string name="register_title">Registro Usuarios</string>
+    <string name="name">Nombres</string>
+    <string name="last_name">Apellidos</string>
+    <string name="id_number">Número de Identificación</string>
+    <string name="date_birth">Fecha de Nacimiento</string>
+    <string name="add">Agregar</string>
+    <string name="validate_password">Confirmar Contraseña</string>
+    <string name="phone">Celular</string>
+    <string name="weight">Peso (Kg)</string>
+    <string name="height">Estatura (Cm)</string>
+    <string name="sign_up">Registrar</string>
+
 </resources>
