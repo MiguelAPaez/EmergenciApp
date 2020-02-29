@@ -26,4 +26,73 @@
         <item>Otro</item>
     </string-array>
 
+    <string-array name="eps_regime">
+        <item>Régimen de Afiliación EPS</item>
+        <item>Subsidiado</item>
+        <item>Contributivo</item>
+    </string-array>
+
+    <string-array name="prepaid_medicine">
+        <item>Medicina Prepagada</item>
+        <item>Ninguna</item>
+        <item>Axa Colpatria</item>
+        <item>Coomeva</item>
+        <item>Colmédica</item>
+        <item>Colsanitas</item>
+        <item>Emi</item>
+        <item>MedPlus</item>
+        <item>Sura</item>
+    </string-array>
+
+    <string-array name="blood_type">
+        <item>Tipo de Sangre</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>O+</item>
+        <item>O-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+    </string-array>
+
+    <string-array name="disease">
+        <item>¿Tienes alguna Enfermedad?</item>
+        <item>Ninguna</item>
+        <item>Cardiovascular</item>
+        <item>Obesidad</item>
+        <item>Diabetes</item>
+        <item>Cáncer</item>
+        <item>Asma</item>
+        <item>Estrés</item>
+        <item>Otra</item>
+    </string-array>
+
+    <string-array name="allergy">
+        <item>¿Posees alguna Alergía?</item>
+        <item>Ninguna</item>
+        <item>Polen</item>
+        <item>Ácaros</item>
+        <item>Alimentos</item>
+        <item>Animales</item>
+        <item>Medicamentos</item>
+        <item>Sol</item>
+        <item>Picaduras de Insectos</item>
+        <item>Níquel</item>
+        <item>Látex</item>
+        <item>Otra</item>
+    </string-array>
+
+    <string-array name="medicines">
+        <item>¿Tomas algún Medicamento?</item>
+        <item>Ninguno</item>
+        <item>Lágrimas Artificiales</item>
+        <item>Metformina</item>
+        <item>Pregabalina</item>
+        <item>Paracetamol</item>
+        <item>Rituximab</item>
+        <item>Tamsulosina</item>
+        <item>Otro</item>
+    </string-array>
+
 </resources>

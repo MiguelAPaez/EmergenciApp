@@ -46,5 +46,16 @@ public class Register extends AppCompatActivity {
             }
         });
 
+        getSupportActionBar().hide();
+
+        Button btn = (Button) findViewById( R.id.buttonNextRegister);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent ( v.getContext(), HealthRegister.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+
     }
 }
