@@ -9,6 +9,7 @@
     <string name="logo_description">Logo de EmergenciApp</string>
 
     <string name="register_title">Registro Usuarios</string>
+    <string name="register_health_title">Registro de Salud</string>
     <string name="name">Nombres</string>
     <string name="last_name">Apellidos</string>
     <string name="id_number">Número de Identificación</string>
@@ -16,8 +17,13 @@
     <string name="add">Agregar</string>
     <string name="validate_password">Confirmar Contraseña</string>
     <string name="phone">Celular</string>
+    <string name="complementary_plan">¿Tienes Plan Complementario con tu EPS?</string>
     <string name="weight">Peso (Kg)</string>
     <string name="height">Estatura (Cm)</string>
+    <string name="organ_donor">¿Eres Donador de Órganos?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="next">Siguiente ></string>
     <string name="sign_up">Registrar</string>
 
 </resources>
