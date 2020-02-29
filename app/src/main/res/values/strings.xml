@@ -26,4 +26,7 @@
     <string name="next">Siguiente ></string>
     <string name="sign_up">Registrar</string>
 
+    <string name="emergency">Emergencia</string>
+    <string name="line_emergency">Llamar al 123</string>
+
 </resources>
