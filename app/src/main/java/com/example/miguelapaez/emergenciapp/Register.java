@@ -142,7 +142,7 @@ public class Register extends AppCompatActivity {
         String phone = ePhone.getText().toString().trim();
         String gender = spinGender.getSelectedItem().toString().trim();
         Perfil user = new Perfil(name,lastName,typeId,id,age,email,password,phone,gender);
-        mDatabase.child("Perfiles").child(user.getId()).setValue(user);
+        mDatabase.child("Perfiles").child(id).setValue(user);
         Toast.makeText(Register.this,"Registro Exitoso",Toast.LENGTH_LONG).show();
     }
 }
