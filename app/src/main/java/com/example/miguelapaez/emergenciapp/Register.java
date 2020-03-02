@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.lang.ref.Reference;
 import java.util.Calendar;
 
 
@@ -36,6 +37,7 @@ public class Register extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference mDatabase;
     private ProgressDialog progressDialog;
+    private FacadeNegocio bussiness;
 
 
     @Override
@@ -43,9 +45,12 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         getSupportActionBar().hide();
+
+        // Objetos
         firebaseAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
+        bussiness = new ImplementacionNegocio();
 
         eName = (EditText) findViewById(R.id.nameRegister);
         eLastName = (EditText) findViewById(R.id.lastNameRegister);
@@ -112,12 +117,11 @@ public class Register extends AppCompatActivity {
     }
 
     private void registrarUsuario() {
-        //progressDialog.setMessage("Realizando registro...");
-        //progressDialog.show();
+
         Perfil user = crearUsuario();
-        FacadeNegocio bussiness = new ImplementacionNegocio();
-        bussiness.registrarUsuario(user,firebaseAuth,mDatabase);
-        //progressDialog.dismiss();
+        String response = bussiness.registrarUsuario(user,firebaseAuth,mDatabase);
+        Toast.makeText(Register.this,response,Toast.LENGTH_LONG).show();
+        progressDialog.dismiss();
     }
 
     private Perfil crearUsuario(){

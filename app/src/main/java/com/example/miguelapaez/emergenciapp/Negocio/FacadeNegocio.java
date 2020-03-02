@@ -8,5 +8,5 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
 public interface FacadeNegocio {
-    public void registrarUsuario(Perfil user, FirebaseAuth firebaseAuth, DatabaseReference mDatabase);
+    public String registrarUsuario(Perfil user, FirebaseAuth firebaseAuth, DatabaseReference mDatabase);
 }

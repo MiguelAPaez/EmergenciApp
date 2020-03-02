@@ -18,12 +18,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class ImplementacionNegocio extends AppCompatActivity implements FacadeNegocio {
-    String response = new String();
 
     @Override
-    public void registrarUsuario(final Perfil user, FirebaseAuth firebaseAuth, final DatabaseReference mDatabase) {
+    public String registrarUsuario(final Perfil user, FirebaseAuth firebaseAuth, final DatabaseReference mDatabase) {
         String email = user.getEmail();
         String password = user.getEmail();
+        String response = "Error al crear usuario";
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -31,16 +31,19 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
                         //checking if success
                         if (task.isSuccessful()) {
                             crearUsuarioBD(user,mDatabase);
+
                         } else {
                             if (task.getException() instanceof FirebaseAuthUserCollisionException){
-                                //Toast.makeText(getApplicationContext(),"El usuario ya existe",Toast.LENGTH_LONG).show();
                             }
                             else {
-                                //Toast.makeText(getApplicationContext(),"No se pudo registrar al usuario correctamente",Toast.LENGTH_LONG).show();
                             }
                         }
                     }
                 });
+        if (firebaseAuth.getCurrentUser()!=null){
+            response = "Se ha creado el usuario";
+        }
+        return response;
     }
     private void crearUsuarioBD(Perfil user, DatabaseReference mDatabase){
         mDatabase.child("Perfiles").child(user.getId()).setValue(user);
