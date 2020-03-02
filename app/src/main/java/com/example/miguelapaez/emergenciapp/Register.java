@@ -14,6 +14,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.miguelapaez.emergenciapp.Entities.Perfil;
+import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
+import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -34,6 +36,7 @@ public class Register extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference mDatabase;
     private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +84,9 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 registrarUsuario();
-                ;
-                /*Intent intent = new Intent ( v.getContext(), HealthRegister.class);
+                /*
+
+                Intent intent = new Intent ( v.getContext(), HealthRegister.class);
                 startActivityForResult(intent, 0);*/
             }
         });
@@ -108,30 +112,15 @@ public class Register extends AppCompatActivity {
     }
 
     private void registrarUsuario() {
-        String email = eEmail.getText().toString().trim();
-        String password = ePassword.getText().toString().trim();
-        progressDialog.setMessage("Realizando registro...");
-        progressDialog.show();
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //checking if success
-                        if (task.isSuccessful()) {
-                            crearUsuarioBD();
-                        } else {
-                            if (task.getException() instanceof FirebaseAuthUserCollisionException){
-                                Toast.makeText(Register.this, "El usuario ya existe", Toast.LENGTH_LONG).show();
-                            }
-                            else {
-                                Toast.makeText(Register.this, "No se pudo registrar al usuario correctamente", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                        progressDialog.dismiss();
-                    }
-                });
+        //progressDialog.setMessage("Realizando registro...");
+        //progressDialog.show();
+        Perfil user = crearUsuario();
+        FacadeNegocio bussiness = new ImplementacionNegocio();
+        bussiness.registrarUsuario(user,firebaseAuth,mDatabase);
+        //progressDialog.dismiss();
     }
-    private void crearUsuarioBD(){
+
+    private Perfil crearUsuario(){
         String name = eName.getText().toString().trim();
         String lastName = eLastName.getText().toString().trim();
         String typeId = spinTypeId.getSelectedItem().toString().trim();
@@ -142,7 +131,6 @@ public class Register extends AppCompatActivity {
         String phone = ePhone.getText().toString().trim();
         String gender = spinGender.getSelectedItem().toString().trim();
         Perfil user = new Perfil(name,lastName,typeId,id,age,email,password,phone,gender);
-        mDatabase.child("Perfiles").child(id).setValue(user);
-        Toast.makeText(Register.this,"Registro Exitoso",Toast.LENGTH_LONG).show();
+        return user;
     }
 }
