@@ -24,8 +24,8 @@
                 android:id="@+id/linearLayoutTitleMain"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
                 android:background="@color/colorWhite"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,7 @@
                     android:id="@+id/titleMain"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
                     android:text="@string/app_name"
                     android:textAlignment="center"
@@ -130,9 +130,28 @@
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape_main_1"
                     android:textAlignment="center"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_weight="0.5">
 
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.8"
+                        app:srcCompat="@drawable/profile" />
+
+                    <TextView
+                        android:id="@+id/titleProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:text="@string/profile"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold"
+                        android:textSize="28dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -143,9 +162,28 @@
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape_main_1"
                     android:textAlignment="center"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_weight="0.5">
 
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/group" />
+
+                    <TextView
+                        android:id="@+id/titleProfileGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.1"
+                        android:text="@string/group_profile"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold"
+                        android:textSize="28dp" />
                 </LinearLayout>
 
             </LinearLayout>
