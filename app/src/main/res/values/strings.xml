@@ -12,6 +12,7 @@
     <string name="register_health_title">Registro de Salud</string>
     <string name="name">Nombres</string>
     <string name="last_name">Apellidos</string>
+    <string name="id_type">Tipo de Identificación</string>
     <string name="id_number">Número de Identificación</string>
     <string name="date_birth">Fecha de Nacimiento</string>
     <string name="add">Agregar</string>
@@ -30,5 +31,8 @@
     <string name="line_emergency">Llamar al 123</string>
     <string name="profile">Perfil</string>
     <string name="group_profile">Grupo Familiar</string>
+    <string name="log_out">Cerrar Sesión</string>
+
+    <string name="profile_activity">Mi Perfil</string>
 
 </resources>

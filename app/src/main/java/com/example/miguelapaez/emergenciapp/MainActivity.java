@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +21,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent ( v.getContext(), Login.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+
+        LinearLayout profile = (LinearLayout) findViewById( R.id.linearLayoutProfileMain);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent ( v.getContext(), Profile.class);
                 startActivityForResult(intent, 0);
             }
         });
