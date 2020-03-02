@@ -46,7 +46,7 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         getSupportActionBar().hide();
 
-        // Objetos
+        // Objetos de negocio
         firebaseAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
@@ -78,7 +78,7 @@ public class Register extends AppCompatActivity {
                 }
                         , dia, mes, ano);
                 datePickerDialog.show();
-                eAge= getAge(ano,mes,dia);
+                eAge= bussiness.getAge(ano,mes,dia);
             }
         });
 
@@ -98,30 +98,13 @@ public class Register extends AppCompatActivity {
 
     }
 
-    private String getAge(int year, int month, int day){
-        Calendar dob = Calendar.getInstance();
-        Calendar today = Calendar.getInstance();
-
-        dob.set(year, month, day);
-
-        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
-
-        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
-            age--;
-        }
-
-        Integer ageInt = new Integer(age);
-        String ageS = ageInt.toString();
-
-        return ageS;
-    }
-
     private void registrarUsuario() {
-
+        progressDialog.setMessage("Realizando registro en linea...");
+        progressDialog.show();
         Perfil user = crearUsuario();
         String response = bussiness.registrarUsuario(user,firebaseAuth,mDatabase);
-        Toast.makeText(Register.this,response,Toast.LENGTH_LONG).show();
         progressDialog.dismiss();
+        Toast.makeText(Register.this,response,Toast.LENGTH_LONG).show();
     }
 
     private Perfil crearUsuario(){

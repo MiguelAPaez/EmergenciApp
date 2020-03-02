@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
+
 public class ImplementacionNegocio extends AppCompatActivity implements FacadeNegocio {
 
     @Override
@@ -44,6 +46,23 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
             response = "Se ha creado el usuario";
         }
         return response;
+    }
+    public String getAge(int year, int month, int day){
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dob.set(year, month, day);
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+            age--;
+        }
+
+        Integer ageInt = new Integer(age);
+        String ageS = ageInt.toString();
+
+        return ageS;
     }
     private void crearUsuarioBD(Perfil user, DatabaseReference mDatabase){
         mDatabase.child("Perfiles").child(user.getId()).setValue(user);
