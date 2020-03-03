@@ -43,8 +43,8 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 String email = eEmail.toString().trim();
                 String password = ePassword.toString().trim();
-                bussiness.iniciarSeccion(email,password);
-                if (!bussiness.verificarSeccion()){
+                bussiness.iniciarSesion(email,password);
+                if (!bussiness.verificarSesion()){
                     Toast.makeText(v.getContext(),"Error al iniciar sección",Toast.LENGTH_LONG).show();
                 }
                 else {

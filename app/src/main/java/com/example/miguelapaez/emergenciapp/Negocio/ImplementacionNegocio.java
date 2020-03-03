@@ -64,7 +64,7 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
     }
 
     @Override
-    public boolean verificarSeccion() {
+    public boolean verificarSesion() {
         boolean response = false;
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -75,7 +75,7 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
     }
 
     @Override
-    public void iniciarSeccion(String email, String password) {
+    public void iniciarSesion(String email, String password) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         Log.e("Entro"," En función");
         mAuth.signInWithEmailAndPassword(email, password)
@@ -87,6 +87,17 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
                         }
                     }
                 });
+    }
+
+    @Override
+    public boolean cerrarSesion() {
+        boolean response = false;
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
+        if (!verificarSesion()){
+            response = true;
+        }
+        return response;
     }
 
     private void crearUsuarioBD(Perfil user, DatabaseReference mDatabase){
