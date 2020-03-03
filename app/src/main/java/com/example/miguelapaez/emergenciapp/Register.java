@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -34,6 +35,7 @@ public class Register extends AppCompatActivity {
     EditText eDate, eName, eLastName, eID, eEmail, ePassword, ePhone;
     Spinner spinTypeId, spinGender;
     private int ano, mes, dia;
+    private int anoaux, mesaux, diaaux;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference mDatabase;
     private ProgressDialog progressDialog;
@@ -74,11 +76,16 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker var1, int var2, int var3, int var4) {
                         eDate.setText(var4 + "/" + (var3 + 1) + "/" + var2);
+                        diaaux = var4;
+                        Log.i( "DIA", String.valueOf ( diaaux ) );
+                        mesaux = var3+1;
+                        Log.i( "MES", String.valueOf ( mesaux ) );
+                        anoaux = var2;
+                        Log.i( "ANO", String.valueOf ( anoaux ) );
                     }
                 }
                         , dia, mes, ano);
                 datePickerDialog.show();
-                eAge= bussiness.getAge(ano,mes,dia);
             }
         });
 
@@ -112,6 +119,8 @@ public class Register extends AppCompatActivity {
         String lastName = eLastName.getText().toString().trim();
         String typeId = spinTypeId.getSelectedItem().toString().trim();
         String id = eID.getText().toString().trim();
+        eAge= bussiness.getAge(anoaux,mesaux,diaaux);
+        Log.i( "E-AGE", String.valueOf ( eAge ) );
         String age = eAge;
         String email = eEmail.getText().toString().trim();
         String password = ePassword.getText().toString().trim();
