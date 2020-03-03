@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
         //Comprobar Sección
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null){
             Intent intent = new Intent(MainActivity.this,Login.class);
@@ -30,11 +31,21 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         Button btn = (Button) findViewById( R.id.buttonLogin);
+        Button btnLogOut = (Button) findViewById(R.id.buttonLogOut);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent ( v.getContext(), Login.class);
                 startActivityForResult(intent, 0);
+            }
+        });
+
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Toast.makeText(MainActivity.this,"Sección cerrada",Toast.LENGTH_LONG).show();
+                startActivity(new Intent(v.getContext(),Login.class));
             }
         });
 

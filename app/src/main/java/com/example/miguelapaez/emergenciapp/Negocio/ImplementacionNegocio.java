@@ -2,6 +2,7 @@ package com.example.miguelapaez.emergenciapp.Negocio;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -35,10 +37,6 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
                             crearUsuarioBD(user,mDatabase);
 
                         } else {
-                            if (task.getException() instanceof FirebaseAuthUserCollisionException){
-                            }
-                            else {
-                            }
                         }
                     }
                 });
@@ -64,6 +62,33 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
 
         return ageS;
     }
+
+    @Override
+    public boolean verificarSeccion() {
+        boolean response = false;
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null){
+            response = true;
+        }
+        return response;
+    }
+
+    @Override
+    public void iniciarSeccion(String email, String password) {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        Log.e("Entro"," En función");
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            Log.e("User"," Success");
+                        }
+                    }
+                });
+    }
+
     private void crearUsuarioBD(Perfil user, DatabaseReference mDatabase){
         mDatabase.child("Perfiles").child(user.getId()).setValue(user);
         //Toast.makeText(getApplicationContext(),"Registro Exitoso",Toast.LENGTH_LONG).show();

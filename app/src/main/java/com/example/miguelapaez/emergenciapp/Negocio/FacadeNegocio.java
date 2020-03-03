@@ -10,4 +10,6 @@ import com.google.firebase.database.DatabaseReference;
 public interface FacadeNegocio {
     public String registrarUsuario(Perfil user, FirebaseAuth firebaseAuth, DatabaseReference mDatabase);
     public String getAge(int year, int month, int day);
+    public boolean verificarSeccion();
+    public void iniciarSeccion(String email, String password);
 }
