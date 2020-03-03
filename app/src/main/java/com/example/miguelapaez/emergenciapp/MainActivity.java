@@ -14,19 +14,22 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
-    @Override
+
+    public void onStart() {
+        super.onStart();
+    }
+        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
-        //Comprobar Sección
-        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null){
-            Intent intent = new Intent(MainActivity.this,Login.class);
-            startActivityForResult(intent,0);
-        }
-        else {
-            Log.e("Usuario","Encontrado"+ currentUser.getEmail());
-        }
+            final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if (currentUser == null){
+                Intent intent = new Intent(MainActivity.this,Login.class);
+                startActivityForResult(intent,0);
+            }
+            else {
+                Log.e("Usuario","Encontrado"+ currentUser.getEmail());
+            }
         setContentView ( R.layout.activity_main );
         getSupportActionBar().hide();
 
@@ -54,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent ( v.getContext(), Profile.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+
+        LinearLayout emergency = (LinearLayout) findViewById( R.id.linearLayoutEmergencyMain);
+        emergency.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent ( v.getContext(), EmergencyOptions.class);
                 startActivityForResult(intent, 0);
             }
         });
