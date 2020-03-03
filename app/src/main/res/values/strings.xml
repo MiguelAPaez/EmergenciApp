@@ -34,5 +34,12 @@
     <string name="log_out">Cerrar Sesión</string>
 
     <string name="profile_activity">Mi Perfil</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="TituloPantallaEscogeremergencia">"Escoja su emergencia"</string>
+
+    <string name="textoBottonESalud">"Salud"</string>
+    <string name="textoBottonESeguridad">"Policia"</string>
+    <string name="textoBottonEBomberos">"Bomberos"</string>
+    <string name="textoBottonECasera">"Casera"</string>
 
 </resources>
