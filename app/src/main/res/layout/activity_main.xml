@@ -7,80 +7,53 @@
     android:background="@color/colorBackground"
     tools:context=".MainActivity">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
+            android:id="@+id/linearLayoutTitleMain"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <LinearLayout
-                android:id="@+id/linearLayoutTitleMain"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="0dp"
-                android:background="@color/colorWhite"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.538"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/titleMain"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="@string/app_name"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="72px" />
-            </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutEmergencyMain"
-            android:layout_width="match_parent"
-            android:layout_height="175dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:background="@drawable/shape_main_1"
-            android:textAlignment="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="325dp"
-                android:layout_height="325dp"
-                android:layout_weight="0.5"
-                android:layout_marginStart="10dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/alarma"/>
+            android:layout_height="70dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@color/colorWhite"
+            android:orientation="horizontal"
+            android:color="@color/colorBlack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.538"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/titleEmergency"
+                android:id="@+id/titleMain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="@string/emergency"
                 android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/app_name"
                 android:textAlignment="center"
                 android:textColor="@color/colorBlack"
-                android:textStyle="bold"
-                android:textSize="28dp" />
-
+                android:textSize="72px" />
         </LinearLayout>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <LinearLayout
-                android:id="@+id/linearLayoutLineEmergencyMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/linearLayoutEmergencyMain"
                 android:layout_width="match_parent"
                 android:layout_height="175dp"
                 android:layout_marginStart="15dp"
@@ -88,135 +61,170 @@
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/shape_main_1"
                 android:textAlignment="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
+                    android:id="@+id/imageView2"
+                    android:layout_width="325dp"
+                    android:layout_height="325dp"
+                    android:layout_weight="0.5"
+                    android:layout_marginStart="10dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
-                    app:srcCompat="@drawable/logo123" />
+                    app:srcCompat="@drawable/alarma"/>
 
                 <TextView
-                    android:id="@+id/titleLineEmergency"
+                    android:id="@+id/titleEmergency"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:text="@string/line_emergency"
+                    android:layout_weight="0.5"
+                    android:text="@string/emergency"
                     android:layout_gravity="center"
                     android:textAlignment="center"
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold"
-                    android:textSize="25dp" />
+                    android:textSize="28dp" />
+
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayoutGroupMain"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="8dp"
-                android:textAlignment="center"
-                android:orientation="horizontal">
-
                 <LinearLayout
-                    android:id="@+id/linearLayoutProfileMain"
+                    android:id="@+id/linearLayoutLineEmergencyMain"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_height="175dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
                     android:background="@drawable/shape_main_1"
                     android:textAlignment="center"
-                    android:orientation="vertical"
-                    android:layout_weight="0.5">
+                    android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="120dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center"
+                        android:id="@+id/imageView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_weight="0.8"
-                        app:srcCompat="@drawable/profile" />
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
+                        app:srcCompat="@drawable/logo123" />
 
                     <TextView
-                        android:id="@+id/titleProfile"
+                        android:id="@+id/titleLineEmergency"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
-                        android:text="@string/profile"
+                        android:text="@string/line_emergency"
                         android:layout_gravity="center"
                         android:textAlignment="center"
                         android:textColor="@color/colorBlack"
                         android:textStyle="bold"
-                        android:textSize="28dp" />
+                        android:textSize="25dp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayoutFamilyGroupMain"
+                    android:id="@+id/linearLayoutGroupMain"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="8dp"
-                    android:background="@drawable/shape_main_1"
                     android:textAlignment="center"
-                    android:orientation="vertical"
-                    android:layout_weight="0.5">
+                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/imageView5"
-                        android:layout_width="120dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/group" />
-
-                    <TextView
-                        android:id="@+id/titleProfileGroup"
+                    <LinearLayout
+                        android:id="@+id/linearLayoutProfileMain"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.1"
-                        android:text="@string/group_profile"
-                        android:layout_gravity="center"
+                        android:layout_height="200dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/shape_main_1"
                         android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="28dp" />
+                        android:orientation="vertical"
+                        android:layout_weight="0.5">
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="120dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.8"
+                            app:srcCompat="@drawable/profile" />
+
+                        <TextView
+                            android:id="@+id/titleProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:text="@string/profile"
+                            android:layout_gravity="center"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"
+                            android:textSize="28dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutFamilyGroupMain"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/shape_main_1"
+                        android:textAlignment="center"
+                        android:orientation="vertical"
+                        android:layout_weight="0.5">
+
+                        <ImageView
+                            android:id="@+id/imageView5"
+                            android:layout_width="120dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/group" />
+
+                        <TextView
+                            android:id="@+id/titleProfileGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:text="@string/group_profile"
+                            android:layout_gravity="center"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"
+                            android:textSize="28dp" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¡Saludos, Soy EmergenciApp!"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"/>
+
+                <Button
+                    android:id="@+id/buttonLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Login"
+                    android:layout_gravity="center" />
+
+                <Button
+                    android:id="@+id/buttonLogOut"
+                    android:layout_width="150dp"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/shapebutton"
+                    android:text="@string/log_out"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15dp"
+                    android:layout_gravity="center"/>
+
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="¡Saludos, Soy EmergenciApp!"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"/>
-
-            <Button
-                android:id="@+id/buttonLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Login"
-                android:layout_gravity="center" />
-
-            <Button
-                android:id="@+id/buttonLogOut"
-                android:layout_width="150dp"
-                android:layout_height="46dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/shapebutton"
-                android:text="@string/log_out"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
-                android:textSize="15dp"
-                android:layout_gravity="center"/>
-
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
