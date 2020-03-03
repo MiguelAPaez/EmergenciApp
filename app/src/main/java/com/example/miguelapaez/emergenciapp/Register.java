@@ -1,7 +1,7 @@
 package com.example.miguelapaez.emergenciapp;
 
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,16 +9,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.miguelapaez.emergenciapp.Entities.Perfil;
 import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
 import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
@@ -30,10 +25,9 @@ public class Register extends AppCompatActivity {
     Spinner spinTypeId, spinGender;
     private int ano, mes, dia;
     private int anoaux, mesaux, diaaux;
-    private FirebaseAuth firebaseAuth;
-    private DatabaseReference mDatabase;
-    private ProgressDialog progressDialog;
     private FacadeNegocio bussiness;
+    String name, lastName, typeId, id, age, email, password,phone, gender;
+
 
 
     @Override
@@ -42,11 +36,7 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         getSupportActionBar().hide();
 
-        // Objetos de negocio
-        firebaseAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        progressDialog = new ProgressDialog(this);
-        bussiness = new ImplementacionNegocio();
+        bussiness = new ImplementacionNegocio ();
 
         eName = (EditText) findViewById(R.id.nameRegister);
         eLastName = (EditText) findViewById(R.id.lastNameRegister);
@@ -89,38 +79,37 @@ public class Register extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registrarUsuario();
-                /*
-
+                llenarDatos();
                 Intent intent = new Intent ( v.getContext(), HealthRegister.class);
-                startActivityForResult(intent, 0);*/
+                intent.putExtra ( "name", name );
+                intent.putExtra ( "lastName", lastName );
+                intent.putExtra ( "typeId", typeId );
+                intent.putExtra ( "id", id );
+                intent.putExtra ( "age", age );
+                intent.putExtra ( "email", email );
+                intent.putExtra ( "password", password );
+                intent.putExtra ( "phone", phone );
+                intent.putExtra ( "gender", gender );
+                startActivity(intent);
             }
         });
 
     }
 
-    private void registrarUsuario() {
-        progressDialog.setMessage("Realizando registro en linea...");
-        progressDialog.show();
-        Perfil user = crearUsuario();
-        String response = bussiness.registrarUsuario(user,firebaseAuth,mDatabase);
-        progressDialog.dismiss();
-        Toast.makeText(Register.this,response,Toast.LENGTH_LONG).show();
-    }
 
-    private Perfil crearUsuario(){
-        String name = eName.getText().toString().trim();
-        String lastName = eLastName.getText().toString().trim();
-        String typeId = spinTypeId.getSelectedItem().toString().trim();
-        String id = eID.getText().toString().trim();
+
+    private void llenarDatos(){
+        name = eName.getText().toString().trim();
+        lastName = eLastName.getText().toString().trim();
+        typeId = spinTypeId.getSelectedItem().toString().trim();
+        id = eID.getText().toString().trim();
         eAge= bussiness.getAge(anoaux,mesaux,diaaux);
         Log.i( "E-AGE", String.valueOf ( eAge ) );
-        String age = eAge;
-        String email = eEmail.getText().toString().trim();
-        String password = ePassword.getText().toString().trim();
-        String phone = ePhone.getText().toString().trim();
-        String gender = spinGender.getSelectedItem().toString().trim();
-        Perfil user = new Perfil(name,lastName,typeId,id,age,email,password,phone,gender);
-        return user;
+        age = eAge;
+        email = eEmail.getText().toString().trim();
+        password = ePassword.getText().toString().trim();
+        phone = ePhone.getText().toString().trim();
+        Log.i( "CEL", String.valueOf ( phone ) );
+        gender = spinGender.getSelectedItem().toString().trim();
     }
 }

@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (bussiness.cerrarSesion()) {
-                    Toast.makeText(MainActivity.this, "Sección cerrada", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Sesión cerrada", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(v.getContext(), Login.class));
                 }
             }
