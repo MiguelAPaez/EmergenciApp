@@ -17,10 +17,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null){
-        }
     }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
@@ -41,6 +37,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent ( v.getContext(), Profile.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+
+        LinearLayout emergency = (LinearLayout) findViewById( R.id.linearLayoutEmergencyMain);
+        emergency.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent ( v.getContext(), EmergencyOptions.class);
                 startActivityForResult(intent, 0);
             }
         });

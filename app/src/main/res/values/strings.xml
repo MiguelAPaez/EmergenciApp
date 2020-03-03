@@ -35,7 +35,7 @@
 
     <string name="profile_activity">Mi Perfil</string>
     <string name="descripcion">Descripcion</string>
-    <string name="TituloPantallaEscogeremergencia">"Escoja su emergencia"</string>
+    <string name="TituloPantallaEscogeremergencia">"Selecciona tu Emergencia"</string>
 
     <string name="textoBottonESalud">"Salud"</string>
     <string name="textoBottonESeguridad">"Policia"</string>
