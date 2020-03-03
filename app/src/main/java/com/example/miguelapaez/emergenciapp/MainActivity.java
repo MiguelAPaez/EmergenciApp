@@ -41,5 +41,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        LinearLayout emergency = (LinearLayout) findViewById( R.id.linearLayoutEmergencyMain);
+        emergency.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent ( v.getContext(), EmergencyOptions.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+
     }
 }
