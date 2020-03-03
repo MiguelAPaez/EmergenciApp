@@ -43,8 +43,6 @@ public class Register extends AppCompatActivity {
         getSupportActionBar().hide();
 
         // Objetos de negocio
-        firebaseAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
         bussiness = new ImplementacionNegocio();
 
@@ -103,7 +101,7 @@ public class Register extends AppCompatActivity {
         progressDialog.setMessage("Realizando registro en linea...");
         progressDialog.show();
         Perfil user = crearUsuario();
-        String response = bussiness.registrarUsuario(user,firebaseAuth,mDatabase);
+        String response = bussiness.registrarUsuario(user);
         progressDialog.dismiss();
         Toast.makeText(Register.this,response,Toast.LENGTH_LONG).show();
     }

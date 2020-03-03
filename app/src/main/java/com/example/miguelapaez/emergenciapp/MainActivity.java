@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 if (bussiness.cerrarSesion()) {
                     Toast.makeText(MainActivity.this, "Sección cerrada", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(v.getContext(), Login.class));
+                    finish();
                 }
             }
         });

@@ -20,12 +20,25 @@ public class Login extends AppCompatActivity {
     TextView message;
 
     @Override
+    public void onResume() {
+        super.onResume();
+        FacadeNegocio bussiness = new ImplementacionNegocio();
+        if (bussiness.verificarSesion()) {
+            Intent intent = new Intent(Login.this, MainActivity.class);
+            startActivityForResult(intent, 0);
+        }
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
+        final FacadeNegocio bussiness = new ImplementacionNegocio();
+        if (bussiness.verificarSesion()){
+            startActivity(new Intent(Login.this, MainActivity.class));
+        }
         setContentView ( R.layout.activity_login );
         getSupportActionBar().hide();
         //Negocio
-        final FacadeNegocio bussiness = new ImplementacionNegocio();
+
 
         final TextView eEmail = (TextView) findViewById(R.id.emailLogin);
         final TextView ePassword = (TextView) findViewById(R.id.passwordLogin);
@@ -41,14 +54,14 @@ public class Login extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = eEmail.toString().trim();
-                String password = ePassword.toString().trim();
+                String email = eEmail.getText().toString();
+                String password = ePassword.getText().toString();
                 bussiness.iniciarSesion(email,password);
                 if (!bussiness.verificarSesion()){
-                    Toast.makeText(v.getContext(),"Error al iniciar sección",Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(),"Error al iniciar sesión",Toast.LENGTH_LONG).show();
                 }
                 else {
-                    Toast.makeText(v.getContext(),"Sección iniciada",Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(),"Sesión iniciada",Toast.LENGTH_LONG).show();
                     startActivity(new Intent(v.getContext(),MainActivity.class));
                 }
             }

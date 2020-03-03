@@ -24,23 +24,25 @@ import java.util.Calendar;
 public class ImplementacionNegocio extends AppCompatActivity implements FacadeNegocio {
 
     @Override
-    public String registrarUsuario(final Perfil user, FirebaseAuth firebaseAuth, final DatabaseReference mDatabase) {
+    public String registrarUsuario(final Perfil user) {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         String email = user.getEmail();
         String password = user.getEmail();
         String response = "Error al crear usuario";
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //checking if success
                         if (task.isSuccessful()) {
-                            crearUsuarioBD(user,mDatabase);
+                            crearUsuarioBD(user);
 
                         } else {
                         }
                     }
                 });
-        if (firebaseAuth.getCurrentUser()!=null){
+        if (!verificarSesion()){
             response = "Se ha creado el usuario";
         }
         return response;
@@ -77,16 +79,15 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
     @Override
     public void iniciarSesion(String email, String password) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        Log.e("Entro"," En función");
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            Log.e("User"," Success");
-                        }
-                    }
-                });
+        Log.e("Usuario: ","Email: "+email+" Pass: "+password);
+       mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+           @Override
+           public void onComplete(@NonNull Task<AuthResult> task) {
+               if(task.isSuccessful()){
+                   finish();
+               }
+           }
+       });
     }
 
     @Override
@@ -100,8 +101,8 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
         return response;
     }
 
-    private void crearUsuarioBD(Perfil user, DatabaseReference mDatabase){
+    private void crearUsuarioBD(Perfil user){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Perfiles").child(user.getId()).setValue(user);
-        //Toast.makeText(getApplicationContext(),"Registro Exitoso",Toast.LENGTH_LONG).show();
     }
 }

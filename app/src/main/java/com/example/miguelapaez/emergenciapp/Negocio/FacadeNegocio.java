@@ -8,7 +8,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
 public interface FacadeNegocio {
-    public String registrarUsuario(Perfil user, FirebaseAuth firebaseAuth, DatabaseReference mDatabase);
+    public String registrarUsuario(Perfil user);
     public String getAge(int year, int month, int day);
     public boolean verificarSesion();
     public void iniciarSesion(String email, String password);
