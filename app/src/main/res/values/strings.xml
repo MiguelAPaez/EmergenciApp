@@ -37,9 +37,13 @@
     <string name="descripcion">Descripcion</string>
     <string name="TituloPantallaEscogeremergencia">"Selecciona tu Emergencia"</string>
 
-    <string name="textoBottonESalud">"Salud"</string>
-    <string name="textoBottonESeguridad">"Policia"</string>
-    <string name="textoBottonEBomberos">"Bomberos"</string>
-    <string name="textoBottonECasera">"Casera"</string>
+    <string name="textoBottonESalud">Salud</string>
+    <string name="textoBottonESeguridad">Policia</string>
+    <string name="textoBottonEBomberos">Bomberos</string>
+    <string name="textoBottonECasera">Casera</string>
+    <string name="buscarUsuario">¿Tu familiar ya se encuentra registrado en EmergenciApp?</string>
+    <string name="celular">Celular</string>
+    <string name="buscar">Buscar</string>
+    <string name="no_tiene_cuenta">¿Tu familiar no tiene cuenta?</string>
 
 </resources>
