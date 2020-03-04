@@ -195,27 +195,11 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="¡Saludos, Soy EmergenciApp!"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15dp"/>
-
-                <Button
-                    android:id="@+id/buttonLogin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Login"
-                    android:layout_gravity="center" />
-
                 <Button
                     android:id="@+id/buttonLogOut"
                     android:layout_width="150dp"
                     android:layout_height="46dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/shapebutton"
                     android:text="@string/log_out"

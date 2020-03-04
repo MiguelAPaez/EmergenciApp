@@ -63,6 +63,11 @@ public class HealthRegister extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 registrarUsuario ();
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace ();
+                }
                 if (bussiness.verificarSesion()) {
                     Intent intent = new Intent(v.getContext(), MainActivity.class);
                     startActivityForResult(intent, 0);

@@ -59,6 +59,11 @@ public class Login extends AppCompatActivity {
                 String email = eEmail.getText().toString().trim();
                 String password = ePassword.getText().toString().trim();
                 bussiness.iniciarSesion(email,password);
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace ();
+                }
                 if (!bussiness.verificarSesion()){
                     Toast.makeText(v.getContext(),"Error al iniciar sesión",Toast.LENGTH_LONG).show();
                 }

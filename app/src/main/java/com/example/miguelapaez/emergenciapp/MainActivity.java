@@ -40,16 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
 
-        Button btn = (Button) findViewById(R.id.buttonLogin);
         Button btnLogOut = (Button) findViewById(R.id.buttonLogOut);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Login.class);
-                startActivityForResult(intent, 0);
-            }
-        });
-
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
