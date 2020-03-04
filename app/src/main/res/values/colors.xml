@@ -4,5 +4,6 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorBlue">#0075FF</color>
+    <color name="colorRed">#FF0000</color>
     <color name="colorButton">#222A33</color>
 </resources>
