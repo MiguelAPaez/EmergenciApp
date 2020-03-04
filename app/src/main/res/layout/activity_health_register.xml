@@ -7,84 +7,220 @@
     android:background="@color/colorBackground"
     tools:context=".HealthRegister">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
+            android:id="@+id/linearLayoutTitleHealthRegister"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="70dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@color/colorWhite"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.538"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/titleHealthRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/register_health_title"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="72px" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:id="@+id/linearLayoutTitleHealthRegister"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="0dp"
-                android:background="@color/colorWhite"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.538"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/titleHealthRegister"
+                <LinearLayout
+                    android:id="@+id/linearLayoutEPSRegister"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="@string/register_health_title"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
                     android:textAlignment="center"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="72px" />
-            </LinearLayout>
+                    android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/linearLayoutEPSRegister"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/shape"
-                android:textAlignment="center"
-                android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/epsRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/eps" />
+                </LinearLayout>
 
-                <Spinner
-                    android:id="@+id/epsRegister"
+                <LinearLayout
+                    android:id="@+id/linearLayoutEPSRegimeRegister"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/name"
-                    android:entries="@array/eps" />
-            </LinearLayout>
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/linearLayoutEPSRegimeRegister"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/shape"
-                android:textAlignment="center"
-                android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/epsRegimeRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/eps_regime" />
+                </LinearLayout>
 
-                <Spinner
-                    android:id="@+id/epsRegimeRegister"
+                <LinearLayout
+                    android:id="@+id/linearLayoutComplementaryPlanRegister"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/name"
-                    android:entries="@array/eps_regime" />
-            </LinearLayout>
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/complementaryPlanRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/complementary_plan"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15dp" />
+
+                    <RadioGroup
+                        android:id="@+id/complementary_plan"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radio_complementary_plan_yes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="40dp"
+                            android:checked="false"
+                            android:text="@string/yes" />
+
+                        <RadioButton
+                            android:id="@+id/radio_complementary_plan_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/no" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutPrepaidMedicineRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/prepaidMedicineRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/prepaid_medicine" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutWeightRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/weightRegister"
+                            android:hint="@string/weight"
+                            android:inputType="number"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutHeightRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/heightRegister"
+                            android:hint="@string/height"
+                            android:inputType="number"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutBloodTypeRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/bloodTypeRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/blood_type" />
+                </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayoutComplementaryPlanRegister"
+                android:id="@+id/linearLayoutOrganDonorRegister"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginStart="8dp"
@@ -95,239 +231,109 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/complementaryPlanRegister"
+                    android:id="@+id/titleOrganDonorRegister"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/complementary_plan"
+                    android:text="@string/organ_donor"
                     android:textAlignment="center"
                     android:textColor="@color/colorBlack"
                     android:textSize="15dp" />
 
                 <RadioGroup
-                    android:id="@+id/complementary_plan"
+                    android:id="@+id/organ_donor"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/radio_complementary_plan_yes"
+                        android:id="@+id/radio_organ_donor_yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="40dp"
-                        android:checked="false"
+                        android:checked="true"
                         android:text="@string/yes" />
 
                     <RadioButton
-                        android:id="@+id/radio_complementary_plan_no"
+                        android:id="@+id/radio_organ_donor_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="true"
+                        android:checked="false"
                         android:text="@string/no" />
                 </RadioGroup>
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayoutPrepaidMedicineRegister"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/shape"
-                android:textAlignment="center"
-                android:orientation="horizontal">
-
-                <Spinner
-                    android:id="@+id/prepaidMedicineRegister"
+                <LinearLayout
+                    android:id="@+id/linearLayoutDiseaseRegister"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/name"
-                    android:entries="@array/prepaid_medicine" />
-            </LinearLayout>
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/linearLayoutWeightRegister"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/shape"
-                android:textAlignment="center"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.textfield.TextInputEditText
+                    <Spinner
+                        android:id="@+id/diseaseRegister"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/weightRegister"
-                        android:hint="@string/weight"
-                        android:inputType="number"/>
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/disease" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayoutHeightRegister"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/shape"
-                android:textAlignment="center"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
+                <LinearLayout
+                    android:id="@+id/linearLayoutAllergyRegister"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <Spinner
+                        android:id="@+id/allergyRegister"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/heightRegister"
-                        android:hint="@string/height"
-                        android:inputType="number"/>
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/allergy" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayoutBloodTypeRegister"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/shape"
-                android:textAlignment="center"
-                android:orientation="horizontal">
-
-                <Spinner
-                    android:id="@+id/bloodTypeRegister"
+                <LinearLayout
+                    android:id="@+id/linearLayoutMedicineRegister"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/name"
-                    android:entries="@array/blood_type" />
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/medicineRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/medicines" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/buttonRegister"
+                    android:layout_width="100dp"
+                    android:layout_height="46dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/shapebutton"
+                    android:text="@string/sign_up"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15dp"
+                    android:layout_gravity="center"/>
             </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutOrganDonorRegister"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/shape"
-            android:textAlignment="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/titleOrganDonorRegister"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/organ_donor"
-                android:textAlignment="center"
-                android:textColor="@color/colorBlack"
-                android:textSize="15dp" />
-
-            <RadioGroup
-                android:id="@+id/organ_donor"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/radio_organ_donor_yes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="40dp"
-                    android:checked="true"
-                    android:text="@string/yes" />
-
-                <RadioButton
-                    android:id="@+id/radio_organ_donor_no"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:text="@string/no" />
-            </RadioGroup>
-        </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayoutDiseaseRegister"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/shape"
-                android:textAlignment="center"
-                android:orientation="horizontal">
-
-                <Spinner
-                    android:id="@+id/diseaseRegister"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/name"
-                    android:entries="@array/disease" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayoutAllergyRegister"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/shape"
-                android:textAlignment="center"
-                android:orientation="horizontal">
-
-                <Spinner
-                    android:id="@+id/allergyRegister"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/name"
-                    android:entries="@array/allergy" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayoutMedicineRegister"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/shape"
-                android:textAlignment="center"
-                android:orientation="horizontal">
-
-                <Spinner
-                    android:id="@+id/medicineRegister"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/name"
-                    android:entries="@array/medicines" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/buttonRegister"
-                android:layout_width="100dp"
-                android:layout_height="46dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/shapebutton"
-                android:text="@string/sign_up"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
-                android:textSize="15dp"
-                android:layout_gravity="center"/>
-        </LinearLayout>
-    </ScrollView>
-
+        </ScrollView>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
