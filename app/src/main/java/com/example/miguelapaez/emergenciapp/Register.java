@@ -25,14 +25,24 @@ public class Register extends AppCompatActivity {
     Spinner spinTypeId, spinGender;
     private int ano, mes, dia;
     private int anoaux, mesaux, diaaux;
-    private FacadeNegocio bussiness;
+    FacadeNegocio bussiness = new ImplementacionNegocio();
     String name, lastName, typeId, id, age, email, password,phone, gender;
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (bussiness.verificarSesion()) {
+            Intent intent = new Intent(Register.this, MainActivity.class);
+            startActivityForResult(intent, 0);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (bussiness.verificarSesion()){
+            startActivity(new Intent(Register.this, MainActivity.class));
+        }
         setContentView(R.layout.activity_register);
         getSupportActionBar().hide();
 
@@ -96,12 +106,12 @@ public class Register extends AppCompatActivity {
 
 
     private void llenarDatos(){
+
         name = eName.getText().toString().trim();
         lastName = eLastName.getText().toString().trim();
         typeId = spinTypeId.getSelectedItem().toString().trim();
         id = eID.getText().toString().trim();
         eAge= bussiness.getAge(anoaux,mesaux,diaaux);
-        Log.i( "E-AGE", String.valueOf ( eAge ) );
         age = eAge;
         email = eEmail.getText().toString().trim();
         password = ePassword.getText().toString().trim();

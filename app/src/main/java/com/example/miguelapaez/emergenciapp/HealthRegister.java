@@ -13,21 +13,25 @@ import android.widget.Toast;
 import com.example.miguelapaez.emergenciapp.Entities.Perfil;
 import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
 import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
 
 public class HealthRegister extends AppCompatActivity {
-
-    private FirebaseAuth firebaseAuth;
-    private DatabaseReference mDatabase;
-    private ProgressDialog progressDialog;
-    private FacadeNegocio bussiness;
     String name, lastName, typeId, id, age, email, password,phone, gender;
-
+    FacadeNegocio bussiness = new ImplementacionNegocio();
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (bussiness.verificarSesion()) {
+            Intent intent = new Intent(HealthRegister.this, MainActivity.class);
+            startActivityForResult(intent, 0);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
+        if (bussiness.verificarSesion()){
+            startActivity(new Intent(HealthRegister.this, MainActivity.class));
+        }
         setContentView ( R.layout.activity_health_register );
         getSupportActionBar().hide();
 
@@ -52,29 +56,25 @@ public class HealthRegister extends AppCompatActivity {
         Log.i( "GENDER", String.valueOf ( gender ) );
 
         // Objetos de negocio
-        firebaseAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        progressDialog = new ProgressDialog ( this);
-        bussiness = new ImplementacionNegocio ();
+
 
         Button btnRegistrar = (Button) findViewById(R.id.buttonRegister);
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 registrarUsuario ();
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
-                startActivityForResult(intent, 0);
+                if (bussiness.verificarSesion()) {
+                    Intent intent = new Intent(v.getContext(), MainActivity.class);
+                    startActivityForResult(intent, 0);
+                }
             }
         });
 
     }
 
     private void registrarUsuario() {
-        progressDialog.setMessage("Realizando registro en linea...");
-        progressDialog.show();
         Perfil user = crearUsuario();
-        String response = bussiness.registrarUsuario(user,firebaseAuth,mDatabase);
-        progressDialog.dismiss();
+        String response = bussiness.registrarUsuario(user);
         Toast.makeText( HealthRegister.this, response, Toast.LENGTH_LONG).show();
     }
 

@@ -4,17 +4,17 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.annotation.NonNull;
 
 import com.example.miguelapaez.emergenciapp.Entities.Perfil;
-import com.example.miguelapaez.emergenciapp.Register;
+import com.example.miguelapaez.emergenciapp.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -26,28 +26,24 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
     @Override
     public String registrarUsuario(final Perfil user) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        String email = user.getEmail();
-        String password = user.getEmail();
         String response = "Error al crear usuario";
-        mAuth.createUserWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //checking if success
                         if (task.isSuccessful()) {
                             crearUsuarioBD(user);
-
-                        } else {
                         }
                     }
                 });
-        if (!verificarSesion()){
+        if (!verificarSesion()) {
             response = "Se ha creado el usuario";
         }
         return response;
     }
-    public String getAge(int year, int month, int day){
+
+    public String getAge(int year, int month, int day) {
         Calendar dob = Calendar.getInstance();
         Calendar today = Calendar.getInstance();
 
@@ -55,7 +51,7 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
 
         int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
 
-        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
             age--;
         }
 
@@ -70,7 +66,7 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
         boolean response = false;
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null){
+        if (currentUser != null) {
             response = true;
         }
         return response;
@@ -79,29 +75,29 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
     @Override
     public void iniciarSesion(String email, String password) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        Log.e("Usuario: ","Email: "+email+" Pass: "+password);
-       mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-           @Override
-           public void onComplete(@NonNull Task<AuthResult> task) {
-               if(task.isSuccessful()){
-                   finish();
-               }
-           }
-       });
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                        }
+                    }
+                });
     }
+
 
     @Override
     public boolean cerrarSesion() {
         boolean response = false;
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
-        if (!verificarSesion()){
+        if (!verificarSesion()) {
             response = true;
         }
         return response;
     }
 
-    private void crearUsuarioBD(Perfil user){
+    private void crearUsuarioBD(Perfil user) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Perfiles").child(user.getId()).setValue(user);
     }

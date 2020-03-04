@@ -1,10 +1,13 @@
 package com.example.miguelapaez.emergenciapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,17 +15,19 @@ import android.widget.Toast;
 
 import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
 import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 public class Login extends AppCompatActivity {
 
     TextView message;
-
+    FacadeNegocio bussiness = new ImplementacionNegocio();
     @Override
     public void onResume() {
         super.onResume();
-        FacadeNegocio bussiness = new ImplementacionNegocio();
         if (bussiness.verificarSesion()) {
             Intent intent = new Intent(Login.this, MainActivity.class);
             startActivityForResult(intent, 0);
@@ -31,15 +36,12 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
-        final FacadeNegocio bussiness = new ImplementacionNegocio();
         if (bussiness.verificarSesion()){
             startActivity(new Intent(Login.this, MainActivity.class));
         }
         setContentView ( R.layout.activity_login );
         getSupportActionBar().hide();
         //Negocio
-
-
         final TextView eEmail = (TextView) findViewById(R.id.emailLogin);
         final TextView ePassword = (TextView) findViewById(R.id.passwordLogin);
         Button btnLogin = (Button) findViewById(R.id.button);
@@ -54,8 +56,8 @@ public class Login extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = eEmail.getText().toString();
-                String password = ePassword.getText().toString();
+                String email = eEmail.getText().toString().trim();
+                String password = ePassword.getText().toString().trim();
                 bussiness.iniciarSesion(email,password);
                 if (!bussiness.verificarSesion()){
                     Toast.makeText(v.getContext(),"Error al iniciar sesión",Toast.LENGTH_LONG).show();

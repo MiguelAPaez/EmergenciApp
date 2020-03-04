@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
-
+    FacadeNegocio bussiness = new ImplementacionNegocio();
     public void onStart() {
         super.onStart();
     }
@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        FacadeNegocio bussiness = new ImplementacionNegocio();
         if (!bussiness.verificarSesion()) {
             Intent intent = new Intent(MainActivity.this, Login.class);
             startActivityForResult(intent, 0);
@@ -34,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final FacadeNegocio bussiness = new ImplementacionNegocio();
         if (!bussiness.verificarSesion()) {
             Intent intent = new Intent(MainActivity.this, Login.class);
             startActivityForResult(intent, 0);
