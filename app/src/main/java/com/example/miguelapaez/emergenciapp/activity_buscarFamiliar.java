@@ -8,7 +8,9 @@ public class activity_buscarFamiliar extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar_familiar);
+        getSupportActionBar().hide();
     }
 }
