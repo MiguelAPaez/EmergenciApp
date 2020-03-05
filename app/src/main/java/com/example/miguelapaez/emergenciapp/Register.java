@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -83,6 +85,27 @@ public class Register extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
+        LinearLayout btn = (LinearLayout) findViewById(R.id.buttonNextRegister);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                llenarDatos();
+                Intent intent = new Intent ( v.getContext(), HealthRegister.class);
+                intent.putExtra ( "name", name );
+                intent.putExtra ( "lastName", lastName );
+                intent.putExtra ( "typeId", typeId );
+                intent.putExtra ( "id", id );
+                intent.putExtra ( "age", age );
+                intent.putExtra ( "email", email );
+                intent.putExtra ( "password", password );
+                intent.putExtra ( "phone", phone );
+                intent.putExtra ( "gender", gender );
+                Toast.makeText(Register.this, "POPO!", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+            }
+        });
+
+        /*
         Button btn = (Button) findViewById(R.id.buttonNextRegister);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +124,8 @@ public class Register extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        */
+
 
     }
 

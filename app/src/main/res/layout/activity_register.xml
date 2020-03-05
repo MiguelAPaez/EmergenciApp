@@ -49,7 +49,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/linearLayoutNameRegister"
@@ -59,17 +60,17 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
-                    android:textAlignment="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/nameRegister"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/nameRegister"
                             android:hint="@string/name" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
@@ -82,17 +83,17 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
-                    android:textAlignment="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/lastNameRegister"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/lastNameRegister"
                             android:hint="@string/last_name" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
@@ -105,8 +106,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
-                    android:textAlignment="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
 
                     <Spinner
                         android:id="@+id/idTypeRegister"
@@ -124,19 +125,19 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
-                    android:textAlignment="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/idRegister"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/idRegister"
                             android:hint="@string/id_number"
-                            android:inputType="number"/>
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
@@ -148,8 +149,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
-                    android:textAlignment="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
@@ -157,11 +158,11 @@
                         android:layout_weight="0.7">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/dateRegister"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/dateRegister"
-                            android:hint="@string/date_birth"
-                            android:enabled="false"/>
+                            android:enabled="false"
+                            android:hint="@string/date_birth" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
@@ -187,19 +188,19 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
-                    android:textAlignment="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/emailRegister"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/emailRegister"
                             android:hint="@string/email"
-                            android:inputType="textEmailAddress"/>
+                            android:inputType="textEmailAddress" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
@@ -211,19 +212,19 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
-                    android:textAlignment="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/passwordRegister"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/passwordRegister"
                             android:hint="@string/password"
-                            android:inputType="textPassword"/>
+                            android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
@@ -235,19 +236,19 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
-                    android:textAlignment="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/validatePasswordRegister"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/validatePasswordRegister"
                             android:hint="@string/validate_password"
-                            android:inputType="textPassword"/>
+                            android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
@@ -259,19 +260,19 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
-                    android:textAlignment="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/phoneRegister"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/phoneRegister"
                             android:hint="@string/phone"
-                            android:inputType="number"/>
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
@@ -283,8 +284,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
-                    android:textAlignment="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
 
                     <Spinner
                         android:id="@+id/genderRegister"
@@ -293,6 +294,36 @@
                         android:entries="@array/gender" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/buttonNextRegister"
+                    android:layout_width="135dp"
+                    android:layout_height="135dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center|center_horizontal"
+                    android:background="@drawable/shape"
+                    android:orientation="vertical"
+                    android:textAlignment="center">
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/pildora" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/perfilMedico"
+                        android:textSize="45px" />
+                </LinearLayout>
+
+                <!--
                 <Button
                     android:id="@+id/buttonNextRegister"
                     android:layout_width="150dp"
@@ -306,6 +337,7 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="15dp"
                     android:layout_gravity="center"/>
+                -->
 
             </LinearLayout>
         </ScrollView>
