@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Toast;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import java.util.regex.Matcher;
@@ -50,12 +52,12 @@ public class Register extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (bussiness.verificarSesion()){
-            startActivity(new Intent(Register.this, MainActivity.class));
+        super.onCreate ( savedInstanceState );
+        if (bussiness.verificarSesion ()) {
+            startActivity ( new Intent ( Register.this , MainActivity.class ) );
         }
-        setContentView(R.layout.activity_register);
-        getSupportActionBar().hide();
+        setContentView ( R.layout.activity_register );
+        getSupportActionBar ().hide ();
 
         //ScrollView Register
         scrollView = (ScrollView) findViewById ( R.id.scrollViewRegister );
@@ -73,44 +75,66 @@ public class Register extends AppCompatActivity {
         genderL = (LinearLayout) findViewById ( R.id.linearLayoutGenderRegister );
 
         //EditText de Register
-        eName = (EditText) findViewById(R.id.nameRegister);
-        eLastName = (EditText) findViewById(R.id.lastNameRegister);
-        spinTypeId = (Spinner) findViewById(R.id.idTypeRegister);
-        eID = (EditText) findViewById(R.id.idRegister);
-        bDate = (Button) findViewById(R.id.buttonDateRegister);
-        eDate = (EditText) findViewById(R.id.dateRegister);
-        eEmail = (EditText) findViewById(R.id.emailRegister);
-        ePassword = (EditText) findViewById(R.id.passwordRegister);
-        eValidatePassword = (EditText) findViewById(R.id.validatePasswordRegister);
-        ePhone = (EditText) findViewById(R.id.phoneRegister);
-        spinGender = (Spinner) findViewById(R.id.genderRegister);
+        eName = (EditText) findViewById ( R.id.nameRegister );
+        eLastName = (EditText) findViewById ( R.id.lastNameRegister );
+        spinTypeId = (Spinner) findViewById ( R.id.idTypeRegister );
+        eID = (EditText) findViewById ( R.id.idRegister );
+        bDate = (Button) findViewById ( R.id.buttonDateRegister );
+        eDate = (EditText) findViewById ( R.id.dateRegister );
+        eEmail = (EditText) findViewById ( R.id.emailRegister );
+        ePassword = (EditText) findViewById ( R.id.passwordRegister );
+        eValidatePassword = (EditText) findViewById ( R.id.validatePasswordRegister );
+        ePhone = (EditText) findViewById ( R.id.phoneRegister );
+        spinGender = (Spinner) findViewById ( R.id.genderRegister );
 
-        bDate.setOnClickListener(new View.OnClickListener() {
+        bDate.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
-                ano = c.get(Calendar.YEAR);
-                mes = c.get(Calendar.MONTH);
-                dia = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(Register.this, new DatePickerDialog.OnDateSetListener() {
+                final Calendar c = Calendar.getInstance ();
+                ano = c.get ( Calendar.YEAR );
+                mes = c.get ( Calendar.MONTH );
+                dia = c.get ( Calendar.DAY_OF_MONTH );
+                DatePickerDialog datePickerDialog = new DatePickerDialog ( Register.this , new DatePickerDialog.OnDateSetListener () {
                     @Override
-                    public void onDateSet(DatePicker var1, int var2, int var3, int var4) {
-                        eDate.setText(var4 + "/" + (var3 + 1) + "/" + var2);
+                    public void onDateSet(DatePicker var1 , int var2 , int var3 , int var4) {
+                        eDate.setText ( var4 + "/" + (var3 + 1) + "/" + var2 );
                         diaaux = var4;
-                        Log.i( "DIA", String.valueOf ( diaaux ) );
-                        mesaux = var3+1;
-                        Log.i( "MES", String.valueOf ( mesaux ) );
+                        Log.i ( "DIA" , String.valueOf ( diaaux ) );
+                        mesaux = var3 + 1;
+                        Log.i ( "MES" , String.valueOf ( mesaux ) );
                         anoaux = var2;
-                        Log.i( "ANO", String.valueOf ( anoaux ) );
+                        Log.i ( "ANO" , String.valueOf ( anoaux ) );
                     }
                 }
-                        , dia, mes, ano);
-                datePickerDialog.show();
+                        , dia , mes , ano );
+                datePickerDialog.show ();
             }
-        });
+        } );
 
-        getSupportActionBar().hide();
+        getSupportActionBar ().hide ();
 
+        LinearLayout btn = (LinearLayout) findViewById ( R.id.buttonNextRegister );
+        btn.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                if(validarDatos()) {
+                    llenarDatos ();
+                    Intent intent = new Intent ( v.getContext () , HealthRegister.class );
+                    intent.putExtra ( "name" , name );
+                    intent.putExtra ( "lastName" , lastName );
+                    intent.putExtra ( "typeId" , typeId );
+                    intent.putExtra ( "id" , id );
+                    intent.putExtra ( "age" , age );
+                    intent.putExtra ( "email" , email );
+                    intent.putExtra ( "password" , password );
+                    intent.putExtra ( "phone" , phone );
+                    intent.putExtra ( "gender" , gender );
+                    startActivity ( intent );
+                }
+            }
+        } );
+
+        /*
         Button btn = (Button) findViewById(R.id.buttonNextRegister);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +155,7 @@ public class Register extends AppCompatActivity {
                 }
             }
         });
+        */
     }
 
     private void llenarDatos(){
@@ -144,7 +169,6 @@ public class Register extends AppCompatActivity {
         email = eEmail.getText().toString().trim();
         password = ePassword.getText().toString().trim();
         phone = ePhone.getText().toString().trim();
-        Log.i( "CEL", String.valueOf ( phone ) );
         gender = spinGender.getSelectedItem().toString().trim();
     }
 

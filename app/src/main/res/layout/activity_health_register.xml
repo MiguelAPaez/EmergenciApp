@@ -332,7 +332,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="15dp"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center|center_vertical"/>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

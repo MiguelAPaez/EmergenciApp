@@ -60,7 +60,7 @@ public class Login extends AppCompatActivity {
                 String password = ePassword.getText().toString().trim();
                 bussiness.iniciarSesion(email,password);
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace ();
                 }
