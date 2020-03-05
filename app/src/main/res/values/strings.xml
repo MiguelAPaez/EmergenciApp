@@ -41,12 +41,16 @@
     <string name="textoBottonESeguridad">Policia</string>
     <string name="textoBottonEBomberos">Bomberos</string>
     <string name="textoBottonECasera">Casera</string>
-    <string name="buscarUsuario">¿Tu familiar ya se encuentra registrado en EmergenciApp?</string>
+    <string name="titleBuscarFamiliar">Agregar Familiar</string>
+    <string name="buscarUsuario">¿Tú familiar ya está registrado en EmergenciApp?</string>
     <string name="celular">Celular</string>
     <string name="buscar">Buscar</string>
+
     <string name="no_tiene_cuenta">¿Tu familiar no tiene cuenta?</string>
     <string name="registro_familiar_titulo">Registro de Familiar</string>
     <string name="perfil_medico_familiar">Perfil medico del familiar</string>
     <string name="seguros_familiar">Seguros del familiar</string>
     <string name="perfilMedico">Perfil Médico</string>
+    <string name="signUpBuscarFamiliar"><u>Regístralo</u></string>
+
 </resources>
