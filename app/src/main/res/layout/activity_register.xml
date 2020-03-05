@@ -301,6 +301,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center|center_horizontal"
                     android:background="@drawable/shape"
                     android:orientation="vertical"
@@ -318,9 +319,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:layout_gravity="center"
                         android:text="@string/perfilMedico"
-                        android:textSize="45px" />
+                        android:textSize="40px" />
                 </LinearLayout>
 
                 <!--

@@ -100,7 +100,6 @@ public class Register extends AppCompatActivity {
                 intent.putExtra ( "password", password );
                 intent.putExtra ( "phone", phone );
                 intent.putExtra ( "gender", gender );
-                Toast.makeText(Register.this, "POPO!", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
@@ -141,7 +140,6 @@ public class Register extends AppCompatActivity {
         email = eEmail.getText().toString().trim();
         password = ePassword.getText().toString().trim();
         phone = ePhone.getText().toString().trim();
-        Log.i( "CEL", String.valueOf ( phone ) );
         gender = spinGender.getSelectedItem().toString().trim();
     }
 }

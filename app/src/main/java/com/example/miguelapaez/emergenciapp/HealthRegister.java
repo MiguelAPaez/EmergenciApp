@@ -64,7 +64,7 @@ public class HealthRegister extends AppCompatActivity {
             public void onClick(View v) {
                 registrarUsuario ();
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace ();
                 }
