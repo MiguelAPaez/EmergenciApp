@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity_buscarFamiliar">
-
+    android:background="@color/colorBackground"
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,6 +20,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
             android:background="@color/colorWhite"
+            android:color="@color/colorBlack"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.538"
@@ -59,7 +60,7 @@
 
                 <TextView
                     android:id="@+id/titleRegister2"
-                    android:layout_width="match_parent"
+                    android:layout_width="422dp"
                     android:layout_height="wrap_content"
 
                     android:layout_marginTop="25dp"
@@ -111,11 +112,12 @@
 
                 <TextView
                     android:id="@+id/textView2"
-                    android:layout_marginTop="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:layout_weight="1"
                     android:text="@string/no_tiene_cuenta" />
+
                 <TextView
                     android:id="@+id/meesageSignUp"
                     android:layout_width="match_parent"
@@ -124,8 +126,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="Registralo"
-                    android:textColor="@color/colorBlue"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlue" />
 
 
             </LinearLayout>

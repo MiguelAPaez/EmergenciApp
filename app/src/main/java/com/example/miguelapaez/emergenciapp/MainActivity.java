@@ -1,19 +1,16 @@
 package com.example.miguelapaez.emergenciapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
 import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     FacadeNegocio bussiness = new ImplementacionNegocio();
@@ -66,6 +63,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), EmergencyOptions.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+
+        LinearLayout grupoFamiliar = (LinearLayout) findViewById(R.id.linearLayoutFamilyGroupMain);
+        grupoFamiliar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), activity_buscarFamiliar.class);
                 startActivityForResult(intent, 0);
             }
         });
