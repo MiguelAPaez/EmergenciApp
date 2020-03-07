@@ -15,13 +15,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ScrollView;
 import android.widget.Spinner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
 import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
+import com.example.miguelapaez.emergenciapp.Validaciones.Validaciones;
 
 import java.util.Calendar;
 
@@ -38,8 +37,8 @@ public class Register extends AppCompatActivity {
     FacadeNegocio bussiness = new ImplementacionNegocio();
     String name, lastName, typeId, id, age, email, password,phone, gender;
     String redColor = "#40FF0000";
-    String emailPattern = "^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@" +
-            "[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$";
+    Validaciones objValidar;
+    boolean validacionOK;
 
     @Override
     public void onResume() {
@@ -87,6 +86,9 @@ public class Register extends AppCompatActivity {
         ePhone = (EditText) findViewById ( R.id.phoneRegister );
         spinGender = (Spinner) findViewById ( R.id.genderRegister );
 
+        //Validaciones
+        objValidar = new Validaciones();
+
         bDate.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -117,19 +119,32 @@ public class Register extends AppCompatActivity {
         btn.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                if(validarDatos()) {
-                    llenarDatos ();
-                    Intent intent = new Intent ( v.getContext () , HealthRegister.class );
-                    intent.putExtra ( "name" , name );
-                    intent.putExtra ( "lastName" , lastName );
-                    intent.putExtra ( "typeId" , typeId );
-                    intent.putExtra ( "id" , id );
-                    intent.putExtra ( "age" , age );
-                    intent.putExtra ( "email" , email );
-                    intent.putExtra ( "password" , password );
-                    intent.putExtra ( "phone" , phone );
-                    intent.putExtra ( "gender" , gender );
-                    startActivity ( intent );
+                ThreadB b = new ThreadB();
+                b.start();
+
+                synchronized(b){
+
+                    try{
+                        System.out.println("Waiting for b to complete...");
+                        b.wait();
+                    }catch(InterruptedException e){
+                        e.printStackTrace();
+                    }
+
+                    if(validacionOK) {
+                        llenarDatos ();
+                        Intent intent = new Intent ( v.getContext () , HealthRegister.class );
+                        intent.putExtra ( "name" , name );
+                        intent.putExtra ( "lastName" , lastName );
+                        intent.putExtra ( "typeId" , typeId );
+                        intent.putExtra ( "id" , id );
+                        intent.putExtra ( "age" , age );
+                        intent.putExtra ( "email" , email );
+                        intent.putExtra ( "password" , password );
+                        intent.putExtra ( "phone" , phone );
+                        intent.putExtra ( "gender" , gender );
+                        startActivity ( intent );
+                    }
                 }
             }
         } );
@@ -172,146 +187,263 @@ public class Register extends AppCompatActivity {
         gender = spinGender.getSelectedItem().toString().trim();
     }
 
+    class ThreadB extends Thread{
+        int total;
+        @Override
+        public void run(){
+            synchronized(this){
+                validacionOK = validarDatos ();
+                notify();
+            }
+        }
+    }
+
+
+    /*public void validar(){
+        new Thread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        validacionOK = validarDatos ();
+                    }
+                }
+        ).start ();
+    }*/
+
     public boolean validarDatos(){
-        if(validarNombre() && validarApellidos () && validarIdType () && validarId () &&
-                validarDate () && validarEmail () && validarPassword() && validarValidatePassword () &&
-            validarContraseñas () && validarPhone () && validarGender ()){
-            return true;
-        } else {
-            scrollView.post(new Runnable() { @Override public void run() { scrollView.fullScroll(ScrollView.FOCUS_UP); } });
+
+        //Validación Nombres
+        if(objValidar.Vacio ( eName )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su Nombre" , Toast.LENGTH_SHORT ).show ();
+                    eName.setError("Campo Requerido");
+                    eName.requestFocus();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
             return false;
         }
-    }
 
-    public boolean validarNombre(){
-        if(eName.getText().toString().trim().equals ("")){
-            eName.getBackground().setColorFilter ( getResources ().getColor ( R.color.colorRed ), PorterDuff.Mode.SRC_ATOP );
-            nameL.setBackgroundColor ( Color.parseColor ( redColor ) );
-            return false;
-        }else {
-            return true;
-        }
-    }
-
-    public boolean validarApellidos(){
-        if(eLastName.getText().toString().trim().equals ("")){
-            eLastName.getBackground().setColorFilter ( getResources ().getColor ( R.color.colorRed ), PorterDuff.Mode.SRC_ATOP );
-            lastNameL.setBackgroundColor ( Color.parseColor ( redColor ) );
-            return false;
-        }else {
-            return true;
-        }
-    }
-
-    public boolean validarIdType(){
-        if(spinTypeId.getSelectedItem().toString().trim().equals ("Tipo de Identificación")){
-            typeIdL.setBackgroundColor ( Color.parseColor ( redColor ) );
-            return false;
-        }else {
-            return true;
-        }
-    }
-
-    public boolean validarId(){
-        if(eID.getText().toString().trim().equals ("")){
-            eID.getBackground().setColorFilter ( getResources ().getColor ( R.color.colorRed ), PorterDuff.Mode.SRC_ATOP );
-            idL.setBackgroundColor ( Color.parseColor ( redColor ) );
-            return false;
-        }else {
-            return true;
-        }
-    }
-
-    public boolean validarDate(){
-        if(eDate.getText().toString().trim().equals ("")){
-            eDate.getBackground().setColorFilter ( getResources ().getColor ( R.color.colorRed ), PorterDuff.Mode.SRC_ATOP );
-            dateL.setBackgroundColor ( Color.parseColor ( redColor ) );
-            return false;
-        }else {
-            return true;
-        }
-    }
-
-    public boolean validarEmail(){
-        String aux = eEmail.getText().toString().trim();
-        if(eEmail.getText().toString().trim().equals ("") || !validarEmailAux(aux) ){
-            eEmail.getBackground().setColorFilter ( getResources ().getColor ( R.color.colorRed ), PorterDuff.Mode.SRC_ATOP );
-            emailL.setBackgroundColor ( Color.parseColor ( redColor ) );
-            return false;
-        }else {
-            return true;
-        }
-    }
-
-    public boolean validarEmailAux(String email){
-        Pattern pattern = Pattern.compile(emailPattern);
-        if (email != null) {
-            Matcher matcher = pattern.matcher(email);
-            if (matcher.matches()) {
-                System.out.println("Válido");
-                return true;
-            }
-            else {
-                System.out.println("NO Válido");
-                return false;
-            }
-        } else {
+        //Validación Apellidos
+        if(objValidar.Vacio ( eLastName )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese sus Apellidos" , Toast.LENGTH_SHORT ).show ();
+                    eLastName.setError("Campo Requerido");
+                    eLastName.requestFocus();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
             return false;
         }
-    }
 
-    public boolean validarPassword(){
-        if(ePassword.getText().toString().trim().equals ("")){
-            ePassword.getBackground().setColorFilter ( getResources ().getColor ( R.color.colorRed ), PorterDuff.Mode.SRC_ATOP );
-            passwordL.setBackgroundColor ( Color.parseColor ( redColor ) );
-            return false;
-        }else {
-            return true;
-        }
-    }
-
-    public boolean validarValidatePassword(){
-        String aux = eValidatePassword.getText().toString().trim();
-        if(aux.equals ("")){
-            eValidatePassword.getBackground().setColorFilter ( getResources ().getColor ( R.color.colorRed ), PorterDuff.Mode.SRC_ATOP );
-            validatePasswordL.setBackgroundColor ( Color.parseColor ( redColor ) );
-            return false;
-        }else {
-            return true;
-        }
-    }
-
-    public boolean validarContraseñas(){
-        String pass1 = ePassword.getText().toString().trim();
-        String pass2 = eValidatePassword.getText().toString().trim();
-        if (pass1.equals ( pass2 )){
-            return true;
-        }else {
-            ePassword.getBackground().setColorFilter ( getResources ().getColor ( R.color.colorRed ), PorterDuff.Mode.SRC_ATOP );
-            passwordL.setBackgroundColor ( Color.parseColor ( redColor ) );
-            eValidatePassword.getBackground().setColorFilter ( getResources ().getColor ( R.color.colorRed ), PorterDuff.Mode.SRC_ATOP );
-            validatePasswordL.setBackgroundColor ( Color.parseColor ( redColor ) );
+        //Validación Tipo de Identificación
+        String idType = spinTypeId.getSelectedItem().toString().trim();
+        if(objValidar.isEquals ( idType, "Tipo de Identificación" )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su Tipo de Identificación" , Toast.LENGTH_SHORT ).show ();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                    typeIdL.setBackgroundColor ( Color.parseColor ( redColor ) );
+                }
+            });
             return false;
         }
-    }
 
-    public boolean validarPhone(){
-        if(ePhone.getText().toString().trim().equals ("") ){
-            ePhone.getBackground().setColorFilter ( getResources ().getColor ( R.color.colorRed ), PorterDuff.Mode.SRC_ATOP );
-            phoneL.setBackgroundColor ( Color.parseColor ( redColor ) );
+        //Validación Número de Identificación
+        if(objValidar.Vacio ( eID )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su Número de Identificación" , Toast.LENGTH_SHORT ).show ();
+                    eID.setError("Campo Requerido");
+                    eID.requestFocus();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
             return false;
-        }else {
-            return true;
         }
-    }
 
-    public boolean validarGender(){
-        if(spinGender.getSelectedItem().toString().trim().equals ("Género")){
-            genderL.setBackgroundColor ( Color.parseColor ( redColor ) );
+        //Validación Fecha de Nacimiento
+        if(objValidar.Vacio ( eDate )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su Fecha de Nacimiento" , Toast.LENGTH_SHORT ).show ();
+                    eDate.setError("Campo Requerido");
+                    eDate.requestFocus();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
             return false;
-        }else {
-            return true;
         }
-    }
 
+        //Validación Email
+        String email = eEmail.getText().toString().trim();
+        if(objValidar.Vacio ( eEmail )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su Email" , Toast.LENGTH_SHORT ).show ();
+                    eEmail.setError("Campo Requerido");
+                    eEmail.requestFocus();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
+            return false;
+        }
+
+        //Email válido
+        if(!objValidar.isEmail ( email )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    eEmail.setError ( "Campo Requerido" );
+                    eEmail.requestFocus ();
+                    Toast.makeText ( getApplicationContext () , "Ingrese un Email válido" , Toast.LENGTH_SHORT ).show ();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
+            return false;
+        }
+
+        //Validación Contraseña
+        String password = ePassword.getText().toString().trim();
+        if(objValidar.Vacio ( ePassword )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese una Contraseña" , Toast.LENGTH_SHORT ).show ();
+                    ePassword.setError("Campo Requerido");
+                    ePassword.requestFocus();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
+            return false;
+        }
+
+        //Validación Validar Contraseña
+        String valPassword = eValidatePassword.getText().toString().trim();
+        if(objValidar.Vacio ( eValidatePassword )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese Validación de Contraseña" , Toast.LENGTH_SHORT ).show ();
+                    eValidatePassword.setError("Campo Requerido");
+                    eValidatePassword.requestFocus();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
+            return false;
+        }
+
+        //Contraseñas coinciden
+        if(!objValidar.isEquals ( password, valPassword )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Las contraseñas no son iguales" , Toast.LENGTH_SHORT ).show ();
+                    ePassword.getBackground ().setColorFilter ( getResources ().getColor ( R.color.colorRed ) , PorterDuff.Mode.SRC_ATOP );
+                    passwordL.setBackgroundColor ( Color.parseColor ( redColor ) );
+                    eValidatePassword.getBackground ().setColorFilter ( getResources ().getColor ( R.color.colorRed ) , PorterDuff.Mode.SRC_ATOP );
+                    validatePasswordL.setBackgroundColor ( Color.parseColor ( redColor ) );
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
+            return false;
+        }
+
+        //Validación Celular
+        if(objValidar.Vacio ( ePhone )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su Celular" , Toast.LENGTH_SHORT ).show ();
+                    ePhone.setError("Campo Requerido");
+                    ePhone.requestFocus();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
+            return false;
+        }
+
+        //Validación Género
+        String gender = spinGender.getSelectedItem().toString().trim();
+        if(objValidar.isEquals ( gender, "Género" )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su Género" , Toast.LENGTH_SHORT ).show ();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                    genderL.setBackgroundColor ( Color.parseColor ( redColor ) );
+                }
+            });
+            return false;
+        }
+        return true;
+    }
 }
