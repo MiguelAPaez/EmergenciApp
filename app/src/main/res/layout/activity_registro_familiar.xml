@@ -278,19 +278,6 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/buttonRegisterFamiliar"
-                    android:layout_width="100dp"
-                    android:layout_height="46dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@drawable/shapebutton"
-                    android:text="@string/sign_up"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15dp"
-                    android:layout_gravity="center"/>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

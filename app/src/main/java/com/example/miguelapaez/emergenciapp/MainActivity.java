@@ -11,14 +11,19 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
 import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
 
 public class MainActivity extends AppCompatActivity {
     FacadeNegocio bussiness = new ImplementacionNegocio ();
+    private static final int CODIGO_PERMISOS_CALL = 1;
+    private boolean tienePermisoCall = false;
     String dial = "tel:321";
 
     public void onStart() {
@@ -74,33 +79,63 @@ public class MainActivity extends AppCompatActivity {
             }
         } );
 
-        /*LinearLayout lineEmergency = (LinearLayout) findViewById ( R.id.linearLayoutLineEmergencyMain );
-        emergency.setOnClickListener ( new View.OnClickListener () {
-            @RequiresApi(api = Build.VERSION_CODES.M)
+        LinearLayout lineEmergency = (LinearLayout) findViewById ( R.id.linearLayoutLineEmergencyMain );
+        lineEmergency.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                if (checkSelfPermission ( Manifest.permission.CALL_PHONE ) != PackageManager.PERMISSION_GRANTED) {
-                    startActivity ( new Intent ( Intent.ACTION_CALL , Uri.parse ( dial ) ) );
-                    // TODO: Consider calling
-                    //    Activity#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for Activity#requestPermissions for more details.
-                    return;
-                }
+                verificarYPedirPermisosCall ();
             }
-        });*/
+        } );
 
-        LinearLayout grupoFamiliar = (LinearLayout) findViewById(R.id.linearLayoutFamilyGroupMain);
-        grupoFamiliar.setOnClickListener(new View.OnClickListener() {
+        LinearLayout grupoFamiliar = (LinearLayout) findViewById ( R.id.linearLayoutFamilyGroupMain );
+        grupoFamiliar.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), activity_buscarFamiliar.class);
-                startActivityForResult(intent, 0);
+                Intent intent = new Intent ( v.getContext () , FamilyGroup.class );
+                startActivityForResult ( intent , 0 );
             }
-        });
-
+        } );
     }
+
+    private void verificarYPedirPermisosCall() {
+        int estadoDePermiso = ContextCompat.checkSelfPermission ( MainActivity.this , Manifest.permission.CALL_PHONE );
+        if (estadoDePermiso == PackageManager.PERMISSION_GRANTED) {
+            // En caso de que haya dado permisos ponemos la bandera en true
+            // y llamar al método
+            permisoDeLlamadaConcedido ();
+        } else {
+            // Si no, entonces pedimos permisos. Ahora mira onRequestPermissionsResult
+            ActivityCompat.requestPermissions (
+                    MainActivity.this ,
+                    new String[]{Manifest.permission.CALL_PHONE} ,
+                    CODIGO_PERMISOS_CALL
+            );
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode , @NonNull String[] permissions , @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case CODIGO_PERMISOS_CALL:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    permisoDeLlamadaConcedido ();
+                } else {
+                    permisoDeLlamadaDenegado ();
+                }
+                break;
+        }
+    }
+
+    private void permisoDeLlamadaConcedido() {
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE)
+                == PackageManager.PERMISSION_GRANTED) {
+            startActivity ( new Intent ( Intent.ACTION_CALL , Uri.parse ( dial ) ) );
+        }
+        tienePermisoCall = true;
+    }
+
+    private void permisoDeLlamadaDenegado() {
+        Toast.makeText(MainActivity.this, "El permiso para la llamada está denegado", Toast.LENGTH_SHORT).show();
+    }
+
 }

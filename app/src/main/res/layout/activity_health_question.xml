@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".HealthQuestion">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutTitleMain"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@color/colorWhite"
+            android:orientation="horizontal"
+            android:color="@color/colorBlack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.538"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/titleMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/Question1"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="28dp" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutQuestionVertical1"
+                    android:layout_width="match_parent"
+                    android:layout_height="840dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="8dp"
+                    android:textAlignment="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutQuestionHorizontal1"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:textAlignment="center"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/linearLayoutPecho"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/shape_main_1"
+                            android:textAlignment="center"
+                            android:orientation="vertical"
+                            android:layout_weight="0.5">
+
+                            <ImageView
+                                android:id="@+id/imageViewPecho"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.8"
+                                app:srcCompat="@drawable/pecho" />
+
+                            <TextView
+                                android:id="@+id/titlePecho"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.2"
+                                android:text="@string/pecho"
+                                android:layout_gravity="center"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold"
+                                android:textSize="28dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutCorazon"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/shape_main_1"
+                            android:textAlignment="center"
+                            android:orientation="vertical"
+                            android:layout_weight="0.5">
+
+                            <ImageView
+                                android:id="@+id/imageViewCorazon"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.8"
+                                app:srcCompat="@drawable/corazon" />
+
+                            <TextView
+                                android:id="@+id/titleCorazon"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.2"
+                                android:text="@string/corazon"
+                                android:layout_gravity="center"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold"
+                                android:textSize="28dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutQuestionHorizontal2"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="10dp"
+                        android:textAlignment="center"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/linearLayoutCabeza"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/shape_main_1"
+                            android:textAlignment="center"
+                            android:orientation="vertical"
+                            android:layout_weight="0.5">
+
+                            <ImageView
+                                android:id="@+id/imageViewCabeza"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.8"
+                                app:srcCompat="@drawable/cabeza" />
+
+                            <TextView
+                                android:id="@+id/titleCabeza"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.2"
+                                android:text="@string/cabeza"
+                                android:layout_gravity="center"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold"
+                                android:textSize="28dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutGarganta"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/shape_main_1"
+                            android:textAlignment="center"
+                            android:orientation="vertical"
+                            android:layout_weight="0.5">
+
+                            <ImageView
+                                android:id="@+id/imageViewGarganta"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.8"
+                                app:srcCompat="@drawable/garganta" />
+
+                            <TextView
+                                android:id="@+id/titleGarganta"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.2"
+                                android:text="@string/garganta"
+                                android:layout_gravity="center"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold"
+                                android:textSize="28dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutQuestionHorizontal3"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="10dp"
+                        android:textAlignment="center"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/linearLayoutBrazo"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/shape_main_1"
+                            android:textAlignment="center"
+                            android:orientation="vertical"
+                            android:layout_weight="0.5">
+
+                            <ImageView
+                                android:id="@+id/imageViewBrazo"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.8"
+                                app:srcCompat="@drawable/brazo" />
+
+                            <TextView
+                                android:id="@+id/titleBrazo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.2"
+                                android:text="@string/brazo"
+                                android:layout_gravity="center"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold"
+                                android:textSize="28dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutOjo"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/shape_main_1"
+                            android:textAlignment="center"
+                            android:orientation="vertical"
+                            android:layout_weight="0.5">
+
+                            <ImageView
+                                android:id="@+id/imageViewOjo"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.8"
+                                app:srcCompat="@drawable/ojo" />
+
+                            <TextView
+                                android:id="@+id/titleOjo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.2"
+                                android:text="@string/ojo"
+                                android:layout_gravity="center"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold"
+                                android:textSize="28dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutQuestionHorizontal4"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="10dp"
+                        android:textAlignment="center"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/linearLayoutPierna"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/shape_main_1"
+                            android:textAlignment="center"
+                            android:orientation="vertical"
+                            android:layout_weight="0.5">
+
+                            <ImageView
+                                android:id="@+id/imageViewPierna"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.8"
+                                app:srcCompat="@drawable/pierna" />
+
+                            <TextView
+                                android:id="@+id/titlePierna"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.2"
+                                android:text="@string/pierna"
+                                android:layout_gravity="center"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold"
+                                android:textSize="28dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutPie"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/shape_main_1"
+                            android:textAlignment="center"
+                            android:orientation="vertical"
+                            android:layout_weight="0.5">
+
+                            <ImageView
+                                android:id="@+id/imageViewPie"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.8"
+                                app:srcCompat="@drawable/pie" />
+
+                            <TextView
+                                android:id="@+id/titlePie"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.2"
+                                android:text="@string/pie"
+                                android:layout_gravity="center"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold"
+                                android:textSize="28dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
