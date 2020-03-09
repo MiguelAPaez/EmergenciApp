@@ -46,11 +46,26 @@
     <string name="celular">Celular</string>
     <string name="buscar">Buscar</string>
 
-    <string name="no_tiene_cuenta">¿Tu familiar no tiene cuenta?</string>
+    <string name="no_tiene_cuenta">¿Tú familiar no tiene una cuenta?</string>
     <string name="registro_familiar_titulo">Registro de Familiar</string>
     <string name="perfil_medico_familiar">Perfil médico del familiar</string>
     <string name="seguros_familiar">Seguros del familiar</string>
     <string name="perfilMedico">Perfil Médico</string>
     <string name="signUpBuscarFamiliar"><u>Regístralo</u></string>
+
+    <string name="FamilyGroup_title">Grupo Familiar</string>
+    <string name="FamilyGroup_add">¿Deseas Agregar un Familiar?</string>
+    <string name="FamilyGroup_add2"><u>Agrégalo</u></string>
+    <string name="familyGroup_question">¿Quién tiene la Emergencia?</string>
+
+    <string name="Question1">¿Qué zona del cuerpo se encuentra afectada?</string>
+    <string name="brazo">Brazo</string>
+    <string name="cabeza">Cabeza</string>
+    <string name="garganta">Garganta</string>
+    <string name="ojo">Ojo</string>
+    <string name="pecho">Pecho</string>
+    <string name="pie">Pie</string>
+    <string name="pierna">Pierna</string>
+    <string name="corazon">Corazón</string>
 
 </resources>
