@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,8 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.miguelapaez.emergenciapp.Entities.Perfil;
+import com.example.miguelapaez.emergenciapp.Entities.PerfilBasico;
 import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
 import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
 import com.example.miguelapaez.emergenciapp.Validaciones.Validaciones;
@@ -133,16 +136,11 @@ public class Register extends AppCompatActivity {
 
                     if(validacionOK) {
                         llenarDatos ();
+                        Perfil profile = crearPerfil();
+                        PerfilBasico basicProfile = crearPerfilBasico();
                         Intent intent = new Intent ( v.getContext () , HealthRegister.class );
-                        intent.putExtra ( "name" , name );
-                        intent.putExtra ( "lastName" , lastName );
-                        intent.putExtra ( "typeId" , typeId );
-                        intent.putExtra ( "id" , id );
-                        intent.putExtra ( "age" , age );
-                        intent.putExtra ( "email" , email );
-                        intent.putExtra ( "password" , password );
-                        intent.putExtra ( "phone" , phone );
-                        intent.putExtra ( "gender" , gender );
+                        intent.putExtra ( "profile" , profile);
+                        intent.putExtra ( "basicProfile" , basicProfile);
                         startActivity ( intent );
                     }
                 }
@@ -197,8 +195,15 @@ public class Register extends AppCompatActivity {
             }
         }
     }
-
-
+private Perfil crearPerfil(){
+    Perfil user = new Perfil(email);
+    user.setPassword(password);
+    return user;
+}
+private PerfilBasico crearPerfilBasico(){
+        PerfilBasico user = new PerfilBasico(email,name,lastName,typeId,id,age,phone,gender);
+        return user;
+}
     /*public void validar(){
         new Thread(
                 new Runnable() {
