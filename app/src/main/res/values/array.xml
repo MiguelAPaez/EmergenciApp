@@ -73,7 +73,7 @@
     </string-array>
 
     <string-array name="disease">
-        <item>¿Tienes alguna Enfermedad?</item>
+        <item>¿Tienes alguna Enfermedad Crónica?</item>
         <item>Ninguna</item>
         <item>Cardiovascular</item>
         <item>Obesidad</item>
@@ -84,18 +84,26 @@
         <item>Otra</item>
     </string-array>
 
-    <string-array name="allergy">
-        <item>¿Posees alguna Alergía?</item>
+    <string-array name="environment_allergy">
+        <item>¿Posees alguna Alergía Ambiental?</item>
         <item>Ninguna</item>
         <item>Polen</item>
         <item>Ácaros</item>
         <item>Alimentos</item>
         <item>Animales</item>
-        <item>Medicamentos</item>
         <item>Sol</item>
         <item>Picaduras de Insectos</item>
         <item>Níquel</item>
-        <item>Látex</item>
+        <item>Otra</item>
+    </string-array>
+
+    <string-array name="medicines_allergy">
+        <item>¿Posees alguna Alergía a un Medicamento?</item>
+        <item>Ninguna</item>
+        <item>Penicilina y antibióticos conexos</item>
+        <item>Anticonvulsivos</item>
+        <item>Insulina</item>
+        <item>Sulfamidas</item>
         <item>Otra</item>
     </string-array>
 

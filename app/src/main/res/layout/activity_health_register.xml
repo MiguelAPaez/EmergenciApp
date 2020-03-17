@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="@string/register_health_title"
+                android:text="@string/perfilMedico"
                 android:textAlignment="center"
                 android:textColor="@color/colorBlack"
                 android:textSize="72px" />
@@ -153,54 +153,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayoutWeightRegister"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/shape"
-                    android:textAlignment="center"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/weightRegister"
-                            android:hint="@string/weight"
-                            android:inputType="number"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearLayoutHeightRegister"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/shape"
-                    android:textAlignment="center"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/heightRegister"
-                            android:hint="@string/height"
-                            android:inputType="number"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/linearLayoutBloodTypeRegister"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
@@ -218,50 +170,6 @@
                         android:layout_below="@+id/name"
                         android:entries="@array/blood_type" />
                 </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayoutOrganDonorRegister"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/shape"
-                android:textAlignment="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/titleOrganDonorRegister"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/organ_donor"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="15dp" />
-
-                <RadioGroup
-                    android:id="@+id/organ_donor"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/radio_organ_donor_yes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="40dp"
-                        android:checked="true"
-                        android:text="@string/yes" />
-
-                    <RadioButton
-                        android:id="@+id/radio_organ_donor_no"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="false"
-                        android:text="@string/no" />
-                </RadioGroup>
-            </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/linearLayoutDiseaseRegister"
@@ -283,7 +191,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayoutAllergyRegister"
+                    android:id="@+id/linearLayoutEnvironmentAllergyRegister"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
@@ -294,11 +202,30 @@
                     android:orientation="horizontal">
 
                     <Spinner
-                        android:id="@+id/allergyRegister"
+                        android:id="@+id/environmentAllergyRegister"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/name"
-                        android:entries="@array/allergy" />
+                        android:entries="@array/environment_allergy" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutMedicinesAllergyRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/medicinesAllergyRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/medicines_allergy" />
                 </LinearLayout>
 
                 <LinearLayout
