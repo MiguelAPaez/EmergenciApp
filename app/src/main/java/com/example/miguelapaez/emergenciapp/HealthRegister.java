@@ -11,12 +11,14 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.miguelapaez.emergenciapp.Entities.Perfil;
+import com.example.miguelapaez.emergenciapp.Entities.PerfilBasico;
 import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
 import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
 
 
 public class HealthRegister extends AppCompatActivity {
-    String name, lastName, typeId, id, age, email, password,phone, gender;
+    Perfil profile;
+    PerfilBasico basicProfile;
     FacadeNegocio bussiness = new ImplementacionNegocio();
     @Override
     public void onResume() {
@@ -36,28 +38,11 @@ public class HealthRegister extends AppCompatActivity {
         getSupportActionBar().hide();
 
         //Recepción de datos Activity Register
-        name = getIntent().getExtras().getString("name");
-        Log.i( "NAME", String.valueOf ( name ) );
-        lastName = getIntent().getExtras().getString("lastName");
-        Log.i( "LASTNAME", String.valueOf ( lastName ) );
-        typeId = getIntent().getExtras().getString("typeId");
-        Log.i( "TYPEID", String.valueOf ( typeId ) );
-        id = getIntent().getExtras().getString("id");
-        Log.i( "ID", String.valueOf ( id ) );
-        age = getIntent().getExtras().getString("age");
-        Log.i( "AGE", String.valueOf ( age ) );
-        email = getIntent().getExtras().getString("email");
-        Log.i( "EMAIL", String.valueOf ( email ) );
-        password = getIntent().getExtras().getString("password");
-        Log.i( "PASSWORD", String.valueOf ( password ) );
-        phone = getIntent().getExtras().getString("phone");
-        Log.i( "CEL", String.valueOf ( phone ) );
-        gender = getIntent().getExtras().getString("gender");
-        Log.i( "GENDER", String.valueOf ( gender ) );
+       profile = (Perfil) getIntent().getSerializableExtra("profile");
+        basicProfile = (PerfilBasico) getIntent().getSerializableExtra("basicProfile");
+
 
         // Objetos de negocio
-
-
         Button btnRegistrar = (Button) findViewById(R.id.buttonRegister);
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,14 +63,11 @@ public class HealthRegister extends AppCompatActivity {
     }
 
     private void registrarUsuario() {
-        Perfil user = crearUsuario();
-        String response = bussiness.registrarUsuario(user);
-        Toast.makeText( HealthRegister.this, response, Toast.LENGTH_LONG).show();
-    }
-
-    private Perfil crearUsuario(){
-        Perfil user = new Perfil(name,lastName,typeId,id,age,email,password,phone,gender);
-        return user;
+        if (bussiness.registrarUsuario(profile)){
+            Toast.makeText( HealthRegister.this, "Usuario creado", Toast.LENGTH_LONG).show();
+            bussiness.crearPerfilBasico(basicProfile);
+        }
+        Toast.makeText( HealthRegister.this, "Error al crear Usuario", Toast.LENGTH_LONG).show();
     }
 
 }

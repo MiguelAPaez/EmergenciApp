@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 
 import com.example.miguelapaez.emergenciapp.Entities.Perfil;
+import com.example.miguelapaez.emergenciapp.Entities.PerfilBasico;
 import com.example.miguelapaez.emergenciapp.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,21 +25,21 @@ import java.util.Calendar;
 public class ImplementacionNegocio extends AppCompatActivity implements FacadeNegocio {
 
     @Override
-    public String registrarUsuario(final Perfil user) {
+    public boolean registrarUsuario(final Perfil user) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        String response = "Error al crear usuario";
+        boolean response = false;
         mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //checking if success
                         if (task.isSuccessful()) {
-                            crearUsuarioBD(user);
+                            crearPerfil(user);
                         }
                     }
                 });
         if (!verificarSesion()) {
-            response = "Se ha creado el usuario";
+            response = true;
         }
         return response;
     }
@@ -97,8 +98,16 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
         return response;
     }
 
-    private void crearUsuarioBD(Perfil user) {
+    @Override
+    public void crearPerfilBasico(PerfilBasico user) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Perfiles").child(user.getId()).setValue(user);
+        String id = mDatabase.push().getKey();
+        mDatabase.child("Perfiles basicos").child(id).setValue(user);
+    }
+
+    private void crearPerfil(Perfil user) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        String id = mDatabase.push().getKey();
+        mDatabase.child("Perfiles").child(id).setValue(user);
     }
 }
