@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int CODIGO_PERMISOS_CALL = 1;
     private static final int CODIGO_PERMISOS_LOCATION = 2;
     private boolean tienePermisoCall = false;
+    private boolean tienePermisoLocation = false;
     String dial = "tel:321";
 
     public void onStart() {
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent ( MainActivity.this , Login.class );
             startActivityForResult ( intent , 0 );
         }
+
         setContentView ( R.layout.activity_main );
         getSupportActionBar ().hide ();
         verificarYPedirPermisos ();
@@ -100,8 +102,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void verificarYPedirPermisos() {
-        permisoCall();
-        permisoLocation();
+        if(tienePermisoCall) {
+            permisoCall ();
+        }
+        if(tienePermisoLocation) {
+            permisoLocation ();
+        }
     }
 
     private void permisoCall(){
@@ -132,13 +138,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode , @NonNull String[] permissions , @NonNull int[] grantResults) {
         switch (requestCode) {
             case CODIGO_PERMISOS_CALL:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(MainActivity.this, "El permiso para la llamada está habilitado", Toast.LENGTH_SHORT).show();
+                    tienePermisoCall = true;
                 } else {
                     Toast.makeText(MainActivity.this, "El permiso para la llamada está denegado", Toast.LENGTH_SHORT).show();
                 }
@@ -146,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
             case CODIGO_PERMISOS_LOCATION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(MainActivity.this, "El permiso para ubicacón está habilitado", Toast.LENGTH_SHORT).show();
+                    tienePermisoLocation = true;
                 } else {
                     Toast.makeText(MainActivity.this, "El permiso para ubicación está denegado", Toast.LENGTH_SHORT).show();
                 }
