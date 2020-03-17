@@ -3,7 +3,7 @@
     package="com.example.miguelapaez.emergenciapp">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FamilyGroupHealth"></activity>
+        <activity android:name=".MedicalCenters"></activity>
+        <activity android:name=".FamilyGroupHealth" />
         <activity android:name=".HealthQuestion" />
         <activity android:name=".FamilyGroup" />
         <activity android:name=".activity_registro_familiar" />

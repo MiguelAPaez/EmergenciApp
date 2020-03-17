@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".MedicalCenters">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutTitleMedicalCenters"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@color/colorWhite"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.538"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/titleMedicalCenters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/medicalcenters_title"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="25sp" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollViewRegister"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutMedicalCenter1"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/boton_redondeado"
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
+
+                    <ImageView
+                        android:id="@+id/imageViewMedicalCenter1"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="0.3"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/hospital" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutMedicalCenterText1"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/nameMedicalCenter1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Hospital San Ignacio"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/addressMedicalCenter1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Cra. 7 # 40-62"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorGray"
+                            android:textSize="18dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutMedicalCenterNext1"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageViewNextMedicalCenter1"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            app:srcCompat="@drawable/next" />
+
+                        <TextView
+                            android:id="@+id/nextMedicalCenter1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Ver Ruta"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="18dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutMedicalCenter2"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/boton_redondeado"
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
+
+                    <ImageView
+                        android:id="@+id/imageViewMedicalCenter2"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="0.3"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/hospital" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutMedicalCenterText2"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/nameMedicalCenter2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Clinica Marly"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/addressMedicalCenter2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Cl. 50 # 9-67"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorGray"
+                            android:textSize="18dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutMedicalCenterNext2"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageViewNextMedicalCenter2"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            app:srcCompat="@drawable/next" />
+
+                        <TextView
+                            android:id="@+id/nextMedicalCenter2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Ver Ruta"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="18dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutMedicalCenter3"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/boton_redondeado"
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
+
+                    <ImageView
+                        android:id="@+id/imageViewMedicalCenterHealth3"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="0.3"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/hospital" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutMedicalCenterText3"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/nameMedicalCenter3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Hospital Militar"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/addressMedicalCenter3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tv. 3 # 49-02"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorGray"
+                            android:textSize="18dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutMedicalCenterNext3"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageViewNextMedicalCenter3"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            app:srcCompat="@drawable/next" />
+
+                        <TextView
+                            android:id="@+id/nextMedicalCenter3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Ver Ruta"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="18dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/textMessageMedicalCenters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/medicalcenters_message1"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+
+        <LinearLayout
+            android:id="@+id/buttonCallMedicalCenters"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/shape_main_1"
+            android:orientation="horizontal"
+            android:textAlignment="center">
+
+            <ImageView
+                android:id="@+id/imageViewCallMedicalCenter"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="0.5"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/call" />
+
+            <TextView
+                android:id="@+id/textCallMedicalCenter"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="Llamar"
+                android:layout_weight="0.5"
+                android:layout_gravity="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
