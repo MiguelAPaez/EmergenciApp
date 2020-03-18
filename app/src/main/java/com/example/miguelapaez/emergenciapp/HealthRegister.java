@@ -20,6 +20,7 @@ public class HealthRegister extends AppCompatActivity {
     Perfil profile;
     PerfilBasico basicProfile;
     FacadeNegocio bussiness = new ImplementacionNegocio();
+
     @Override
     public void onResume() {
         super.onResume();
@@ -28,17 +29,18 @@ public class HealthRegister extends AppCompatActivity {
             startActivityForResult(intent, 0);
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate ( savedInstanceState );
-        if (bussiness.verificarSesion()){
+        super.onCreate(savedInstanceState);
+        if (bussiness.verificarSesion()) {
             startActivity(new Intent(HealthRegister.this, MainActivity.class));
         }
-        setContentView ( R.layout.activity_health_register );
+        setContentView(R.layout.activity_health_register);
         getSupportActionBar().hide();
 
         //Recepción de datos Activity Register
-       profile = (Perfil) getIntent().getSerializableExtra("profile");
+        profile = (Perfil) getIntent().getSerializableExtra("profile");
         basicProfile = (PerfilBasico) getIntent().getSerializableExtra("basicProfile");
 
 
@@ -47,11 +49,11 @@ public class HealthRegister extends AppCompatActivity {
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registrarUsuario ();
+                registrarUsuario();
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
-                    e.printStackTrace ();
+                    e.printStackTrace();
                 }
                 if (bussiness.verificarSesion()) {
                     Intent intent = new Intent(v.getContext(), MainActivity.class);
@@ -63,11 +65,12 @@ public class HealthRegister extends AppCompatActivity {
     }
 
     private void registrarUsuario() {
-        if (bussiness.registrarUsuario(profile)){
-            Toast.makeText( HealthRegister.this, "Usuario creado", Toast.LENGTH_LONG).show();
+        if (bussiness.registrarUsuario(profile)) {
+            Toast.makeText(HealthRegister.this, "Usuario creado", Toast.LENGTH_LONG).show();
             bussiness.crearPerfilBasico(basicProfile);
+        } else {
+            Toast.makeText(HealthRegister.this, "Error al crear Usuario", Toast.LENGTH_LONG).show();
         }
-        Toast.makeText( HealthRegister.this, "Error al crear Usuario", Toast.LENGTH_LONG).show();
     }
 
 }
