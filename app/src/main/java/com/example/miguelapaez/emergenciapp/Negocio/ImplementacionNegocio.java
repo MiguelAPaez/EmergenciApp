@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 
 import com.example.miguelapaez.emergenciapp.Entities.Perfil;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilBasico;
+import com.example.miguelapaez.emergenciapp.Entities.PerfilMedico;
 import com.example.miguelapaez.emergenciapp.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,7 +35,7 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //checking if success
                         if (task.isSuccessful()) {
-                            crearPerfil(user);
+                            guardarPerfil(user);
                         }
                     }
                 });
@@ -99,13 +100,20 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
     }
 
     @Override
-    public void crearPerfilBasico(PerfilBasico user) {
+    public void guardarPerfilBasico(PerfilBasico user) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         String id = mDatabase.push().getKey();
         mDatabase.child("Perfiles basicos").child(id).setValue(user);
     }
 
-    private void crearPerfil(Perfil user) {
+    @Override
+    public void guardarPerfilMedico(PerfilMedico user) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        String id = mDatabase.push().getKey();
+        mDatabase.child("Perfiles Medicos").child(id).setValue(user);
+    }
+
+    private void guardarPerfil(Perfil user) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         String id = mDatabase.push().getKey();
         mDatabase.child("Perfiles").child(id).setValue(user);

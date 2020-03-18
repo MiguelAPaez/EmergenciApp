@@ -1,21 +1,19 @@
 package com.example.miguelapaez.emergenciapp.Entities;
 
-import java.util.ArrayList;
-
 public class PerfilMedico extends Perfil {
     String rh;
-    ArrayList<String> enfermedadesCronicas;
-    ArrayList<String> alergiasAmbientales;
-    ArrayList<String> alergiasMedicamentos;
-    ArrayList<String> medicamentos;
+    String enfermedadCronica;
+    String alergiaAmbiental;
+    String alergiaMedicamento;
+    String medicamento;
 
-    public PerfilMedico(String email, String rh, ArrayList<String> enfermedadesCronicas, ArrayList<String> alergiasAmbientales, ArrayList<String> alergiasMedicamentos, ArrayList<String> medicamentos) {
+    public PerfilMedico(String email, String rh, String enfermedadCronica, String alergiaAmbiental, String alergiaMedicamento, String medicamento) {
         super(email);
         this.rh = rh;
-        this.enfermedadesCronicas = enfermedadesCronicas;
-        this.alergiasAmbientales = alergiasAmbientales;
-        this.alergiasMedicamentos = alergiasMedicamentos;
-        this.medicamentos = medicamentos;
+        this.enfermedadCronica = enfermedadCronica;
+        this.alergiaAmbiental = alergiaAmbiental;
+        this.alergiaMedicamento = alergiaMedicamento;
+        this.medicamento = medicamento;
     }
 
     public String getRh() {
@@ -26,35 +24,35 @@ public class PerfilMedico extends Perfil {
         this.rh = rh;
     }
 
-    public ArrayList<String> getEnfermedadesCronicas() {
-        return enfermedadesCronicas;
+    public String getEnfermedadCronica() {
+        return enfermedadCronica;
     }
 
-    public void setEnfermedadesCronicas(ArrayList<String> enfermedadesCronicas) {
-        this.enfermedadesCronicas = enfermedadesCronicas;
+    public void setEnfermedadCronica(String enfermedadCronica) {
+        this.enfermedadCronica = enfermedadCronica;
     }
 
-    public ArrayList<String> getAlergiasAmbientales() {
-        return alergiasAmbientales;
+    public String getAlergiaAmbiental() {
+        return alergiaAmbiental;
     }
 
-    public void setAlergiasAmbientales(ArrayList<String> alergiasAmbientales) {
-        this.alergiasAmbientales = alergiasAmbientales;
+    public void setAlergiaAmbiental(String alergiaAmbiental) {
+        this.alergiaAmbiental = alergiaAmbiental;
     }
 
-    public ArrayList<String> getAlergiasMedicamentos() {
-        return alergiasMedicamentos;
+    public String getAlergiaMedicamento() {
+        return alergiaMedicamento;
     }
 
-    public void setAlergiasMedicamentos(ArrayList<String> alergiasMedicamentos) {
-        this.alergiasMedicamentos = alergiasMedicamentos;
+    public void setAlergiaMedicamento(String alergiaMedicamento) {
+        this.alergiaMedicamento = alergiaMedicamento;
     }
 
-    public ArrayList<String> getMedicamentos() {
-        return medicamentos;
+    public String getMedicamento() {
+        return medicamento;
     }
 
-    public void setMedicamentos(ArrayList<String> medicamentos) {
-        this.medicamentos = medicamentos;
+    public void setMedicamento(String medicamento) {
+        this.medicamento = medicamento;
     }
 }
