@@ -102,10 +102,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void verificarYPedirPermisos() {
-        if(tienePermisoCall) {
+        if(!tienePermisoCall) {
             permisoCall ();
         }
-        if(tienePermisoLocation) {
+        if(!tienePermisoLocation) {
             permisoLocation ();
         }
     }
@@ -145,8 +145,12 @@ public class MainActivity extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(MainActivity.this, "El permiso para la llamada está habilitado", Toast.LENGTH_SHORT).show();
                     tienePermisoCall = true;
+                    verificarYPedirPermisos ();
                 } else {
                     Toast.makeText(MainActivity.this, "El permiso para la llamada está denegado", Toast.LENGTH_SHORT).show();
+                    if(!tienePermisoLocation) {
+                        permisoLocation ();
+                    }
                 }
                 break;
             case CODIGO_PERMISOS_LOCATION:

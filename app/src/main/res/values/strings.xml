@@ -68,4 +68,10 @@
     <string name="pierna">Pierna</string>
     <string name="corazon">Corazón</string>
 
+    <string name="medicalcenters_title">Centros de Salud Cercanos</string>
+    <string name="medicalcenters_message1">¿Necesitas atención médica inmediata?</string>
+    <string name="medicalcenters_message2">Llama</string>
+    <string name="title_activity_maps">Map</string>
+
+
 </resources>
