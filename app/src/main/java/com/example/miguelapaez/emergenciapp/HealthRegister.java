@@ -39,7 +39,7 @@ public class HealthRegister extends AppCompatActivity {
 
         //Recepción de datos Activity Register
        profile = (Perfil) getIntent().getSerializableExtra("profile");
-        basicProfile = (PerfilBasico) getIntent().getSerializableExtra("basicProfile");
+       basicProfile = (PerfilBasico) getIntent().getSerializableExtra("basicProfile");
 
 
         // Objetos de negocio
