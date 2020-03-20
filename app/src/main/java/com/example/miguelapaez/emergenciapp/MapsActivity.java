@@ -1,23 +1,43 @@
 package com.example.miguelapaez.emergenciapp;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStates;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +56,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double latitudUser = 0;
     private double longitudUser = 0;
     private double altitud = 0;
+    private String distance = "";
+    private String duration = "";
     private double latitudMedicalCenter = 0;
     private double longitudMedicalCenter = 0;
     private String nameMedicalCenter = "";
@@ -47,16 +69,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_maps );
 
+        /*
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        */
 
 
-        /*
         //Recepción de datos Activity MedicalCenters
         latitudMedicalCenter = (Double) getIntent().getSerializableExtra( "latitud");
         longitudMedicalCenter = (Double) getIntent().getSerializableExtra( "longitud");
+        distance = (String) getIntent().getSerializableExtra( "distance");
+        duration = (String) getIntent().getSerializableExtra( "duration");
         nameMedicalCenter = (String) getIntent().getSerializableExtra( "name");
 
 
@@ -66,7 +91,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync ( this );
         initGoogleAPIClient ();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient ( this );
-        mLocationRequest = createLocationRequest ();
+        //mLocationRequest = createLocationRequest ();
         if (checkSelfPermission ( Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission ( Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
             requestLocationPermission ();
         } else {
@@ -86,6 +111,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         }
                     }
                 } );
+        /*
         mLocationCallback = new LocationCallback () {
             @Override
             public void onLocationResult(LocationResult locationResult) {
@@ -95,16 +121,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 longitudUser = location.getLongitude ();
                 altitud = location.getAltitude ();
             }
-        };
+        };*/
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager ()
                 .findFragmentById ( R.id.map );
         assert mapFragment != null;
         mapFragment.getMapAsync ( this );
-        */
+
     }
 
-    /*
+
     private void requestLocationPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale ( MapsActivity.this , android.Manifest.permission.ACCESS_FINE_LOCATION )) {
             ActivityCompat.requestPermissions ( MapsActivity.this , new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION} , ACCESS_FINE_LOCATION_INTENT_ID );
@@ -194,7 +220,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onPause() {
         super.onPause ();
-        stopLocationUpdates ();
+        // stopLocationUpdates ();
     }
 
     private void startLocationUpdates() {
@@ -203,13 +229,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 this ,
                 Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED) {
-            mFusedLocationClient.requestLocationUpdates ( mLocationRequest , mLocationCallback , null );
+            mFusedLocationClient.requestLocationUpdates ( mLocationRequest , null );
         }
     }
 
+    /*
     private void stopLocationUpdates() {
         mFusedLocationClient.removeLocationUpdates ( mLocationCallback );
     }
+    */
 
     @Override
     public void onRequestPermissionsResult(int requestCode , @NonNull String[] permissions , @NonNull int[] grantResults) {
@@ -235,7 +263,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
     }
-    */
 
     /**
      * Manipulates the map once available.
@@ -251,7 +278,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        /*
+
         if (checkSelfPermission ( Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    Activity#requestPermissions
@@ -267,11 +294,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
-        markerMedicalCenter(latitudMedicalCenter,longitudMedicalCenter,nameMedicalCenter);
-        */
 
         LatLng center = null;
-        ArrayList<LatLng> points = new ArrayList<LatLng>();
+        ArrayList <LatLng> points = new ArrayList<LatLng>();
         PolylineOptions lineOptions = new PolylineOptions();
 
         // setUpMapIfNeeded();
@@ -282,7 +307,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             lineOptions = new PolylineOptions();
 
             // Obteniendo el detalle de la ruta
-            List<HashMap<String, String>> path = Utilidades.routes.get(i);
+            List <HashMap <String, String>> path = Utilidades.routes.get( i);
 
             // Obteniendo todos los puntos y/o coordenadas de la ruta
             for(int j=0;j<path.size();j++){
@@ -304,11 +329,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //Definimos el grosor de las Polilíneas
             lineOptions.width(2);
             //Definimos el color de la Polilíneas
-            lineOptions.color(Color.BLUE);
+            lineOptions.color( Color.BLUE);
         }
 
         // Dibujamos las Polilineas en el Google Map para cada ruta
         mMap.addPolyline(lineOptions);
+
+        /*
+        Log.i("Latitud", Utilidades.coordenadas.getLatitudInicial().toString ());
+        Log.i("Longitud", Utilidades.coordenadas.getLongitudInicial().toString ());
 
         LatLng origen = new LatLng(Utilidades.coordenadas.getLatitudInicial(), Utilidades.coordenadas.getLongitudInicial());
         mMap.addMarker(new MarkerOptions().position(origen).title("Lat: "+Utilidades.coordenadas.getLatitudInicial()+" - Long: "+Utilidades.coordenadas.getLongitudInicial()));
@@ -318,11 +347,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(center, 15));
         /////////////
+        */
 
+        markerMedicalCenter(latitudMedicalCenter,longitudMedicalCenter,nameMedicalCenter);
 
     }
 
-    /*
 
     public void markerMedicalCenter(double latitud, double longitud, String name){
         LatLng position = new LatLng(latitud, longitud);
@@ -330,11 +360,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             MarkerOptions myMarkerOptions = new MarkerOptions();
             myMarkerOptions.position(position);
             myMarkerOptions.title(name);
-            double result = distance ( latitudUser,longitudUser, latitud, longitud);
-            myMarkerOptions.snippet ( "Distancia: " + result + " km" );
-            myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+            myMarkerOptions.snippet ( "Distancia: " + distance + " " + "Duración: " + duration );
+            myMarkerOptions.icon( BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_ORANGE));
             mMap.addMarker(myMarkerOptions);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 14));
+            // mMap.moveCamera( CameraUpdateFactory.newLatLngZoom( position, 15));
         }
     }
 
@@ -345,21 +374,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                  .alpha(0.5f)
                                  .icon(BitmapDescriptorFactory
                                                .defaultMarker( BitmapDescriptorFactory.HUE_BLUE)));
-        mMap.moveCamera ( CameraUpdateFactory.newLatLng ( posicion ) );
-        mMap.moveCamera ( CameraUpdateFactory.zoomTo ( 15 ) );
+        // mMap.moveCamera ( CameraUpdateFactory.newLatLng ( posicion ) );
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(posicion, 15));
     }
-
-    public double distance(double lat1, double long1, double lat2, double long2) {
-        double latDistance = Math.toRadians(lat1 - lat2);
-        double lngDistance = Math.toRadians(long1 - long2);
-        double sindLat = Math.sin(latDistance / 2);
-        double sindLng = Math.sin(lngDistance / 2);
-        double va1 = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
-                * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
-        double va2 = 2 * Math.atan2(Math.sqrt(va1), Math.sqrt(1 - va1));
-        double result = RADIUS_OF_EARTH_KM * va2;
-        return Math.round(result*100.0)/100.0;
-    }
-    */
 
 }

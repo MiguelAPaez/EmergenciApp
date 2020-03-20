@@ -42,6 +42,8 @@ public class MedicalCenters extends AppCompatActivity {
     private FusedLocationProviderClient mFusedLocationClient;
     private double latitudUser = 0;
     private double longitudUser = 0;
+    private String distance = "";
+    private String duration = "";
 
 
     JsonObjectRequest jsonObjectRequest;
@@ -76,9 +78,11 @@ public class MedicalCenters extends AppCompatActivity {
                 );
 
                 Intent intent = new Intent ( v.getContext () , MapsActivity.class );
-                /*intent.putExtra ( "latitud" , 4.628551 );
+                intent.putExtra ( "latitud" , 4.628551 );
                 intent.putExtra ( "longitud" , -74.064039 );
-                intent.putExtra ( "name" , "Hospital San Ignacio" );*/
+                intent.putExtra ( "distance", distance );
+                intent.putExtra ( "duration", duration );
+                intent.putExtra ( "name" , "Hospital San Ignacio" );
                 startActivityForResult ( intent , 0 );
             }
         } );
@@ -136,6 +140,8 @@ public class MedicalCenters extends AppCompatActivity {
 
                         /** Traversing all legs */
                         for(int j=0;j<jLegs.length();j++){
+                            distance = (String)((JSONObject)((JSONObject)jLegs.get(j)).get("distance")).get("text");
+                            duration = (String)((JSONObject)((JSONObject)jLegs.get(j)).get("duration")).get("text");
                             jSteps = ( (JSONObject)jLegs.get(j)).getJSONArray("steps");
 
                             /** Traversing all steps */
@@ -192,6 +198,8 @@ public class MedicalCenters extends AppCompatActivity {
 
                 /** Traversing all legs */
                 for(int j=0;j<jLegs.length();j++){
+                    distance = (String)((JSONObject)((JSONObject)jLegs.get(j)).get("distance")).get("text");
+                    duration = (String)((JSONObject)((JSONObject)jLegs.get(j)).get("duration")).get("text");
                     jSteps = ( (JSONObject)jLegs.get(j)).getJSONArray("steps");
 
                     /** Traversing all steps */
