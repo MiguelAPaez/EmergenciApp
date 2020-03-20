@@ -1,43 +1,27 @@
 package com.example.miguelapaez.emergenciapp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
-
-import android.Manifest;
-import android.content.Intent;
-import android.content.IntentSender;
-import android.content.pm.PackageManager;
-import android.location.Location;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.example.miguelapaez.emergenciapp.Entities.Perfil;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.FragmentActivity;
+
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResult;
-import com.google.android.gms.location.LocationSettingsStates;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -63,7 +47,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_maps );
 
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
+
+        /*
         //Recepción de datos Activity MedicalCenters
         latitudMedicalCenter = (Double) getIntent().getSerializableExtra( "latitud");
         longitudMedicalCenter = (Double) getIntent().getSerializableExtra( "longitud");
@@ -111,9 +101,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById ( R.id.map );
         assert mapFragment != null;
         mapFragment.getMapAsync ( this );
-
+        */
     }
 
+    /*
     private void requestLocationPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale ( MapsActivity.this , android.Manifest.permission.ACCESS_FINE_LOCATION )) {
             ActivityCompat.requestPermissions ( MapsActivity.this , new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION} , ACCESS_FINE_LOCATION_INTENT_ID );
@@ -244,7 +235,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
     }
-
+    */
 
     /**
      * Manipulates the map once available.
@@ -260,6 +251,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        /*
         if (checkSelfPermission ( Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    Activity#requestPermissions
@@ -276,8 +268,61 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
         markerMedicalCenter(latitudMedicalCenter,longitudMedicalCenter,nameMedicalCenter);
+        */
+
+        LatLng center = null;
+        ArrayList<LatLng> points = new ArrayList<LatLng>();
+        PolylineOptions lineOptions = new PolylineOptions();
+
+        // setUpMapIfNeeded();
+
+        // recorriendo todas las rutas
+        for(int i=0;i<Utilidades.routes.size();i++){
+            points = new ArrayList<LatLng>();
+            lineOptions = new PolylineOptions();
+
+            // Obteniendo el detalle de la ruta
+            List<HashMap<String, String>> path = Utilidades.routes.get(i);
+
+            // Obteniendo todos los puntos y/o coordenadas de la ruta
+            for(int j=0;j<path.size();j++){
+                HashMap<String,String> point = path.get(j);
+
+                double lat = Double.parseDouble(point.get("lat"));
+                double lng = Double.parseDouble(point.get("lng"));
+                LatLng position = new LatLng(lat, lng);
+
+                if (center == null) {
+                    //Obtengo la 1ra coordenada para centrar el mapa en la misma.
+                    center = new LatLng(lat, lng);
+                }
+                points.add(position);
+            }
+
+            // Agregamos todos los puntos en la ruta al objeto LineOptions
+            lineOptions.addAll(points);
+            //Definimos el grosor de las Polilíneas
+            lineOptions.width(2);
+            //Definimos el color de la Polilíneas
+            lineOptions.color(Color.BLUE);
+        }
+
+        // Dibujamos las Polilineas en el Google Map para cada ruta
+        mMap.addPolyline(lineOptions);
+
+        LatLng origen = new LatLng(Utilidades.coordenadas.getLatitudInicial(), Utilidades.coordenadas.getLongitudInicial());
+        mMap.addMarker(new MarkerOptions().position(origen).title("Lat: "+Utilidades.coordenadas.getLatitudInicial()+" - Long: "+Utilidades.coordenadas.getLongitudInicial()));
+
+        LatLng destino = new LatLng(Utilidades.coordenadas.getLatitudFinal(), Utilidades.coordenadas.getLongitudFinal());
+        mMap.addMarker(new MarkerOptions().position(destino).title("Lat: "+Utilidades.coordenadas.getLatitudFinal()+" - Long: "+Utilidades.coordenadas.getLongitudFinal()));
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(center, 15));
+        /////////////
+
 
     }
+
+    /*
 
     public void markerMedicalCenter(double latitud, double longitud, String name){
         LatLng position = new LatLng(latitud, longitud);
@@ -315,5 +360,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double result = RADIUS_OF_EARTH_KM * va2;
         return Math.round(result*100.0)/100.0;
     }
+    */
 
 }
