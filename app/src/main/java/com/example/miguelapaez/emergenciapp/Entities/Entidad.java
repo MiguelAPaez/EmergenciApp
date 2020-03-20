@@ -1,4 +1,4 @@
-package com.example.miguelapaez.emergenciapp.Persistence;
+package com.example.miguelapaez.emergenciapp.Entities;
 
 public class Entidad {
     String id;
