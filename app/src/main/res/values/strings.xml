@@ -24,6 +24,18 @@
     <string name="organ_donor">¿Eres Donador de Órganos?</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
+    <string name="age">Edad</string>
+    <string name="gender">Género</string>
+    <string name="my_dates">Mis Datos Médicos</string>
+    <string name="eps">EPS</string>
+    <string name="affiliation">Régimen de Afiliación</string>
+    <string name="plan_complementary">Plan Complementario</string>
+    <string name="prepaid_medicine">Medicina Prepagada</string>
+    <string name="rh">Tipo de Sangre</string>
+    <string name="disease">Enfermedad Crónica</string>
+    <string name="environment_allergy">Alergía Ambiental</string>
+    <string name="medicine_allergy">Alergía Medicamento</string>
+    <string name="medicine">Medicamento Consumido</string>
     <string name="next">Perfil Médico ></string>
     <string name="sign_up">Registrar</string>
 

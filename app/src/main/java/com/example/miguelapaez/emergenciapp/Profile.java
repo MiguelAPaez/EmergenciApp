@@ -1,11 +1,12 @@
 package com.example.miguelapaez.emergenciapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.miguelapaez.emergenciapp.Persistence.PerfilBasicoPersistence;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,10 +17,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
 public class Profile extends AppCompatActivity {
-    private TextView name, lastName, idType, id, date, email, phone;
+    private TextView name, lastName, idType, id, age, email, phone, gender, eps, afiliacion, complementaryPlan, prepaidMedicine, rh, disease,
+            ambientalAllergy, medicineAllergy, medicine;
+    private ImageView profilePhoto;
     DatabaseReference mDatabase;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
@@ -31,13 +32,24 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         getSupportActionBar().hide();
         //TextViews
-        name = (TextView) findViewById(R.id.nameProfile);
-        lastName = (TextView) findViewById(R.id.lastNameProfile);
-        idType = (TextView) findViewById(R.id.idTypeProfile);
-        id = (TextView) findViewById(R.id.idProfile);
-        date = (TextView) findViewById(R.id.dateProfile);
-        email = (TextView) findViewById(R.id.emailProfile);
-        phone = (TextView) findViewById(R.id.phoneProfile);
+        name = (TextView) findViewById(R.id.editNameProfile);
+        lastName = (TextView) findViewById(R.id.editLastNameProfile);
+        idType = (TextView) findViewById(R.id.editIdTypeProfile);
+        id = (TextView) findViewById(R.id.editIdProfile);
+        age = (TextView) findViewById(R.id.editAgeProfile);
+        email = (TextView) findViewById(R.id.editEmailProfile);
+        phone = (TextView) findViewById(R.id.editPhoneProfile);
+        gender = (TextView) findViewById(R.id.editGenderProfile);
+        eps = (TextView) findViewById(R.id.editEpsProfile);
+        afiliacion = (TextView) findViewById(R.id.editAffiliationProfile);
+        complementaryPlan = (TextView) findViewById(R.id.editComplementaryPlanProfile);
+        prepaidMedicine = (TextView) findViewById(R.id.editPrepaidMedicineProfile);
+        rh = (TextView) findViewById(R.id.editRhProfile);
+        disease = (TextView) findViewById(R.id.editDiseaseProfile);
+        ambientalAllergy = (TextView) findViewById(R.id.editEnvironmentAllergyProfile);
+        medicineAllergy = (TextView) findViewById(R.id.editMedicineAllergyProfile);
+        medicine = (TextView) findViewById(R.id.editMedicineProfile);
+        profilePhoto = (ImageView) findViewById ( R.id.profilePhoto );
         //Firebase References
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Perfiles basicos");
         mAuth = FirebaseAuth.getInstance();
@@ -74,8 +86,14 @@ public class Profile extends AppCompatActivity {
         lastName.setText(user.getLastName());
         idType.setText(user.getTypeId());
         id.setText(user.getId());
-        date.setText(user.getAge());
+        age.setText(user.getAge());
         email.setText(user.getEmail());
         phone.setText(user.getPhone());
+        gender.setText ( user.getGender () );
+        if(user.getGender ().equals("Masculino")){
+            profilePhoto.setImageResource(R.drawable.hombre);
+        }else if(user.getGender ().equals ( "Femenino" )){
+            profilePhoto.setImageResource(R.drawable.mujer);
+        }
     }
 }
