@@ -1,10 +1,6 @@
 package com.example.miguelapaez.emergenciapp.Persistence;
 
-import com.example.miguelapaez.emergenciapp.Entities.Perfil;
-
-import java.io.Serializable;
-
-public class PerfilBasicoPersistence implements Serializable {
+public class PerfilBasicoPersistence {
     String name;
     String lastName;
     String typeId;

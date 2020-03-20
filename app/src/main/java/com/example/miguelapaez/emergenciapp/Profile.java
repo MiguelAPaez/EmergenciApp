@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.miguelapaez.emergenciapp.Persistence.PerfilBasicoPersistence;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 
 public class Profile extends AppCompatActivity {
     private TextView name, lastName, idType, id, date, email, phone;
-    PerfilBasicoPersistence basicProfile;
     DatabaseReference mDatabase;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
@@ -50,16 +48,17 @@ public class Profile extends AppCompatActivity {
     }
 
     private void cargarPerfil() {
-        processDialog.setMessage("Cargando Perfil");
+        processDialog.setMessage("Cargando perfil");
         processDialog.show();
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    PerfilBasicoPersistence user = new PerfilBasicoPersistence();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        PerfilBasicoPersistence user = snapshot.getValue(PerfilBasicoPersistence.class);
-                        llenarDatos(user);
+                        user = snapshot.getValue(PerfilBasicoPersistence.class);
                     }
+                    llenarDatos(user);
                 }
                 processDialog.dismiss();
             }

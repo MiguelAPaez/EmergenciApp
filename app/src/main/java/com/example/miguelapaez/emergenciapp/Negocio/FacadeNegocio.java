@@ -6,6 +6,8 @@ import android.os.Bundle;
 import com.example.miguelapaez.emergenciapp.Entities.Perfil;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilBasico;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilMedico;
+import com.example.miguelapaez.emergenciapp.Entities.PerfilXEPS;
+import com.example.miguelapaez.emergenciapp.Entities.PerfilxPrepagada;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
@@ -17,4 +19,6 @@ public interface FacadeNegocio {
     public boolean cerrarSesion();
     public void guardarPerfilBasico(PerfilBasico user);
     public void guardarPerfilMedico(PerfilMedico user);
+    public void guardarPerfilXEPS(PerfilXEPS user);
+    public void guardarPerfilXPrepagada(PerfilxPrepagada user);
 }

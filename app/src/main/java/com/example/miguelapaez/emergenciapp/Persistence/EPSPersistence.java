@@ -1,6 +1,6 @@
-package com.example.miguelapaez.emergenciapp.Entities;
+package com.example.miguelapaez.emergenciapp.Persistence;
 
-public class Entidad {
+public class EPSPersistence {
     String id;
     String nombre;
     String adress;
