@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import com.example.miguelapaez.emergenciapp.Entities.Perfil;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilBasico;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilMedico;
+import com.example.miguelapaez.emergenciapp.Entities.PerfilXEPS;
+import com.example.miguelapaez.emergenciapp.Entities.PerfilxPrepagada;
 import com.example.miguelapaez.emergenciapp.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -111,6 +113,20 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         String id = mDatabase.push().getKey();
         mDatabase.child("Perfiles Medicos").child(id).setValue(user);
+    }
+
+    @Override
+    public void guardarPerfilXEPS(PerfilXEPS user) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        String id = mDatabase.push().getKey();
+        mDatabase.child("PerfilesXEPS").child(id).setValue(user);
+    }
+
+    @Override
+    public void guardarPerfilXPrepagada(PerfilxPrepagada user) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        String id = mDatabase.push().getKey();
+        mDatabase.child("PerfilesXPrepagada").child(id).setValue(user);
     }
 
     private void guardarPerfil(Perfil user) {

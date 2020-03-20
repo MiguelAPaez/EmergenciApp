@@ -4,16 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.miguelapaez.emergenciapp.Entities.Perfil;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilBasico;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilMedico;
+import com.example.miguelapaez.emergenciapp.Entities.PerfilXEPS;
+import com.example.miguelapaez.emergenciapp.Entities.PerfilxPrepagada;
 import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
 import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
 
@@ -23,7 +27,13 @@ public class HealthRegister extends AppCompatActivity {
     PerfilBasico basicProfile;
     FacadeNegocio bussiness = new ImplementacionNegocio();
     Spinner eBloodType, eDisease, eEnvironmentAllergy, eMedicinesAllergy, eMedicine;
+    Spinner eEPS,eRegimenEPS;
+    Spinner ePrepagada;
+    RadioButton ePC;
     String bloodType, disease, environmentAllergy, medicinesAllergy, medicine;
+    String nombreEPS,regimenEPS;
+    String nombrePrepagada;
+    boolean planC;
 
     @Override
     public void onResume() {
@@ -48,6 +58,12 @@ public class HealthRegister extends AppCompatActivity {
         eEnvironmentAllergy = (Spinner) findViewById(R.id.environmentAllergyRegister);
         eMedicinesAllergy = (Spinner) findViewById(R.id.medicinesAllergyRegister);
         eMedicine = (Spinner) findViewById(R.id.medicineRegister);
+        //EditText de EPS
+        eEPS = (Spinner) findViewById(R.id.epsRegister);
+        eRegimenEPS = (Spinner) findViewById(R.id.epsRegimeRegister);
+        ePC = (RadioButton) findViewById(R.id.radio_complementary_plan_yes);
+        //EditText de Prepagada
+        ePrepagada = (Spinner) findViewById(R.id.prepaidMedicineRegister);
 
         //Recepción de datos Activity Register
        profile = (Perfil) getIntent().getSerializableExtra("profile");
@@ -75,17 +91,31 @@ public class HealthRegister extends AppCompatActivity {
 
     }
     private void llenarDatos(){
+        //Datos Medicos
         bloodType = eBloodType.getSelectedItem().toString().trim();
         disease = eDisease.getSelectedItem().toString().trim();
         environmentAllergy = eEnvironmentAllergy.getSelectedItem().toString().trim();
         medicinesAllergy = eMedicinesAllergy.getSelectedItem().toString().trim();
         medicine = eMedicine.getSelectedItem().toString().trim();
+        //EPS
+        nombreEPS = eEPS.getSelectedItem().toString().trim();
+        regimenEPS = eRegimenEPS.getSelectedItem().toString().trim();
+        if (ePC.isChecked()){
+            planC = true;
+        }
+        else {
+            planC = false;
+        }
+        //Prepagada
+        nombrePrepagada = ePrepagada.getSelectedItem().toString().trim();
     }
     private void registrarUsuario() {
         if (bussiness.registrarUsuario(profile)) {
             Toast.makeText(HealthRegister.this, "Usuario creado", Toast.LENGTH_LONG).show();
             bussiness.guardarPerfilBasico(basicProfile);
             bussiness.guardarPerfilMedico(crearPerfilMedico());
+            bussiness.guardarPerfilXEPS(crearPerfilXEPS());
+            bussiness.guardarPerfilXPrepagada(crearPerfilXPrepagada());
         } else {
             Toast.makeText(HealthRegister.this, "Error al crear Usuario", Toast.LENGTH_LONG).show();
         }
@@ -94,5 +124,12 @@ public class HealthRegister extends AppCompatActivity {
         PerfilMedico user = new PerfilMedico(profile.getEmail(),bloodType,disease,environmentAllergy,medicinesAllergy,medicine);
         return user;
     }
-
+    private PerfilXEPS crearPerfilXEPS(){
+        PerfilXEPS user = new PerfilXEPS(profile.getEmail(),nombreEPS,regimenEPS,planC);
+        return user;
+    }
+    private PerfilxPrepagada crearPerfilXPrepagada(){
+        PerfilxPrepagada user = new PerfilxPrepagada(profile.getEmail(),nombrePrepagada);
+        return user;
+    }
 }
