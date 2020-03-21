@@ -5,17 +5,15 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.Toast;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -88,6 +86,7 @@ public class Register extends AppCompatActivity {
         eValidatePassword = (EditText) findViewById ( R.id.validatePasswordRegister );
         ePhone = (EditText) findViewById ( R.id.phoneRegister );
         spinGender = (Spinner) findViewById ( R.id.genderRegister );
+
 
         //Validaciones
         objValidar = new Validaciones();
@@ -195,6 +194,7 @@ public class Register extends AppCompatActivity {
             }
         }
     }
+
 private Perfil crearPerfil(){
     Perfil user = new Perfil(email);
     user.setPassword(password);

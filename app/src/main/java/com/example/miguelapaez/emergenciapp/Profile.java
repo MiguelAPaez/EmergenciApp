@@ -1,16 +1,16 @@
 package com.example.miguelapaez.emergenciapp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.miguelapaez.emergenciapp.Entities.PerfilMedico;
-import com.example.miguelapaez.emergenciapp.Entities.PerfilXEPS;
-import com.example.miguelapaez.emergenciapp.Entities.PerfilxPrepagada;
 import com.example.miguelapaez.emergenciapp.Persistence.PerfilBasicoPersistence;
 import com.example.miguelapaez.emergenciapp.Persistence.PerfilMedicoPersistence;
 import com.example.miguelapaez.emergenciapp.Persistence.PerfilXEPSPersistence;
@@ -24,8 +24,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Profile extends AppCompatActivity {
+    TextView message;
     private TextView name, lastName, idType, id, age, email, phone, gender, eps, afiliacion, complementaryPlan, prepaidMedicine, rh, disease,
             ambientalAllergy, medicineAllergy, medicine;
+    private String nameAux, lastNameAux, typeIdAux, idAux, emailAux, phoneAux, genderAux;
     private ImageView profilePhoto;
     DatabaseReference mDatabaseBasic, mDatabaseMedical, mDatabaseEPS, mDatabasePrepagada;
     FirebaseAuth mAuth;
@@ -37,6 +39,29 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         getSupportActionBar().hide();
+
+        message = (TextView) findViewById ( R.id.textMessageProfile );
+        String font_path = "font/Arvo-Regular.ttf";
+        Typeface TF = Typeface.createFromAsset ( getAssets (), font_path );
+        message.setTypeface ( TF );
+
+        final TextView txtSub = (TextView)findViewById(R.id.meessageSignUpProfile);
+        txtSub.setOnClickListener(new View.OnClickListener (){
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent ( v.getContext(), Register.class);
+                intent.putExtra ( "activity" , "profile" );
+                intent.putExtra ( "name" , nameAux );
+                intent.putExtra ( "lastName" , lastNameAux );
+                intent.putExtra ( "id" , idAux );
+                intent.putExtra ( "email" , emailAux );
+                intent.putExtra ( "phone" , phoneAux );
+                intent.putExtra ( "gender" , genderAux );
+                startActivityForResult(intent, 0);
+            }
+        });
+
         //TextViews
         name = (TextView) findViewById(R.id.editNameProfile);
         lastName = (TextView) findViewById(R.id.editLastNameProfile);
@@ -99,13 +124,19 @@ public class Profile extends AppCompatActivity {
 
     private void llenarDatosBasicos(PerfilBasicoPersistence user) {
         name.setText(user.getName());
+        nameAux = user.getName();
         lastName.setText(user.getLastName());
+        lastNameAux = user.getLastName();
         idType.setText(user.getTypeId());
         id.setText(user.getId());
+        idAux = user.getId();
         age.setText(user.getAge());
         email.setText(user.getEmail());
+        emailAux = user.getEmail();
         phone.setText(user.getPhone());
+        phoneAux = user.getPhone();
         gender.setText(user.getGender());
+        genderAux = user.getGender();
         if (user.getGender().equals("Masculino")) {
             profilePhoto.setImageResource(R.drawable.hombre);
         } else if (user.getGender().equals("Femenino")) {
