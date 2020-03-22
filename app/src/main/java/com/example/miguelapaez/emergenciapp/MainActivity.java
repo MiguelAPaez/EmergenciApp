@@ -101,7 +101,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
             }
         });
+
+
+        LinearLayout notificaciones = (LinearLayout) findViewById(R.id.linearLayoutFamilyGroupMain);
+        grupoFamiliar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Notificaciones.class);
+                startActivityForResult(intent, 0);
+            }
+        });
     }
+
 
     private void verificarYPedirPermisos() {
         if (!tienePermisoCall) {

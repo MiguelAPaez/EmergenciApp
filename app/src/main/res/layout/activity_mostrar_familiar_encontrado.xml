@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".mostrarFamiliarEncontrado">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutTitleFamiliaresEncontrados"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@color/colorWhite"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.538"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/titleFamiliaresEncontrados"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/familiares_encontrados_title"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="25sp" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollViewRegister"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutMedicalCenter1"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/boton_redondeado"
+                    android:orientation="vertical"
+                    android:textAlignment="center">
+
+                    <ImageView
+                        android:id="@+id/imagePerfilFamiliarBuscado"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight="0.3"
+                        app:srcCompat="@drawable/mujer" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutPerfilFamiliarEncontrado"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/nombreFamiliarEncontrado"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Popita Perez"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="22sp" />
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutParentescoRegisterFamiliar"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/shape"
+                            android:textAlignment="center"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/parentescoRegisterFamiliar"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:entries="@array/parentesco" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/buttonCallMedicalCenters"
+                            android:layout_width="300dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/shapebutton"
+                            android:orientation="horizontal"
+                            android:textAlignment="center">
+
+                            <TextView
+                                android:id="@+id/textCallMedicalCenter"
+                                android:layout_width="60dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.5"
+                                android:gravity="center"
+                                android:text="@string/agregar_familiar_encontrado"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="24sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

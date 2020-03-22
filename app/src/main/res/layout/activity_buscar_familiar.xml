@@ -83,12 +83,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <EditText
+                            android:id="@+id/InputEmailABuscar"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/phoneRegister"
-                            android:hint="@string/phone"
-                            android:inputType="number"/>
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:hint="@string/mail_a_buscar"
+                            android:inputType="textEmailAddress" />
+
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
