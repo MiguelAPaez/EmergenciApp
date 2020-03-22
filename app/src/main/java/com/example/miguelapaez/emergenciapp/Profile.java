@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Profile extends AppCompatActivity {
     TextView message;
-    private TextView name, lastName, idType, id, age, email, phone, gender, eps, afiliacion, complementaryPlan, prepaidMedicine, rh, disease,
+    private EditText name, lastName, idType, id, age, email, phone, gender, eps, afiliacion, complementaryPlan, prepaidMedicine, rh, disease,
             ambientalAllergy, medicineAllergy, medicine;
     private String nameAux, lastNameAux, typeIdAux, idAux, emailAux, phoneAux, genderAux;
     private ImageView profilePhoto;
@@ -63,23 +64,23 @@ public class Profile extends AppCompatActivity {
         });
 
         //TextViews
-        name = (TextView) findViewById(R.id.editNameProfile);
-        lastName = (TextView) findViewById(R.id.editLastNameProfile);
-        idType = (TextView) findViewById(R.id.editIdTypeProfile);
-        id = (TextView) findViewById(R.id.editIdProfile);
-        age = (TextView) findViewById(R.id.editAgeProfile);
-        email = (TextView) findViewById(R.id.editEmailProfile);
-        phone = (TextView) findViewById(R.id.editPhoneProfile);
-        gender = (TextView) findViewById(R.id.editGenderProfile);
-        eps = (TextView) findViewById(R.id.editEpsProfile);
-        afiliacion = (TextView) findViewById(R.id.editAffiliationProfile);
-        complementaryPlan = (TextView) findViewById(R.id.editComplementaryPlanProfile);
-        prepaidMedicine = (TextView) findViewById(R.id.editPrepaidMedicineProfile);
-        rh = (TextView) findViewById(R.id.editRhProfile);
-        disease = (TextView) findViewById(R.id.editDiseaseProfile);
-        ambientalAllergy = (TextView) findViewById(R.id.editEnvironmentAllergyProfile);
-        medicineAllergy = (TextView) findViewById(R.id.editMedicineAllergyProfile);
-        medicine = (TextView) findViewById(R.id.editMedicineProfile);
+        name = (EditText) findViewById(R.id.nameProfile);
+        lastName = (EditText) findViewById(R.id.lastNameProfile);
+        idType = (EditText) findViewById(R.id.idTypeProfile);
+        id = (EditText) findViewById(R.id.idProfile);
+        age = (EditText) findViewById(R.id.ageProfile);
+        email = (EditText) findViewById(R.id.emailProfile);
+        phone = (EditText) findViewById(R.id.phoneProfile);
+        gender = (EditText) findViewById(R.id.genderProfile);
+        eps = (EditText) findViewById(R.id.epsProfile);
+        afiliacion = (EditText) findViewById(R.id.affiliationProfile);
+        complementaryPlan = (EditText) findViewById(R.id.complementaryPlanProfile);
+        prepaidMedicine = (EditText) findViewById(R.id.prepaidMedicineProfile);
+        rh = (EditText) findViewById(R.id.rhProfile);
+        disease = (EditText) findViewById(R.id.diseaseProfile);
+        ambientalAllergy = (EditText) findViewById(R.id.environmentAllergyProfile);
+        medicineAllergy = (EditText) findViewById(R.id.medicineAllergyProfile);
+        medicine = (EditText) findViewById(R.id.medicineProfile);
         profilePhoto = (ImageView) findViewById(R.id.profilePhoto);
         //Firebase References
         mDatabaseBasic = FirebaseDatabase.getInstance().getReference().child("Perfiles basicos");
