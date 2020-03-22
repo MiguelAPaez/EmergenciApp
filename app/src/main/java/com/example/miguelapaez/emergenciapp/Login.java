@@ -1,25 +1,17 @@
 package com.example.miguelapaez.emergenciapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
 import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 public class Login extends AppCompatActivity {
 
@@ -79,6 +71,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent ( v.getContext(), Register.class);
+                intent.putExtra ( "activity" , "login" );
                 startActivityForResult(intent, 0);
             }
         });

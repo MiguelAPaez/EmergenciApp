@@ -35,12 +35,13 @@
                 android:text="@string/profile_activity"
                 android:textAlignment="center"
                 android:textColor="@color/colorBlack"
-                android:textSize="72px" />
+                android:textSize="30sp" />
         </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/scrollViewProfile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,28 +71,20 @@
                 android:textAlignment="center"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/editNameProfile"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:text="@string/name"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="25dp" />
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/nameProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:text="@string/name"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold"
-                    android:textSize="20dp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/nameProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/name"
+                        android:backgroundTint="@android:color/transparent"
+                        android:enabled="false"
+                        android:textColor="@color/colorBlack"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
@@ -100,34 +93,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/editLastNameProfile"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/last_name"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/lastNameProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:text="@string/last_name"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/lastNameProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/last_name"
+                            android:textColor="@color/colorBlack"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
@@ -136,34 +121,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/editIdTypeProfile"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/id_type"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/idTypeProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:text="@string/id_type"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/idTypeProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/id_type"
+                            android:textColor="@color/colorBlack"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
@@ -172,70 +149,54 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/editIdProfile"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/id_number"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/idProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:text="@string/id_number"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/idProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/id_number"
+                            android:textColor="@color/colorBlack"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearDateProfile"
+                    android:id="@+id/linearAgeProfile"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/editAgeProfile"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/age"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/ageProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:text="@string/age"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ageProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/age"
+                            android:textColor="@color/colorBlack"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
@@ -244,34 +205,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/editEmailProfile"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/email"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/emailProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:text="@string/email"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/emailProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/email"
+                            android:textColor="@color/colorBlack"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="textEmailAddress" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
@@ -280,36 +233,53 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/editPasswordProfile"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/password"
-                        android:inputType="textPassword"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/passwordProfile"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/passwordProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/password"
+                            android:textColor="@color/colorBlack"
+                            android:text="Contraseña"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="textPassword" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutValidatePasswordProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    android:background="@drawable/shape"
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:text="@string/password"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        android:layout_height="wrap_content">
 
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/validatePasswordProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/validate_password"
+                            android:inputType="textPassword" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -317,34 +287,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/editPhoneProfile"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/phone"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/phoneProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:text="@string/phone"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/phoneProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/phone"
+                            android:textColor="@color/colorBlack"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
@@ -353,34 +315,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/editGenderProfile"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/gender"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/genderProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:text="@string/gender"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/genderProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/gender"
+                            android:textColor="@color/colorBlack"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -391,7 +345,7 @@
                     android:layout_marginEnd="0dp"
                     android:background="@color/colorWhite"
                     android:orientation="horizontal"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.538"
                     app:layout_constraintStart_toStartOf="parent"
@@ -414,34 +368,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/editEpsProfile"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/eps"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/epsProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.2"
-                        android:text="@string/eps"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/epsProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/eps"
+                            android:textColor="@color/colorBlack"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -449,34 +395,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/editAffiliationProfile"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/affiliation"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/AffiliationProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:text="@string/affiliation"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/affiliationProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/affiliation"
+                            android:textColor="@color/colorBlack"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -484,8 +422,264 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/complementaryPlanProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/plan_complementary"
+                            android:textColor="@color/colorBlack"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearPrepaidMedicineProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/prepaidMedicineProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/prepaid_medicine"
+                            android:textColor="@color/colorBlack"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearRhProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/rhProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/rh"
+                            android:textColor="@color/colorBlack"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearDiseaseProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/diseaseProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/disease"
+                            android:textColor="@color/colorBlack"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearEnvironmentAllergyProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/environmentAllergyProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/environment_allergy"
+                            android:textColor="@color/colorBlack"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearMedicineAllergyProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/medicineAllergyProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/medicine_allergy"
+                            android:textColor="@color/colorBlack"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearMedicineProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/medicineProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/medicine"
+                            android:textColor="@color/colorBlack"
+                            android:backgroundTint="@android:color/transparent"
+                            android:enabled="false"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textMessageProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/profile_question"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:id="@+id/meessageSignUpProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="@string/profile_edit"
+                    android:textColor="@color/colorBlue"
+                    android:textSize="18dp"
+                    android:textAlignment="center" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayouteditEPSProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/editEpsProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/eps" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayouteditEPSRegimeProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/editEpsRegimeProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/eps_regime" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayouteditComplementaryPlanProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
                     android:orientation="vertical">
@@ -494,236 +688,170 @@
                         android:id="@+id/editComplementaryPlanProfile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/plan_complementary"
-                        android:layout_gravity="center"
+                        android:text="@string/complementary_plan"
                         android:textAlignment="center"
                         android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
+                        android:textSize="15dp" />
 
-                    <TextView
-                        android:id="@+id/complementaryPlanProfile"
+                    <RadioGroup
+                        android:id="@+id/complementary_plan_profile"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:text="@string/plan_complementary"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radio_complementary_plan_yes_profile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="40dp"
+                            android:checked="false"
+                            android:text="@string/yes" />
+
+                        <RadioButton
+                            android:id="@+id/radio_complementary_plan_no_profile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/no" />
+                    </RadioGroup>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearPrepaidMedicineProfile"
+                    android:id="@+id/linearLayouteditPrepaidMedicineProfile"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
+                    android:visibility="gone"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/editPrepaidMedicineProfile"
+                    <Spinner
+                        android:id="@+id/editprepaidMedicineProfile"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/prepaid_medicine"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
-
-                    <TextView
-                        android:id="@+id/prepaidMedicineProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:text="@string/prepaid_medicine"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/prepaid_medicine" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearRhProfile"
+                    android:id="@+id/linearLayouteditBloodTypeProfile"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
+                    android:visibility="gone"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/editRhProfile"
+                    <Spinner
+                        android:id="@+id/editBloodTypeProfile"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/rh"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
-
-                    <TextView
-                        android:id="@+id/rhProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:text="@string/rh"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/blood_type" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearDiseaseProfile"
+                    android:id="@+id/linearLayouteditDiseaseProfile"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
+                    android:visibility="gone"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/editDiseaseProfile"
+                    <Spinner
+                        android:id="@+id/editdiseaseProfile"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/disease"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
-
-                    <TextView
-                        android:id="@+id/diseaseProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:text="@string/disease"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/disease" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearEnvironmentAllergyProfile"
+                    android:id="@+id/linearLayouteditEnvironmentAllergyProfile"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
+                    android:visibility="gone"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
+                    <Spinner
                         android:id="@+id/editEnvironmentAllergyProfile"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/environment_allergy"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
-
-                    <TextView
-                        android:id="@+id/environmentAllergyProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:text="@string/environment_allergy"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/environment_allergy" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearMedicineAllergyProfile"
+                    android:id="@+id/linearLayouteditMedicinesAllergyProfile"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
+                    android:visibility="gone"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/editMedicineAllergyProfile"
+                    <Spinner
+                        android:id="@+id/editMedicinesAllergyProfile"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/medicine_allergy"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
-
-                    <TextView
-                        android:id="@+id/medicineAllergyProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:text="@string/medicine_allergy"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/medicines_allergy" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearMedicineProfile"
+                    android:id="@+id/linearLayouteditMedicineProfile"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="15dp"
+                    android:visibility="gone"
                     android:background="@drawable/shape"
                     android:textAlignment="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
+                    <Spinner
                         android:id="@+id/editMedicineProfile"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:text="@string/medicine"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="25dp" />
-
-                    <TextView
-                        android:id="@+id/medicineProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:text="@string/medicine"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/medicines" />
                 </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/buttonUpdateProfile"
+                    android:layout_width="100dp"
+                    android:layout_height="46dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/shapebutton"
+                    android:text="@string/update"
+                    android:textAllCaps="false"
+                    android:visibility="gone"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15dp"
+                    android:layout_gravity="center|center_vertical"/>
 
             </LinearLayout>
         </ScrollView>

@@ -1,17 +1,14 @@
 package com.example.miguelapaez.emergenciapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.media.SoundPool;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.miguelapaez.emergenciapp.Entities.Perfil;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilBasico;
@@ -25,6 +22,7 @@ import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
 public class HealthRegister extends AppCompatActivity {
     Perfil profile;
     PerfilBasico basicProfile;
+    String activity;
     FacadeNegocio bussiness = new ImplementacionNegocio();
     Spinner eBloodType, eDisease, eEnvironmentAllergy, eMedicinesAllergy, eMedicine;
     Spinner eEPS,eRegimenEPS;
@@ -68,7 +66,6 @@ public class HealthRegister extends AppCompatActivity {
         //Recepción de datos Activity Register
        profile = (Perfil) getIntent().getSerializableExtra("profile");
        basicProfile = (PerfilBasico) getIntent().getSerializableExtra("basicProfile");
-
 
         // Objetos de negocio
         Button btnRegistrar = (Button) findViewById(R.id.buttonRegister);
