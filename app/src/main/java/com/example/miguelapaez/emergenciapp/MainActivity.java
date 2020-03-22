@@ -103,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        LinearLayout notificaciones = (LinearLayout) findViewById(R.id.linearLayoutFamilyGroupMain);
-        grupoFamiliar.setOnClickListener(new View.OnClickListener() {
+        Button btnNotificaciones = (Button) findViewById(R.id.buttonNotificaciones);
+        btnNotificaciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Notificaciones.class);
