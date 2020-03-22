@@ -48,6 +48,8 @@
     <string name="profile_activity">Mi Perfil</string>
     <string name="profile_question">¿Deseas editar tu información?</string>
     <string name="profile_edit"><u>Edítala</u></string>
+    <string name="update_profile">Actualizar Información</string>
+    <string name="update">Actualizar Perfil</string>
     <string name="descripcion">Descripcion</string>
     <string name="TituloPantallaEscogeremergencia">"Selecciona tu Emergencia"</string>
 

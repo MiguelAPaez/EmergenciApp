@@ -138,6 +138,7 @@ public class Register extends AppCompatActivity {
                         Perfil profile = crearPerfil();
                         PerfilBasico basicProfile = crearPerfilBasico();
                         Intent intent = new Intent ( v.getContext () , HealthRegister.class );
+                        intent.putExtra ( "activity", "register" );
                         intent.putExtra ( "profile" , profile);
                         intent.putExtra ( "basicProfile" , basicProfile);
                         startActivity ( intent );
