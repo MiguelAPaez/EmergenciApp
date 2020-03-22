@@ -1,25 +1,25 @@
 package com.example.miguelapaez.emergenciapp;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.miguelapaez.emergenciapp.Entities.Perfil;
-import com.example.miguelapaez.emergenciapp.Entities.PerfilBasico;
 import com.example.miguelapaez.emergenciapp.Persistence.PerfilBasicoPersistence;
 import com.example.miguelapaez.emergenciapp.Persistence.PerfilMedicoPersistence;
 import com.example.miguelapaez.emergenciapp.Persistence.PerfilXEPSPersistence;
@@ -39,9 +39,18 @@ public class Profile extends AppCompatActivity {
     private ImageView profilePhoto;
     private TextView update, message, title;
     private String nameAux, lastNameAux, idTypeAux, idAux, ageAux, emailAux, passwordAux, phoneAux, genderAux;
+
+    //epsAux,  afiliacionAux, complementaryPlanAux, prepaidMedicineAux, rhAux, diseaseAux, ambientalAllergyAux, medicineAllergyAux, medicineAux;
+
     ScrollView scrollView;
     private LinearLayout passwordLinear, validatePasswordLinear, titleMedical, ageLinear, genderLinear, epsLinear, afiliacionLinear, complmentaryLinear, prepaidLinear, rhLinear, diseaseLinear,
-            environmentLinear, medicineAllergyLinear, medicineLinear, buttonNext;
+            environmentLinear, medicineAllergyLinear, medicineLinear, editEpsLinear, editAfiliacionLinear, editComplementaryPlanLinear, editPrepaidMedicineLinear, editRhLinear,
+            editDiseaseLinear, editambientalAllergyLinear, editMedicineAllergyLinear, editMedicineLinear;
+    private Button updateButton;
+    Spinner eBloodType, eDisease, eEnvironmentAllergy, eMedicinesAllergy, eMedicine;
+    Spinner eEPS,eRegimenEPS;
+    Spinner ePrepagada;
+    RadioButton ePC;
     DatabaseReference mDatabaseBasic, mDatabaseMedical, mDatabaseEPS, mDatabasePrepagada;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
@@ -92,6 +101,22 @@ public class Profile extends AppCompatActivity {
         profilePhoto = (ImageView) findViewById(R.id.profilePhoto);
         update = (TextView) findViewById ( R.id.meessageSignUpProfile );
         title = (TextView) findViewById ( R.id.titleProfileActivity );
+        updateButton = (Button) findViewById ( R.id.buttonUpdateProfile );
+
+        //Spinner's
+        //EditText de Health Register
+        eBloodType = (Spinner) findViewById(R.id.editBloodTypeProfile);
+        eDisease = (Spinner) findViewById(R.id.editdiseaseProfile);
+        eEnvironmentAllergy = (Spinner) findViewById(R.id.editEnvironmentAllergyProfile);
+        eMedicinesAllergy = (Spinner) findViewById(R.id.editMedicinesAllergyProfile);
+        eMedicine = (Spinner) findViewById(R.id.editMedicineProfile);
+        //EditText de EPS
+        eEPS = (Spinner) findViewById(R.id.editEpsProfile);
+        eRegimenEPS = (Spinner) findViewById(R.id.editEpsRegimeProfile);
+        ePC = (RadioButton) findViewById( R.id.radio_complementary_plan_yes_profile);
+        //EditText de Prepagada
+        ePrepagada = (Spinner) findViewById(R.id.editprepaidMedicineProfile);
+
 
         //Validaciones
         objValidar = new Validaciones();
@@ -114,7 +139,16 @@ public class Profile extends AppCompatActivity {
         medicineLinear = (LinearLayout) findViewById ( R.id.linearMedicineProfile );
         genderLinear = (LinearLayout) findViewById ( R.id.linearGenderProfile );
         ageLinear = (LinearLayout) findViewById ( R.id.linearAgeProfile );
-        buttonNext = (LinearLayout) findViewById ( R.id.buttonMedicalProfile );
+
+        editEpsLinear = (LinearLayout) findViewById ( R.id.linearLayouteditEPSProfile );
+        editAfiliacionLinear = (LinearLayout) findViewById ( R.id.linearLayouteditEPSRegimeProfile );
+        editComplementaryPlanLinear = (LinearLayout) findViewById ( R.id.linearLayouteditComplementaryPlanProfile );
+        editPrepaidMedicineLinear = (LinearLayout) findViewById ( R.id.linearLayouteditPrepaidMedicineProfile );
+        editRhLinear = (LinearLayout) findViewById ( R.id.linearLayouteditBloodTypeProfile );
+        editDiseaseLinear = (LinearLayout) findViewById ( R.id.linearLayouteditDiseaseProfile );
+        editambientalAllergyLinear = (LinearLayout) findViewById ( R.id.linearLayouteditEnvironmentAllergyProfile );
+        editMedicineAllergyLinear = (LinearLayout) findViewById ( R.id.linearLayouteditMedicinesAllergyProfile );
+        editMedicineLinear = (LinearLayout) findViewById ( R.id.linearLayouteditMedicineProfile );
 
         //Firebase References
         mDatabaseBasic = FirebaseDatabase.getInstance().getReference().child("Perfiles basicos");
@@ -130,7 +164,7 @@ public class Profile extends AppCompatActivity {
         processDialog = new ProgressDialog(this);
         cargarPerfilBasico();
 
-        buttonNext.setOnClickListener ( new View.OnClickListener () {
+        updateButton.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
                 Profile.ThreadB b = new Profile.ThreadB ();
@@ -145,15 +179,8 @@ public class Profile extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    if(validacionOK) {
-                        Perfil profile = crearPerfil();
-                        PerfilBasico basicProfile = crearPerfilBasico();
-                        Intent intent = new Intent ( v.getContext () , HealthRegister.class );
-                        intent.putExtra ( "activity", "profile" );
-                        intent.putExtra ( "profile" , profile);
-                        intent.putExtra ( "basicProfile" , basicProfile);
-                        startActivity ( intent );
-                    }
+                    Toast.makeText ( getApplicationContext () , "Validación Correcta!!!" , Toast.LENGTH_SHORT ).show ();
+
                 }
             }
         } );
@@ -297,7 +324,6 @@ public class Profile extends AppCompatActivity {
         update.setVisibility ( View.GONE );
         validatePasswordLinear.setVisibility ( View.VISIBLE );
         title.setText ( R.string.update_profile );
-        titleMedical.setVisibility ( View.GONE );
         epsLinear.setVisibility ( View.GONE );
         afiliacionLinear.setVisibility ( View.GONE );
         complmentaryLinear.setVisibility ( View.GONE );
@@ -318,7 +344,16 @@ public class Profile extends AppCompatActivity {
         phone.setBackgroundTintList ( ColorStateList.valueOf (getResources ().getColor ( R.color.colorBlack ) ) );
         genderLinear.setVisibility ( View.GONE );
         ageLinear.setVisibility ( View.GONE );
-        buttonNext.setVisibility ( View.VISIBLE );
+        editEpsLinear.setVisibility ( View.VISIBLE );
+        editAfiliacionLinear.setVisibility ( View.VISIBLE );
+        editComplementaryPlanLinear.setVisibility ( View.VISIBLE );
+        editPrepaidMedicineLinear.setVisibility ( View.VISIBLE );
+        editRhLinear.setVisibility ( View.VISIBLE );
+        editDiseaseLinear.setVisibility ( View.VISIBLE );
+        editambientalAllergyLinear.setVisibility ( View.VISIBLE );
+        editMedicineAllergyLinear.setVisibility ( View.VISIBLE );
+        editMedicineLinear.setVisibility ( View.VISIBLE );
+        updateButton.setVisibility ( View.VISIBLE );
         scrollView.post ( new Runnable () {
             @Override
             public void run() {
@@ -336,16 +371,6 @@ public class Profile extends AppCompatActivity {
                 notify();
             }
         }
-    }
-
-    private Perfil crearPerfil(){
-        Perfil user = new Perfil(emailAux);
-        user.setPassword(passwordAux);
-        return user;
-    }
-    private PerfilBasico crearPerfilBasico(){
-        PerfilBasico user = new PerfilBasico(emailAux,nameAux,lastNameAux,idTypeAux,idAux,ageAux,phoneAux,genderAux);
-        return user;
     }
 
     public boolean validarDatos(){
@@ -474,6 +499,159 @@ public class Profile extends AppCompatActivity {
         }else{
             phoneAux = phone.getText().toString().trim();
         }
+
+        //Validación Nombre de EPS
+        String eps = eEPS.getSelectedItem().toString().trim();
+        if(objValidar.isEquals ( eps, "EPS" )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su EPS" , Toast.LENGTH_SHORT ).show ();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                    editEpsLinear.setBackgroundColor ( Color.parseColor ( redColor ) );
+                }
+            });
+            return false;
+        }
+
+        //Validación EPS Régimen
+        String epsRegimen = eRegimenEPS.getSelectedItem().toString().trim();
+        if(objValidar.isEquals ( epsRegimen, "Régimen de Afiliación EPS" )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su Régimen de Afiliación EPS" , Toast.LENGTH_SHORT ).show ();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                    editAfiliacionLinear.setBackgroundColor ( Color.parseColor ( redColor ) );
+                }
+            });
+            return false;
+        }
+
+        //Validación Medicina Prepagada
+        String prepaidM = ePrepagada.getSelectedItem().toString().trim();
+        if(objValidar.isEquals ( prepaidM, "Medicina Prepagada" )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese Medicina Prepagada" , Toast.LENGTH_SHORT ).show ();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                    editPrepaidMedicineLinear.setBackgroundColor ( Color.parseColor ( redColor ) );
+                }
+            });
+            return false;
+        }
+
+        //Validación RH
+        String rh = eBloodType.getSelectedItem().toString().trim();
+        if(objValidar.isEquals ( rh, "Tipo de Sangre" )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su Tipo de Sangre" , Toast.LENGTH_SHORT ).show ();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                    editRhLinear.setBackgroundColor ( Color.parseColor ( redColor ) );
+                }
+            });
+            return false;
+        }
+
+        //Validación Enfermedad
+        String disease = eDisease.getSelectedItem().toString().trim();
+        if(objValidar.isEquals ( disease, "¿Tienes alguna Enfermedad Crónica?" )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese Enfermedad Crónica" , Toast.LENGTH_SHORT ).show ();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                    editDiseaseLinear.setBackgroundColor ( Color.parseColor ( redColor ) );
+                }
+            });
+            return false;
+        }
+
+        //Validación Alergía Ambiental
+        String environmentA = eEnvironmentAllergy.getSelectedItem().toString().trim();
+        if(objValidar.isEquals ( environmentA, "¿Posees alguna Alergía Ambiental?" )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese Alergía Ambiental" , Toast.LENGTH_SHORT ).show ();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                    editambientalAllergyLinear.setBackgroundColor ( Color.parseColor ( redColor ) );
+                }
+            });
+            return false;
+        }
+
+        //Validación Alergía Ambiental
+        String medicineA = eMedicinesAllergy.getSelectedItem().toString().trim();
+        if(objValidar.isEquals ( medicineA, "¿Posees alguna Alergía a un Medicamento?" )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese Alergía a Medicamento" , Toast.LENGTH_SHORT ).show ();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                    editMedicineAllergyLinear.setBackgroundColor ( Color.parseColor ( redColor ) );
+                }
+            });
+            return false;
+        }
+
+        //Validación Alergía Ambiental
+        String medicine = eMedicine.getSelectedItem().toString().trim();
+        if(objValidar.isEquals ( medicine, "¿Tomas algún Medicamento?" )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese Medicamento" , Toast.LENGTH_SHORT ).show ();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                    editMedicineLinear.setBackgroundColor ( Color.parseColor ( redColor ) );
+                }
+            });
+            return false;
+        }
+
         return true;
     }
 }

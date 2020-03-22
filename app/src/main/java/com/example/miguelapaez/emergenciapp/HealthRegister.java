@@ -64,15 +64,11 @@ public class HealthRegister extends AppCompatActivity {
         ePrepagada = (Spinner) findViewById(R.id.prepaidMedicineRegister);
 
         //Recepción de datos Activity Register
-        activity = (String) getIntent().getSerializableExtra("activity");
        profile = (Perfil) getIntent().getSerializableExtra("profile");
        basicProfile = (PerfilBasico) getIntent().getSerializableExtra("basicProfile");
 
         // Objetos de negocio
         Button btnRegistrar = (Button) findViewById(R.id.buttonRegister);
-        if(activity.equals ( "profile" )){
-            btnRegistrar.setText ( R.string.update );
-        }
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

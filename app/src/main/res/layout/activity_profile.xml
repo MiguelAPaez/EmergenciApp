@@ -633,36 +633,225 @@
                     android:textAlignment="center" />
 
                 <LinearLayout
-                    android:id="@+id/buttonMedicalProfile"
-                    android:layout_width="135dp"
-                    android:layout_height="135dp"
+                    android:id="@+id/linearLayouteditEPSProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="10dp"
                     android:visibility="gone"
-                    android:layout_gravity="center"
                     android:background="@drawable/shape"
-                    android:orientation="vertical"
-                    android:textAlignment="center">
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/imageView6"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/pildora" />
+                    <Spinner
+                        android:id="@+id/editEpsProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/eps" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayouteditEPSRegimeProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/editEpsRegimeProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/eps_regime" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayouteditComplementaryPlanProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/editComplementaryPlanProfile"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:text="@string/perfilMedico"
-                        android:textSize="40px" />
+                        android:text="@string/complementary_plan"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15dp" />
+
+                    <RadioGroup
+                        android:id="@+id/complementary_plan_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radio_complementary_plan_yes_profile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="40dp"
+                            android:checked="false"
+                            android:text="@string/yes" />
+
+                        <RadioButton
+                            android:id="@+id/radio_complementary_plan_no_profile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/no" />
+                    </RadioGroup>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayouteditPrepaidMedicineProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/editprepaidMedicineProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/prepaid_medicine" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayouteditBloodTypeProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/editBloodTypeProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/blood_type" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayouteditDiseaseProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/editdiseaseProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/disease" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayouteditEnvironmentAllergyProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/editEnvironmentAllergyProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/environment_allergy" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayouteditMedicinesAllergyProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/editMedicinesAllergyProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/medicines_allergy" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayouteditMedicineProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    android:background="@drawable/shape"
+                    android:textAlignment="center"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/editMedicineProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/medicines" />
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/buttonUpdateProfile"
+                    android:layout_width="100dp"
+                    android:layout_height="46dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/shapebutton"
+                    android:text="@string/update"
+                    android:textAllCaps="false"
+                    android:visibility="gone"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15dp"
+                    android:layout_gravity="center|center_vertical"/>
 
             </LinearLayout>
         </ScrollView>
