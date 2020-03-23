@@ -117,7 +117,6 @@ public class Profile extends AppCompatActivity {
         //EditText de Prepagada
         ePrepagada = (Spinner) findViewById(R.id.editprepaidMedicineProfile);
 
-
         //Validaciones
         objValidar = new Validaciones();
 
