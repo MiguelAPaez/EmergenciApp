@@ -1,16 +1,19 @@
 package com.example.miguelapaez.emergenciapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.miguelapaez.emergenciapp.Entities.Perfil;
@@ -21,6 +24,10 @@ import com.example.miguelapaez.emergenciapp.Entities.PerfilxPrepagada;
 import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
 import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
 import com.example.miguelapaez.emergenciapp.Validaciones.Validaciones;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class HealthRegister extends AppCompatActivity {
@@ -42,6 +49,7 @@ public class HealthRegister extends AppCompatActivity {
     ScrollView scrollView;
     Validaciones objValidar;
     boolean validacionOK;
+    ProgressDialog progressDialog;
 
     @Override
     public void onResume() {
@@ -60,6 +68,7 @@ public class HealthRegister extends AppCompatActivity {
         }
         setContentView(R.layout.activity_health_register);
         getSupportActionBar().hide();
+        progressDialog = new ProgressDialog(this);
 
         //EditText de Health Register
         eBloodType = (Spinner) findViewById(R.id.bloodTypeRegister);
@@ -105,14 +114,12 @@ public class HealthRegister extends AppCompatActivity {
                 HealthRegister.ThreadB b = new HealthRegister.ThreadB ();
                 b.start();
                 synchronized(b){
-
                     try{
                         System.out.println("Waiting for b to complete...");
                         b.wait();
                     }catch(InterruptedException e){
                         e.printStackTrace();
                     }
-
                     llenarDatos();
                     registrarUsuario();
                     try {
@@ -151,15 +158,29 @@ public class HealthRegister extends AppCompatActivity {
     }
 
     private void registrarUsuario() {
-        if (bussiness.registrarUsuario(profile)) {
-            Toast.makeText(HealthRegister.this, "Usuario creado", Toast.LENGTH_LONG).show();
-            bussiness.guardarPerfilBasico(basicProfile);
-            bussiness.guardarPerfilMedico(crearPerfilMedico());
-            bussiness.guardarPerfilXEPS(crearPerfilXEPS());
-            bussiness.guardarPerfilXPrepagada(crearPerfilXPrepagada());
-        } else {
-            Toast.makeText(HealthRegister.this, "Error al crear Usuario", Toast.LENGTH_LONG).show();
-        }
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        boolean response = false;
+        progressDialog.setMessage("Registrando usuario...");
+        progressDialog.show();
+        mAuth.createUserWithEmailAndPassword(profile.getEmail(), profile.getPassword())
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        //checking if success
+                        if (task.isSuccessful()) {
+                            bussiness.guardarPerfil(profile);
+                            bussiness.guardarPerfilBasico(basicProfile);
+                            bussiness.guardarPerfilMedico(crearPerfilMedico());
+                            bussiness.guardarPerfilXEPS(crearPerfilXEPS());
+                            bussiness.guardarPerfilXPrepagada(crearPerfilXPrepagada());
+                            Toast.makeText(HealthRegister.this, "Usuario creado", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(HealthRegister.this, "Error al crear Usuario", Toast.LENGTH_LONG).show();
+                        }
+                        progressDialog.dismiss();
+                    }
+                });
     }
     private PerfilMedico crearPerfilMedico(){
         PerfilMedico user = new PerfilMedico(profile.getEmail(),bloodType,disease,environmentAllergy,medicinesAllergy,medicine);

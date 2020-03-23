@@ -12,7 +12,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
 public interface FacadeNegocio {
-    public boolean registrarUsuario(Perfil user);
     public String getAge(int year, int month, int day);
     public boolean verificarSesion();
     public void iniciarSesion(String email, String password);
@@ -21,4 +20,5 @@ public interface FacadeNegocio {
     public void guardarPerfilMedico(PerfilMedico user);
     public void guardarPerfilXEPS(PerfilXEPS user);
     public void guardarPerfilXPrepagada(PerfilxPrepagada user);
+    public void guardarPerfil(Perfil user);
 }

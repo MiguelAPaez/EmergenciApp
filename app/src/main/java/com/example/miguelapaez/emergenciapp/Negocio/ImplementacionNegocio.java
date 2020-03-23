@@ -27,25 +27,6 @@ import java.util.Calendar;
 
 public class ImplementacionNegocio extends AppCompatActivity implements FacadeNegocio {
     @Override
-    public boolean registrarUsuario(final Perfil user) {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        boolean response = false;
-        mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //checking if success
-                        if (task.isSuccessful()) {
-                            guardarPerfil(user);
-                        }
-                    }
-                });
-        if (!verificarSesion()) {
-            response = true;
-        }
-        return response;
-    }
-
     public String getAge(int year, int month, int day) {
         Calendar dob = Calendar.getInstance();
         Calendar today = Calendar.getInstance();
@@ -105,7 +86,7 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
     public void guardarPerfilBasico(PerfilBasico user) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         String id = mDatabase.push().getKey();
-        mDatabase.child("Perfiles basicos").child(id).setValue(user);
+        mDatabase.child("Perfiles Basicos").child(id).setValue(user);
     }
 
     @Override
@@ -129,7 +110,7 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
         mDatabase.child("PerfilesXPrepagada").child(id).setValue(user);
     }
 
-    private void guardarPerfil(Perfil user) {
+    public void guardarPerfil(Perfil user) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         String id = mDatabase.push().getKey();
         mDatabase.child("Perfiles").child(id).setValue(user);

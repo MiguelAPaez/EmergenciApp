@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -150,7 +151,7 @@ public class Profile extends AppCompatActivity {
         editMedicineLinear = (LinearLayout) findViewById ( R.id.linearLayouteditMedicineProfile );
 
         //Firebase References
-        mDatabaseBasic = FirebaseDatabase.getInstance().getReference().child("Perfiles basicos");
+        mDatabaseBasic = FirebaseDatabase.getInstance().getReference().child("Perfiles Basicos");
         mDatabaseMedical = FirebaseDatabase.getInstance().getReference().child("Perfiles Medicos");
         mDatabaseEPS = FirebaseDatabase.getInstance().getReference().child("PerfilesXEPS");
         mDatabasePrepagada = FirebaseDatabase.getInstance().getReference().child("PerfilesXPrepagada");
@@ -196,6 +197,9 @@ public class Profile extends AppCompatActivity {
                     PerfilBasicoPersistence user = new PerfilBasicoPersistence();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         user = snapshot.getValue(PerfilBasicoPersistence.class);
+                        if(!user.getEmail().isEmpty() && user.getEmail().equals(currentUser.getEmail())){
+                            break;
+                        }
                     }
                     llenarDatosBasicos(user);
                     cargarPerfilMedico();
@@ -244,6 +248,9 @@ public class Profile extends AppCompatActivity {
                     PerfilMedicoPersistence user = new PerfilMedicoPersistence();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         user = snapshot.getValue(PerfilMedicoPersistence.class);
+                        if(!user.getEmail().isEmpty() && user.getEmail().equals(currentUser.getEmail())){
+                            break;
+                        }
                     }
                     llenarDatosMedicos(user);
                 }
@@ -272,6 +279,9 @@ public class Profile extends AppCompatActivity {
                     PerfilXEPSPersistence user = new PerfilXEPSPersistence();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         user = snapshot.getValue(PerfilXEPSPersistence.class);
+                        if(!user.getEmailPerfil().isEmpty() && user.getEmailPerfil().equals(currentUser.getEmail())){
+                            break;
+                        }
                     }
                     llenarDatosEPS(user);
                 }
@@ -287,7 +297,7 @@ public class Profile extends AppCompatActivity {
     private void llenarDatosEPS(PerfilXEPSPersistence user) {
         eps.setText(user.getNombreEPS());
         afiliacion.setText(user.getRegimen());
-        if (user.isPlanComplementario()) {
+        if (!user.isPlanComplementario()) {
             complementaryPlan.setText("No aplica");
         } else {
             complementaryPlan.setText("Si aplica");
@@ -302,6 +312,9 @@ public class Profile extends AppCompatActivity {
                     PerfilXPrepagadaPersistence user = new PerfilXPrepagadaPersistence();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         user = snapshot.getValue(PerfilXPrepagadaPersistence.class);
+                        if(!user.getEmailPerfil().isEmpty() && user.getEmailPerfil().equals(currentUser.getEmail())){
+                            break;
+                        }
                     }
                     llenarDatosPrepagada(user);
                 }
