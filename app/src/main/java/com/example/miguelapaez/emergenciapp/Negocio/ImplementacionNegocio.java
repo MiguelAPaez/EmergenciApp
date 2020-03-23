@@ -26,7 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Calendar;
 
 public class ImplementacionNegocio extends AppCompatActivity implements FacadeNegocio {
-
     @Override
     public boolean registrarUsuario(final Perfil user) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -67,6 +66,7 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
 
     @Override
     public boolean verificarSesion() {
+
         boolean response = false;
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
