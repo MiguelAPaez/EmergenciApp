@@ -1,5 +1,6 @@
 package com.example.miguelapaez.emergenciapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -8,15 +9,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
 import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Login extends AppCompatActivity {
 
     TextView message;
     FacadeNegocio bussiness = new ImplementacionNegocio();
+    ProgressDialog progressDialog;
     @Override
     public void onResume() {
         super.onResume();
@@ -31,6 +38,7 @@ public class Login extends AppCompatActivity {
         if (bussiness.verificarSesion()){
             startActivity(new Intent(Login.this, MainActivity.class));
         }
+        progressDialog = new ProgressDialog(Login.this);
         setContentView ( R.layout.activity_login );
         getSupportActionBar().hide();
         //Negocio
@@ -50,19 +58,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 String email = eEmail.getText().toString().trim();
                 String password = ePassword.getText().toString().trim();
-                bussiness.iniciarSesion(email,password);
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace ();
-                }
-                if (!bussiness.verificarSesion()){
-                    Toast.makeText(v.getContext(),"Error al iniciar sesión",Toast.LENGTH_LONG).show();
-                }
-                else {
-                    Toast.makeText(v.getContext(),"Sesión iniciada",Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(v.getContext(),MainActivity.class));
-                }
+                iniciarSesionFB(email,password);
             }
         });
 
@@ -76,5 +72,24 @@ public class Login extends AppCompatActivity {
             }
         });
 
+    }
+    private void iniciarSesionFB(String email, String password) {
+        progressDialog.setMessage("Iniciando sesión...");
+        progressDialog.show();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(),"Sesión iniciada",Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(),"Error al iniciar sesión",Toast.LENGTH_LONG).show();
+                        }
+                        progressDialog.dismiss();
+                    }
+                });
     }
 }
