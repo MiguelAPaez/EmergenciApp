@@ -38,9 +38,7 @@ public class Profile extends AppCompatActivity {
             ambientalAllergy, medicineAllergy, medicine;
     private ImageView profilePhoto;
     private TextView update, message, title;
-    private String nameAux, lastNameAux, idTypeAux, idAux, ageAux, emailAux, passwordAux, phoneAux, genderAux;
-
-    //epsAux,  afiliacionAux, complementaryPlanAux, prepaidMedicineAux, rhAux, diseaseAux, ambientalAllergyAux, medicineAllergyAux, medicineAux;
+    private String nameAux, lastNameAux, idTypeAux, idAux, ageAux, emailAux, passwordAux, phoneAux, genderAux, epsAux,  afiliacionAux, complementaryPlanAux, prepaidMedicineAux, rhAux, diseaseAux, ambientalAllergyAux, medicineAllergyAux, medicineAux;
 
     ScrollView scrollView;
     private LinearLayout passwordLinear, validatePasswordLinear, titleMedical, ageLinear, genderLinear, epsLinear, afiliacionLinear, complmentaryLinear, prepaidLinear, rhLinear, diseaseLinear,
@@ -530,6 +528,8 @@ public class Profile extends AppCompatActivity {
                 }
             });
             return false;
+        } else {
+            epsAux = eps;
         }
 
         //Validación EPS Régimen
@@ -549,6 +549,8 @@ public class Profile extends AppCompatActivity {
                 }
             });
             return false;
+        } else {
+            afiliacionAux = epsRegimen;
         }
 
         //Validación Medicina Prepagada
@@ -568,6 +570,8 @@ public class Profile extends AppCompatActivity {
                 }
             });
             return false;
+        } else {
+            prepaidMedicineAux = prepaidM;
         }
 
         //Validación RH
@@ -587,6 +591,8 @@ public class Profile extends AppCompatActivity {
                 }
             });
             return false;
+        } else {
+            rhAux = rh;
         }
 
         //Validación Enfermedad
@@ -606,6 +612,8 @@ public class Profile extends AppCompatActivity {
                 }
             });
             return false;
+        } else {
+            diseaseAux = disease;
         }
 
         //Validación Alergía Ambiental
@@ -625,9 +633,11 @@ public class Profile extends AppCompatActivity {
                 }
             });
             return false;
+        } else {
+            ambientalAllergyAux = environmentA;
         }
 
-        //Validación Alergía Ambiental
+        //Validación Alergía Medicina
         String medicineA = eMedicinesAllergy.getSelectedItem().toString().trim();
         if(objValidar.isEquals ( medicineA, "¿Posees alguna Alergía a un Medicamento?" )){
             runOnUiThread(new Runnable() {
@@ -644,6 +654,8 @@ public class Profile extends AppCompatActivity {
                 }
             });
             return false;
+        } else {
+            medicineAllergyAux = medicineA;
         }
 
         //Validación Alergía Ambiental
@@ -663,6 +675,8 @@ public class Profile extends AppCompatActivity {
                 }
             });
             return false;
+        } else {
+            medicineAux = medicine;
         }
 
         return true;
