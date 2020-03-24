@@ -29,32 +29,33 @@ public class activity_buscarFamiliar extends AppCompatActivity {
     String email;
     DatabaseReference mDatabaseBasic;
     ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar_familiar);
         getSupportActionBar().hide();
-        message = (TextView) findViewById ( R.id.messageBuscar );
+        message = (TextView) findViewById(R.id.messageBuscar);
         eEmail = (EditText) findViewById(R.id.InputEmailABuscar);
         mDatabaseBasic = FirebaseDatabase.getInstance().getReference("Perfiles Basicos");
         progressDialog = new ProgressDialog(this);
         String font_path = "font/Arvo-Regular.ttf";
-        Typeface TF = Typeface.createFromAsset ( getAssets (), font_path );
-        message.setTypeface ( TF );
+        Typeface TF = Typeface.createFromAsset(getAssets(), font_path);
+        message.setTypeface(TF);
 
-        final TextView txtSub = (TextView)findViewById(R.id.messageSignUpBuscar);
-        final TextView txtSub2 = (TextView)findViewById(R.id.buttonBuscarFamiliar);
+        final TextView txtSub = (TextView) findViewById(R.id.messageSignUpBuscar);
+        final TextView txtSub2 = (TextView) findViewById(R.id.buttonBuscarFamiliar);
 
-        txtSub.setOnClickListener(new View.OnClickListener (){
+        txtSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Intent intent = new Intent ( v.getContext(), activity_registro_familiar.class);
+                Intent intent = new Intent(v.getContext(), activity_registro_familiar.class);
                 startActivityForResult(intent, 0);
             }
         });
 
-        txtSub2.setOnClickListener(new View.OnClickListener (){
+        txtSub2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
@@ -63,7 +64,8 @@ public class activity_buscarFamiliar extends AppCompatActivity {
             }
         });
     }
-    private void buscarFamiliar(final String email){
+
+    private void buscarFamiliar(final String email) {
         mDatabaseBasic.orderByChild("email").equalTo(email);
         progressDialog.setMessage("Cargando perfil");
         progressDialog.show();
@@ -81,9 +83,8 @@ public class activity_buscarFamiliar extends AppCompatActivity {
                             break;
                         }
                     }
-                }
-                else{
-                    Toast.makeText(getApplicationContext(),"Usuario no encontrado",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Usuario no encontrado", Toast.LENGTH_SHORT).show();
                 }
 
                 progressDialog.dismiss();

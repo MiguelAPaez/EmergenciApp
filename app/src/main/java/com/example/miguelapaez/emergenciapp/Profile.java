@@ -161,8 +161,7 @@ public class Profile extends AppCompatActivity {
         mDatabaseEPS.orderByChild("emailPerfil").equalTo(currentUser.getEmail());
         mDatabasePrepagada.orderByChild("emailPerfil").equalTo(currentUser.getEmail());
         processDialog = new ProgressDialog(this);
-        cargarPerfilBasico();
-
+        cargarPerfil();
         updateButton.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -177,16 +176,16 @@ public class Profile extends AppCompatActivity {
                     }catch(InterruptedException e){
                         e.printStackTrace();
                     }
-
-                    Toast.makeText ( getApplicationContext () , "Validación Correcta!!!" , Toast.LENGTH_SHORT ).show ();
-
+                    if(validacionOK) {
+                        Toast.makeText(getApplicationContext(), "Validación Correcta!!!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         } );
 
     }
 
-    private void cargarPerfilBasico() {
+    private void cargarPerfil() {
         processDialog.setMessage("Cargando perfil");
         processDialog.show();
         mDatabaseBasic.addValueEventListener(new ValueEventListener() {
@@ -666,5 +665,33 @@ public class Profile extends AppCompatActivity {
         }
 
         return true;
+    }
+    private void actualizarPerfilFB() {
+        processDialog.setMessage("Actualizando perfil");
+        processDialog.show();
+        mDatabaseBasic.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    PerfilBasicoPersistence user = new PerfilBasicoPersistence();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        user = snapshot.getValue(PerfilBasicoPersistence.class);
+                        if(!user.getEmail().isEmpty() && user.getEmail().equals(currentUser.getEmail())){
+                            break;
+                        }
+                    }
+                    llenarDatosBasicos(user);
+                    cargarPerfilMedico();
+                    cargarPerfilXEPS();
+                    cargarPerfilXPrepagada();
+                }
+                processDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
