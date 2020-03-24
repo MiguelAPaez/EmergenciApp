@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -345,9 +344,9 @@ public class Profile extends AppCompatActivity {
         environmentLinear.setVisibility ( View.GONE );
         medicineAllergyLinear.setVisibility ( View.GONE );
         medicineLinear.setVisibility ( View.GONE );
-        email.setEnabled ( true );
+        // email.setEnabled ( true );
         // email.setText ( emailAux );
-        email.setBackgroundTintList ( ColorStateList.valueOf (getResources ().getColor ( R.color.colorBlack ) ) );
+        // email.setBackgroundTintList ( ColorStateList.valueOf (getResources ().getColor ( R.color.colorBlack ) ) );
         password.setEnabled ( true );
         password.setText("");
         password.setBackgroundTintList ( ColorStateList.valueOf (getResources ().getColor ( R.color.colorBlack ) ) );
@@ -387,6 +386,7 @@ public class Profile extends AppCompatActivity {
 
     public boolean validarDatos(){
 
+        /*
         //Validación Email
         String emaila = email.getText().toString().trim();
         if(objValidar.Vacio ( email )){
@@ -427,6 +427,7 @@ public class Profile extends AppCompatActivity {
         }else{
             emailAux = emaila;
         }
+        */
 
         //Validación Contraseña
         String passworda = password.getText().toString().trim();

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -120,18 +119,19 @@ public class HealthRegister extends AppCompatActivity {
                     }catch(InterruptedException e){
                         e.printStackTrace();
                     }
-                    llenarDatos();
-                    registrarUsuario();
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    if(validacionOK) {
+                        llenarDatos ();
+                        registrarUsuario ();
+                        try {
+                            Thread.sleep ( 2000 );
+                        } catch (InterruptedException e) {
+                            e.printStackTrace ();
+                        }
+                        if (bussiness.verificarSesion ()) {
+                            Intent intent = new Intent ( v.getContext () , MainActivity.class );
+                            startActivityForResult ( intent , 0 );
+                        }
                     }
-                    if (bussiness.verificarSesion()) {
-                        Intent intent = new Intent(v.getContext(), MainActivity.class);
-                        startActivityForResult(intent, 0);
-                    }
-
                 }
             }
         });
