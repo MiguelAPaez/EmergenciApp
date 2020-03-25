@@ -43,11 +43,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     @Override
-    public void onBackPressed(){
-        Intent intent = new Intent(MainActivity.this, MainActivity.class);
-        startActivityForResult(intent, 0);
-    }
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (!bussiness.verificarSesion()) {

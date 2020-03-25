@@ -71,7 +71,7 @@ public class Profile extends AppCompatActivity {
     Validaciones objValidar;
     boolean validacionOK;
     String emailActual;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,9 +97,9 @@ public class Profile extends AppCompatActivity {
         id = (EditText) findViewById(R.id.idProfile);
         age = (EditText) findViewById(R.id.ageProfile);
         email = (EditText) findViewById(R.id.emailProfile);
-        password = (EditText) findViewById ( R.id.passwordProfile );
-        actualPassword = (EditText) findViewById ( R.id.actualPasswordProfile );
-        validatePassword = (EditText) findViewById ( R.id.validatePasswordProfile );
+        password = (EditText) findViewById(R.id.passwordProfile);
+        actualPassword = (EditText) findViewById(R.id.actualPasswordProfile);
+        validatePassword = (EditText) findViewById(R.id.validatePasswordProfile);
         phone = (EditText) findViewById(R.id.phoneProfile);
         gender = (EditText) findViewById(R.id.genderProfile);
         eps = (EditText) findViewById(R.id.epsProfile);
@@ -137,31 +137,31 @@ public class Profile extends AppCompatActivity {
         scrollView = (ScrollView) findViewById(R.id.scrollViewProfile);
 
         //LinearLayout's
-        passwordLinear = (LinearLayout) findViewById ( R.id.linearPasswordProfile );
-        validatePasswordLinear = (LinearLayout) findViewById ( R.id.linearLayoutValidatePasswordProfile );
-        actualPasswordLinear = (LinearLayout) findViewById ( R.id.linearLayoutActualPasswordProfile );
-        titleMedical = (LinearLayout) findViewById ( R.id.linearLayoutTitleMedicalProfile );
-        epsLinear = (LinearLayout) findViewById ( R.id.linearEpsProfile );
-        afiliacionLinear = (LinearLayout) findViewById ( R.id.linearAffiliationProfile );
-        complmentaryLinear = (LinearLayout) findViewById ( R.id.linearComplementaryPlanProfile );
-        prepaidLinear = (LinearLayout) findViewById ( R.id.linearPrepaidMedicineProfile );
-        rhLinear = (LinearLayout) findViewById ( R.id.linearRhProfile );
-        diseaseLinear = (LinearLayout) findViewById ( R.id.linearDiseaseProfile );
-        environmentLinear = (LinearLayout) findViewById ( R.id.linearEnvironmentAllergyProfile );
-        medicineAllergyLinear = (LinearLayout) findViewById ( R.id.linearMedicineAllergyProfile );
-        medicineLinear = (LinearLayout) findViewById ( R.id.linearMedicineProfile );
-        genderLinear = (LinearLayout) findViewById ( R.id.linearGenderProfile );
-        ageLinear = (LinearLayout) findViewById ( R.id.linearAgeProfile );
+        passwordLinear = (LinearLayout) findViewById(R.id.linearPasswordProfile);
+        validatePasswordLinear = (LinearLayout) findViewById(R.id.linearLayoutValidatePasswordProfile);
+        actualPasswordLinear = (LinearLayout) findViewById(R.id.linearLayoutActualPasswordProfile);
+        titleMedical = (LinearLayout) findViewById(R.id.linearLayoutTitleMedicalProfile);
+        epsLinear = (LinearLayout) findViewById(R.id.linearEpsProfile);
+        afiliacionLinear = (LinearLayout) findViewById(R.id.linearAffiliationProfile);
+        complmentaryLinear = (LinearLayout) findViewById(R.id.linearComplementaryPlanProfile);
+        prepaidLinear = (LinearLayout) findViewById(R.id.linearPrepaidMedicineProfile);
+        rhLinear = (LinearLayout) findViewById(R.id.linearRhProfile);
+        diseaseLinear = (LinearLayout) findViewById(R.id.linearDiseaseProfile);
+        environmentLinear = (LinearLayout) findViewById(R.id.linearEnvironmentAllergyProfile);
+        medicineAllergyLinear = (LinearLayout) findViewById(R.id.linearMedicineAllergyProfile);
+        medicineLinear = (LinearLayout) findViewById(R.id.linearMedicineProfile);
+        genderLinear = (LinearLayout) findViewById(R.id.linearGenderProfile);
+        ageLinear = (LinearLayout) findViewById(R.id.linearAgeProfile);
 
-        editEpsLinear = (LinearLayout) findViewById ( R.id.linearLayouteditEPSProfile );
-        editAfiliacionLinear = (LinearLayout) findViewById ( R.id.linearLayouteditEPSRegimeProfile );
-        editComplementaryPlanLinear = (LinearLayout) findViewById ( R.id.linearLayouteditComplementaryPlanProfile );
-        editPrepaidMedicineLinear = (LinearLayout) findViewById ( R.id.linearLayouteditPrepaidMedicineProfile );
-        editRhLinear = (LinearLayout) findViewById ( R.id.linearLayouteditBloodTypeProfile );
-        editDiseaseLinear = (LinearLayout) findViewById ( R.id.linearLayouteditDiseaseProfile );
-        editambientalAllergyLinear = (LinearLayout) findViewById ( R.id.linearLayouteditEnvironmentAllergyProfile );
-        editMedicineAllergyLinear = (LinearLayout) findViewById ( R.id.linearLayouteditMedicinesAllergyProfile );
-        editMedicineLinear = (LinearLayout) findViewById ( R.id.linearLayouteditMedicineProfile );
+        editEpsLinear = (LinearLayout) findViewById(R.id.linearLayouteditEPSProfile);
+        editAfiliacionLinear = (LinearLayout) findViewById(R.id.linearLayouteditEPSRegimeProfile);
+        editComplementaryPlanLinear = (LinearLayout) findViewById(R.id.linearLayouteditComplementaryPlanProfile);
+        editPrepaidMedicineLinear = (LinearLayout) findViewById(R.id.linearLayouteditPrepaidMedicineProfile);
+        editRhLinear = (LinearLayout) findViewById(R.id.linearLayouteditBloodTypeProfile);
+        editDiseaseLinear = (LinearLayout) findViewById(R.id.linearLayouteditDiseaseProfile);
+        editambientalAllergyLinear = (LinearLayout) findViewById(R.id.linearLayouteditEnvironmentAllergyProfile);
+        editMedicineAllergyLinear = (LinearLayout) findViewById(R.id.linearLayouteditMedicinesAllergyProfile);
+        editMedicineLinear = (LinearLayout) findViewById(R.id.linearLayouteditMedicineProfile);
 
         //Firebase References
         mAuth = FirebaseAuth.getInstance();
@@ -346,29 +346,29 @@ public class Profile extends AppCompatActivity {
         prepaidMedicine.setText(user.getNombrePrepada());
     }
 
-    private void actualizarPerfil(){
-        message.setVisibility ( View.GONE );
-        update.setVisibility ( View.GONE );
-        actualPasswordLinear.setVisibility ( View.VISIBLE );
-        validatePasswordLinear.setVisibility ( View.VISIBLE );
-        title.setText ( R.string.update_profile );
-        epsLinear.setVisibility ( View.GONE );
-        afiliacionLinear.setVisibility ( View.GONE );
-        complmentaryLinear.setVisibility ( View.GONE );
-        prepaidLinear.setVisibility ( View.GONE );
-        rhLinear.setVisibility ( View.GONE );
-        diseaseLinear.setVisibility ( View.GONE );
-        environmentLinear.setVisibility ( View.GONE );
-        medicineAllergyLinear.setVisibility ( View.GONE );
-        medicineLinear.setVisibility ( View.GONE );
-         email.setEnabled ( true );
-        email.setText ( emailAux );
-        email.setBackgroundTintList ( ColorStateList.valueOf (getResources ().getColor ( R.color.colorBlack ) ) );
-        password.setEnabled ( true );
+    private void actualizarPerfil() {
+        message.setVisibility(View.GONE);
+        update.setVisibility(View.GONE);
+        actualPasswordLinear.setVisibility(View.VISIBLE);
+        validatePasswordLinear.setVisibility(View.VISIBLE);
+        title.setText(R.string.update_profile);
+        epsLinear.setVisibility(View.GONE);
+        afiliacionLinear.setVisibility(View.GONE);
+        complmentaryLinear.setVisibility(View.GONE);
+        prepaidLinear.setVisibility(View.GONE);
+        rhLinear.setVisibility(View.GONE);
+        diseaseLinear.setVisibility(View.GONE);
+        environmentLinear.setVisibility(View.GONE);
+        medicineAllergyLinear.setVisibility(View.GONE);
+        medicineLinear.setVisibility(View.GONE);
+        email.setEnabled(true);
+        email.setText(emailAux);
+        email.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
+        password.setEnabled(true);
         password.setText("");
-        password.setHint ( R.string.new_password );
-        password.setBackgroundTintList ( ColorStateList.valueOf (getResources ().getColor ( R.color.colorBlack ) ) );
-        phone.setEnabled ( true );
+        password.setHint(R.string.new_password);
+        password.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
+        phone.setEnabled(true);
         // phone.setText ( phoneAux );
         phone.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
         genderLinear.setVisibility(View.GONE);
@@ -450,23 +450,23 @@ public class Profile extends AppCompatActivity {
 
         //Contraseña Actual
         String passwordActual = actualPassword.getText().toString().trim();
-        if(objValidar.Vacio ( actualPassword )){
+        if (objValidar.Vacio(actualPassword)) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText ( getApplicationContext () , "Ingrese su Contraseña Actual" , Toast.LENGTH_SHORT ).show ();
+                    Toast.makeText(getApplicationContext(), "Ingrese su Contraseña Actual", Toast.LENGTH_SHORT).show();
                     password.setError("Campo Requerido");
                     password.requestFocus();
-                    scrollView.post ( new Runnable () {
+                    scrollView.post(new Runnable() {
                         @Override
                         public void run() {
-                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                            scrollView.fullScroll(ScrollView.FOCUS_UP);
                         }
-                    } );
+                    });
                 }
             });
             return false;
-        } else{
+        } else {
             actualPasswordAux = passwordActual;
         }
 
@@ -730,55 +730,63 @@ public class Profile extends AppCompatActivity {
     private void actualizarPerfilFB() {
         processDialog.setMessage("Actualizando perfil");
         processDialog.show();
-        //AuthCredential credential = EmailAuthProvider.getCredential(currentUser.getEmail());
-        currentUser.updatePassword(passwordAux).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    currentUser.updateEmail(emailAux).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Log.e("Current U: ", currentUser.getEmail());
-                                mDatabase.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        if (dataSnapshot.exists()) {
-                                            String id;
-                                            Perfil userUpdated = new Perfil(emailAux);
-                                            userUpdated.setPassword(passwordAux);
-                                            PerfilPersistence user = new PerfilPersistence();
-                                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                                user = snapshot.getValue(PerfilPersistence.class);
-                                                if (!user.getEmail().isEmpty() && user.getEmail().equals(emailActual)) {
-                                                    id = snapshot.getKey();
-                                                    mDatabase.child(id).setValue(userUpdated);
-                                                    actualizarPerfilBasico();
-                                                    Toast.makeText(getApplicationContext(), "Usuario actualizado", Toast.LENGTH_SHORT).show();
-                                                    break;
+        AuthCredential credential = EmailAuthProvider.getCredential(currentUser.getEmail(), actualPasswordAux);
+        currentUser.reauthenticate(credential)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.e("Tag", "Usuario reautenticado");
+                            currentUser.updatePassword(passwordAux).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        currentUser.updateEmail(emailAux).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    mDatabase.addValueEventListener(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                            if (dataSnapshot.exists()) {
+                                                                String id;
+                                                                Perfil userUpdated = new Perfil(emailAux);
+                                                                userUpdated.setPassword(passwordAux);
+                                                                PerfilPersistence user = new PerfilPersistence();
+                                                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                                                    user = snapshot.getValue(PerfilPersistence.class);
+                                                                    if (!user.getEmail().isEmpty() && user.getEmail().equals(emailActual)) {
+                                                                        id = snapshot.getKey();
+                                                                        mDatabase.child(id).setValue(userUpdated);
+                                                                        actualizarPerfilBasico();
+                                                                        Toast.makeText(getApplicationContext(), "Usuario actualizado", Toast.LENGTH_SHORT).show();
+                                                                        break;
+                                                                    }
+                                                                }
+
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                        }
+                                                    });
+                                                } else {
+                                                    Toast.makeText(getApplicationContext(), "Error al actualizar correo", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
-
-                                        }
+                                        });
+                                    } else {
+                                        Log.e("Error", task.getException().getMessage());
+                                        Toast.makeText(getApplicationContext(), "Error al actualizar contraseña", Toast.LENGTH_SHORT).show();
                                     }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                    }
-                                });
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Error al actualizar", Toast.LENGTH_SHORT).show();
-                            }
+                                    processDialog.dismiss();
+                                }
+                            });
                         }
-                    });
-                } else {
-                    Toast.makeText(getApplicationContext(), "Error al actualizar", Toast.LENGTH_SHORT).show();
-                }
-                processDialog.dismiss();
-            }
-        });
-
+                    }
+                });
     }
 
     private void actualizarPerfilBasico() {
