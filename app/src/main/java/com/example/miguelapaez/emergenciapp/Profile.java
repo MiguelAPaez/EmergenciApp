@@ -34,14 +34,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Profile extends AppCompatActivity {
-    private EditText name, lastName, idType, id, age, email, password, validatePassword, phone, gender, eps, afiliacion, complementaryPlan, prepaidMedicine, rh, disease,
+    private EditText name, lastName, idType, id, age, email, password, actualPassword, validatePassword, phone, gender, eps, afiliacion, complementaryPlan, prepaidMedicine, rh, disease,
             ambientalAllergy, medicineAllergy, medicine;
     private ImageView profilePhoto;
     private TextView update, message, title;
-    private String nameAux, lastNameAux, idTypeAux, idAux, ageAux, emailAux, passwordAux, phoneAux, genderAux, epsAux,  afiliacionAux, complementaryPlanAux, prepaidMedicineAux, rhAux, diseaseAux, ambientalAllergyAux, medicineAllergyAux, medicineAux;
+    private String nameAux, lastNameAux, idTypeAux, idAux, ageAux, emailAux, actualPasswordAux, passwordAux, phoneAux, genderAux, epsAux,  afiliacionAux, complementaryPlanAux, prepaidMedicineAux, rhAux, diseaseAux, ambientalAllergyAux, medicineAllergyAux, medicineAux;
 
     ScrollView scrollView;
-    private LinearLayout passwordLinear, validatePasswordLinear, titleMedical, ageLinear, genderLinear, epsLinear, afiliacionLinear, complmentaryLinear, prepaidLinear, rhLinear, diseaseLinear,
+    private LinearLayout passwordLinear, actualPasswordLinear, validatePasswordLinear, titleMedical, ageLinear, genderLinear, epsLinear, afiliacionLinear, complmentaryLinear, prepaidLinear, rhLinear, diseaseLinear,
             environmentLinear, medicineAllergyLinear, medicineLinear, editEpsLinear, editAfiliacionLinear, editComplementaryPlanLinear, editPrepaidMedicineLinear, editRhLinear,
             editDiseaseLinear, editambientalAllergyLinear, editMedicineAllergyLinear, editMedicineLinear;
     private Button updateButton;
@@ -84,6 +84,7 @@ public class Profile extends AppCompatActivity {
         age = (EditText) findViewById(R.id.ageProfile);
         email = (EditText) findViewById(R.id.emailProfile);
         password = (EditText) findViewById ( R.id.passwordProfile );
+        actualPassword = (EditText) findViewById ( R.id.actualPasswordProfile );
         validatePassword = (EditText) findViewById ( R.id.validatePasswordProfile );
         phone = (EditText) findViewById(R.id.phoneProfile);
         gender = (EditText) findViewById(R.id.genderProfile);
@@ -124,6 +125,7 @@ public class Profile extends AppCompatActivity {
         //LinearLayout's
         passwordLinear = (LinearLayout) findViewById ( R.id.linearPasswordProfile );
         validatePasswordLinear = (LinearLayout) findViewById ( R.id.linearLayoutValidatePasswordProfile );
+        actualPasswordLinear = (LinearLayout) findViewById ( R.id.linearLayoutActualPasswordProfile );
         titleMedical = (LinearLayout) findViewById ( R.id.linearLayoutTitleMedicalProfile );
         epsLinear = (LinearLayout) findViewById ( R.id.linearEpsProfile );
         afiliacionLinear = (LinearLayout) findViewById ( R.id.linearAffiliationProfile );
@@ -331,6 +333,7 @@ public class Profile extends AppCompatActivity {
     private void actualizarPerfil(){
         message.setVisibility ( View.GONE );
         update.setVisibility ( View.GONE );
+        actualPasswordLinear.setVisibility ( View.VISIBLE );
         validatePasswordLinear.setVisibility ( View.VISIBLE );
         title.setText ( R.string.update_profile );
         epsLinear.setVisibility ( View.GONE );
@@ -347,6 +350,7 @@ public class Profile extends AppCompatActivity {
         // email.setBackgroundTintList ( ColorStateList.valueOf (getResources ().getColor ( R.color.colorBlack ) ) );
         password.setEnabled ( true );
         password.setText("");
+        password.setHint ( R.string.new_password );
         password.setBackgroundTintList ( ColorStateList.valueOf (getResources ().getColor ( R.color.colorBlack ) ) );
         phone.setEnabled ( true );
         // phone.setText ( phoneAux );
@@ -426,6 +430,28 @@ public class Profile extends AppCompatActivity {
             emailAux = emaila;
         }
         */
+
+        //Contraseña Actual
+        String passwordActual = actualPassword.getText().toString().trim();
+        if(objValidar.Vacio ( actualPassword )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su Contraseña Actual" , Toast.LENGTH_SHORT ).show ();
+                    password.setError("Campo Requerido");
+                    password.requestFocus();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
+            return false;
+        } else{
+            actualPasswordAux = passwordActual;
+        }
 
         //Validación Contraseña
         String passworda = password.getText().toString().trim();

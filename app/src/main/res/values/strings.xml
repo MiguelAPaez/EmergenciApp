@@ -48,6 +48,9 @@
     <string name="profile_activity">Mi Perfil</string>
     <string name="profile_question">¿Deseas editar tu información?</string>
     <string name="profile_edit"><u>Edítala</u></string>
+    <string name="actual_password">Contraseña Actual</string>
+    <string name="new_password">Contraseña Nueva</string>
+    <string name="validate_new_password">Confirmar Nueva Contraseña</string>
     <string name="update_profile">Actualizar Información</string>
     <string name="update">Actualizar</string>
     <string name="descripcion">Descripcion</string>
