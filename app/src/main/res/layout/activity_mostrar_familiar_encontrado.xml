@@ -56,7 +56,7 @@
                 <LinearLayout
                     android:id="@+id/linearLayoutMedicalCenter1"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
+                    android:layout_height="280dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="10dp"
@@ -111,11 +111,11 @@
 
                         <LinearLayout
                             android:id="@+id/buttonCallMedicalCenters"
-                            android:layout_width="300dp"
-                            android:layout_height="100dp"
+                            android:layout_width="150dp"
+                            android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginEnd="8dp"
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/shapebutton"
@@ -131,7 +131,7 @@
                                 android:gravity="center"
                                 android:text="@string/agregar_familiar_encontrado"
                                 android:textColor="@color/colorWhite"
-                                android:textSize="24sp" />
+                                android:textSize="18sp" />
 
                         </LinearLayout>
 

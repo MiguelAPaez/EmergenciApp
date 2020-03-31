@@ -93,10 +93,9 @@
     <string name="title_activity_maps">Map</string>
     <string name="mail_a_buscar">Ingrese el email de la persona</string>
     <string name="familiares_encontrados_title">Resultados</string>
-    <string name="agregar_familiar_encontrado">Agregar a mi grupo familiar </string>
+    <string name="agregar_familiar_encontrado">Agregar</string>
     <string name="notificaciones">Notificaciones </string>
-    <string name="Confirmar">Confirmar</string>
-    <string name="Eliminar">Eliminar </string>
-
+    <string name="Confirmar">✓</string>
+    <string name="Eliminar">X</string>
 
 </resources>
