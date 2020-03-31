@@ -15,13 +15,17 @@ import com.example.miguelapaez.emergenciapp.Entities.PerfilMedico;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilXEPS;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilxPrepagada;
 import com.example.miguelapaez.emergenciapp.Login;
+import com.example.miguelapaez.emergenciapp.Persistence.PerfilBasicoPersistence;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
@@ -55,19 +59,6 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
             response = true;
         }
         return response;
-    }
-
-    @Override
-    public void iniciarSesion(String email, String password) {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                        }
-                    }
-                });
     }
 
 

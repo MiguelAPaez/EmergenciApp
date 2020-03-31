@@ -14,7 +14,6 @@ import com.google.firebase.database.DatabaseReference;
 public interface FacadeNegocio {
     public String getAge(int year, int month, int day);
     public boolean verificarSesion();
-    public void iniciarSesion(String email, String password);
     public boolean cerrarSesion();
     public void guardarPerfilBasico(PerfilBasico user);
     public void guardarPerfilMedico(PerfilMedico user);

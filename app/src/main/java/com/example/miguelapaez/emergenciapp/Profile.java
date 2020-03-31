@@ -36,7 +36,6 @@ import com.example.miguelapaez.emergenciapp.Validaciones.Validaciones;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -53,7 +52,6 @@ public class Profile extends AppCompatActivity {
     private TextView update, message, title;
     private String nameAux, lastNameAux, idTypeAux, idAux, ageAux, emailAux, passwordAux, phoneAux, genderAux, epsAux, afiliacionAux, prepaidMedicineAux, rhAux, diseaseAux, ambientalAllergyAux, medicineAllergyAux, medicineAux, actualPasswordAux;
     private boolean complementaryPlanAux = false;
-
     ScrollView scrollView;
     private LinearLayout passwordLinear, actualPasswordLinear, validatePasswordLinear, titleMedical, ageLinear, genderLinear, epsLinear, afiliacionLinear, complmentaryLinear, prepaidLinear, rhLinear, diseaseLinear,
             environmentLinear, medicineAllergyLinear, medicineLinear, editEpsLinear, editAfiliacionLinear, editComplementaryPlanLinear, editPrepaidMedicineLinear, editRhLinear,
@@ -778,13 +776,15 @@ public class Profile extends AppCompatActivity {
                                             }
                                         });
                                     } else {
-                                        Log.e("Error", task.getException().getMessage());
                                         Toast.makeText(getApplicationContext(), "Error al actualizar contraseña", Toast.LENGTH_SHORT).show();
                                     }
-                                    processDialog.dismiss();
                                 }
                             });
                         }
+                        else {
+                            Toast.makeText(getApplicationContext(), "La contraseña actual es incorrecta", Toast.LENGTH_SHORT).show();
+                        }
+                        processDialog.dismiss();
                     }
                 });
     }

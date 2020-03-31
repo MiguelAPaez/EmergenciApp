@@ -122,15 +122,6 @@ public class HealthRegister extends AppCompatActivity {
                     if(validacionOK) {
                         llenarDatos ();
                         registrarUsuario ();
-                        try {
-                            Thread.sleep ( 2000 );
-                        } catch (InterruptedException e) {
-                            e.printStackTrace ();
-                        }
-                        if (bussiness.verificarSesion ()) {
-                            Intent intent = new Intent ( v.getContext () , MainActivity.class );
-                            startActivityForResult ( intent , 0 );
-                        }
                     }
                 }
             }
@@ -174,6 +165,8 @@ public class HealthRegister extends AppCompatActivity {
                             bussiness.guardarPerfilXEPS(crearPerfilXEPS());
                             bussiness.guardarPerfilXPrepagada(crearPerfilXPrepagada());
                             Toast.makeText(HealthRegister.this, "Usuario creado", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent ( getApplicationContext() , MainActivity.class );
+                            startActivityForResult ( intent , 0 );
                         }
                         else {
                             Toast.makeText(HealthRegister.this, "Error al crear Usuario", Toast.LENGTH_LONG).show();

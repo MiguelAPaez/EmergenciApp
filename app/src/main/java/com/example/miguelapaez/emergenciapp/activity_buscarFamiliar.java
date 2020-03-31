@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
 import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
 import com.example.miguelapaez.emergenciapp.Persistence.PerfilBasicoPersistence;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +30,8 @@ public class activity_buscarFamiliar extends AppCompatActivity {
     EditText eEmail;
     String email;
     DatabaseReference mDatabaseBasic;
+    FirebaseAuth mAuth;
+    FirebaseUser currentUser;
     ProgressDialog progressDialog;
 
     @Override
@@ -38,6 +42,8 @@ public class activity_buscarFamiliar extends AppCompatActivity {
         message = (TextView) findViewById(R.id.messageBuscar);
         eEmail = (EditText) findViewById(R.id.InputEmailABuscar);
         mDatabaseBasic = FirebaseDatabase.getInstance().getReference("Perfiles Basicos");
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
         progressDialog = new ProgressDialog(this);
         String font_path = "font/Arvo-Regular.ttf";
         Typeface TF = Typeface.createFromAsset(getAssets(), font_path);
@@ -60,7 +66,12 @@ public class activity_buscarFamiliar extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 email = eEmail.getText().toString().trim();
-                buscarFamiliar(email);
+                if(!email.equals(currentUser.getEmail())){
+                    buscarFamiliar(email);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"Email inválido",Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
