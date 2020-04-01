@@ -2,7 +2,6 @@ package com.example.miguelapaez.emergenciapp;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -32,8 +31,8 @@ public class mostrarFamiliarEncontrado extends AppCompatActivity {
         id = getIntent().getStringExtra("id");
         //You Know
         nombre = (TextView) findViewById(R.id.nombreFamiliarEncontrado);
-        profilePhoto = (ImageView) findViewById(R.id.imagePerfilFamiliarBuscado);
-        eParentesco = (Spinner) findViewById(R.id.parentescoRegisterFamiliar);
+        profilePhoto = (ImageView) findViewById(R.id.imagePerfilFamiliarEncontrado);
+        eParentesco = (Spinner) findViewById(R.id.parentescoFamiliarEncontrado);
         //Cargar Datos
         String name = basicProfile.getName() + " " + basicProfile.getLastName();
         parentesco = eParentesco.getSelectedItem().toString();

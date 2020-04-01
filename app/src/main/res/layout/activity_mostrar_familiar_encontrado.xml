@@ -41,7 +41,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/scrollViewRegister"
+            android:id="@+id/scrollViewFamiliarEncontrado"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/linearLayoutMedicalCenter1"
+                    android:id="@+id/linearLayoutFamiliarEncontrado"
                     android:layout_width="match_parent"
                     android:layout_height="280dp"
                     android:layout_marginStart="10dp"
@@ -65,7 +65,7 @@
                     android:textAlignment="center">
 
                     <ImageView
-                        android:id="@+id/imagePerfilFamiliarBuscado"
+                        android:id="@+id/imagePerfilFamiliarEncontrado"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
@@ -92,7 +92,7 @@
                             android:textSize="22sp" />
 
                         <LinearLayout
-                            android:id="@+id/linearLayoutParentescoRegisterFamiliar"
+                            android:id="@+id/linearLayoutParentescoFamiliarEncontrado"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:layout_marginStart="8dp"
@@ -103,7 +103,7 @@
                             android:orientation="horizontal">
 
                             <Spinner
-                                android:id="@+id/parentescoRegisterFamiliar"
+                                android:id="@+id/parentescoFamiliarEncontrado"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:entries="@array/parentesco" />
@@ -123,7 +123,7 @@
                             android:textAlignment="center">
 
                             <TextView
-                                android:id="@+id/textCallMedicalCenter"
+                                android:id="@+id/textCallFamiliarEncontrado"
                                 android:layout_width="60dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -134,21 +134,9 @@
                                 android:textSize="18sp" />
 
                         </LinearLayout>
-
                     </LinearLayout>
-
                 </LinearLayout>
-
             </LinearLayout>
-
-
-
-
-
-
-
         </ScrollView>
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
