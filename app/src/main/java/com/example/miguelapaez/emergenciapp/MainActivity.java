@@ -1,6 +1,7 @@
 package com.example.miguelapaez.emergenciapp;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -18,18 +19,27 @@ import androidx.core.content.ContextCompat;
 
 import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
 import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
-import com.example.miguelapaez.emergenciapp.Persistence.PerfilBasicoPersistence;
+import com.example.miguelapaez.emergenciapp.Persistence.SolicitudPersistence;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    FirebaseAuth mAuth;
+    FirebaseUser currentUser;
+    String emailActual;
     FacadeNegocio bussiness = new ImplementacionNegocio();
     private static final int CODIGO_PERMISOS_CALL = 1;
     private static final int CODIGO_PERMISOS_LOCATION = 2;
     private boolean tienePermisoCall = false;
     private boolean tienePermisoLocation = false;
     String dial = "tel:321";
-    private ArrayList<PerfilBasicoPersistence> PerfilesBasicos = new ArrayList<PerfilBasicoPersistence>();
+    ProgressDialog progressDialog;
 
     public void onStart() {
         super.onStart();
@@ -38,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        emailActual = currentUser.getEmail();
         if (!bussiness.verificarSesion()) {
             Intent intent = new Intent(MainActivity.this, Login.class);
             startActivityForResult(intent, 0);
@@ -46,11 +59,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        emailActual = currentUser.getEmail();
         if (!bussiness.verificarSesion()) {
             Intent intent = new Intent(MainActivity.this, Login.class);
             startActivityForResult(intent, 0);
         }
-
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         verificarYPedirPermisos();
@@ -107,8 +122,39 @@ public class MainActivity extends AppCompatActivity {
         btnNotificaciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Notificaciones.class);
-                startActivityForResult(intent, 0);
+                progressDialog = new ProgressDialog(v.getContext());
+                progressDialog.setMessage("Cargando notificaciones...");
+                progressDialog.show();
+                DatabaseReference mDatabaseSolicitud= FirebaseDatabase.getInstance().getReference().child("Solicitudes");
+                mDatabaseSolicitud.orderByChild("emailRem").equalTo(currentUser.getEmail());
+                mDatabaseSolicitud.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            SolicitudPersistence solPer = new SolicitudPersistence();
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                solPer = snapshot.getValue(SolicitudPersistence.class);
+                                if (!solPer.getEmailRem().isEmpty() && solPer.getEmailRem().equals(currentUser.getEmail())) {
+                                    String id = snapshot.getKey();
+                                    Intent intent = new Intent(getApplicationContext(), Notificaciones.class);
+                                    intent.putExtra("id",id);
+                                    intent.putExtra("solicitud", solPer);
+                                    startActivityForResult(intent, 0);
+                                    break;
+                                }
+                            }
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),"No tiene notificaciones",Toast.LENGTH_SHORT).show();
+                        }
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
     }
@@ -185,5 +231,6 @@ public class MainActivity extends AppCompatActivity {
             verificarYPedirPermisos();
         }
     }
+
 
 }

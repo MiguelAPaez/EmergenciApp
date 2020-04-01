@@ -1,15 +1,12 @@
 package com.example.miguelapaez.emergenciapp.Negocio;
 
-import android.app.ProgressDialog;
-import android.os.Bundle;
 
 import com.example.miguelapaez.emergenciapp.Entities.Perfil;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilBasico;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilMedico;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilXEPS;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilxPrepagada;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
+import com.example.miguelapaez.emergenciapp.Entities.Solicitud;
 
 public interface FacadeNegocio {
     public String getAge(int year, int month, int day);
@@ -21,4 +18,5 @@ public interface FacadeNegocio {
     public void guardarPerfilXEPS(PerfilXEPS user);
     public void guardarPerfilXPrepagada(PerfilxPrepagada user);
     public void guardarPerfil(Perfil user);
+    public void crearSolicitud(Solicitud solicitud);
 }

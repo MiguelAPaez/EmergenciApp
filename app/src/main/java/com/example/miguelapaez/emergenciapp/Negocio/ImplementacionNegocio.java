@@ -2,11 +2,13 @@ package com.example.miguelapaez.emergenciapp.Negocio;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.miguelapaez.emergenciapp.Entities.Perfil;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilBasico;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilMedico;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilXEPS;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilxPrepagada;
+import com.example.miguelapaez.emergenciapp.Entities.Solicitud;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +38,17 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
 
     @Override
     public String getRol(String rol) {
-        String rolResult = new String();
+        String parent = "Padre/Madre";
+        String son = "Hijo(a)";
+        String other = "Familiar";
+        String rolResult;
+        if (rol.equals(parent)) {
+            rolResult = son;
+        } else if (rol.equals(son)) {
+            rolResult = parent;
+        } else {
+            rolResult = other;
+        }
         return rolResult;
     }
 
@@ -96,5 +108,12 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         String id = mDatabase.push().getKey();
         mDatabase.child("Perfiles").child(id).setValue(user);
+    }
+
+    @Override
+    public void crearSolicitud(Solicitud solicitud) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        String id = mDatabase.push().getKey();
+        mDatabase.child("Solicitudes").child(id).setValue(solicitud);
     }
 }
