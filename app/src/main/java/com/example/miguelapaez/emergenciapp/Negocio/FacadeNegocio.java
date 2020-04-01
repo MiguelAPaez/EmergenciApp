@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 
 public interface FacadeNegocio {
     public String getAge(int year, int month, int day);
+    public String getRol(String rol);
     public boolean verificarSesion();
     public boolean cerrarSesion();
     public void guardarPerfilBasico(PerfilBasico user);

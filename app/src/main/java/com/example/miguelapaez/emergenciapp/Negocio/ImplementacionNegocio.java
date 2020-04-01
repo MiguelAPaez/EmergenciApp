@@ -1,31 +1,16 @@
 package com.example.miguelapaez.emergenciapp.Negocio;
 
-import android.app.ProgressDialog;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import androidx.annotation.NonNull;
-
 import com.example.miguelapaez.emergenciapp.Entities.Perfil;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilBasico;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilMedico;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilXEPS;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilxPrepagada;
-import com.example.miguelapaez.emergenciapp.Login;
-import com.example.miguelapaez.emergenciapp.Persistence.PerfilBasicoPersistence;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
@@ -47,6 +32,12 @@ public class ImplementacionNegocio extends AppCompatActivity implements FacadeNe
         String ageS = ageInt.toString();
 
         return ageS;
+    }
+
+    @Override
+    public String getRol(String rol) {
+        String rolResult = new String();
+        return rolResult;
     }
 
     @Override

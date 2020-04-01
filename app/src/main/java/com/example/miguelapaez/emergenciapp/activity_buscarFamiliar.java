@@ -90,6 +90,7 @@ public class activity_buscarFamiliar extends AppCompatActivity {
                         if (!user.getEmail().isEmpty() && user.getEmail().equals(email)) {
                             Intent intent = new Intent(getApplicationContext(), mostrarFamiliarEncontrado.class);
                             intent.putExtra("basicProfile", user);
+                            intent.putExtra("id",snapshot.getKey());
                             startActivity(intent);
                             break;
                         }

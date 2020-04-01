@@ -734,7 +734,6 @@ public class Profile extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.e("Tag", "Usuario reautenticado");
                             currentUser.updatePassword(passwordAux).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
