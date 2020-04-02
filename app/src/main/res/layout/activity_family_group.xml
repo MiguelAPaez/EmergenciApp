@@ -49,115 +49,23 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="5dp">
 
-            <LinearLayout
-                android:id="@+id/linearLayoutFamilyGroup1"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/boton_redondeado"
-                android:orientation="horizontal"
-                android:textAlignment="center">
-
-                <ImageView
-                    android:id="@+id/imageViewFamilyGroup1"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_weight="0.3"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/incognito" />
-
-                <LinearLayout
-                    android:id="@+id/linearLayoutFamilyGroupText1"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/nameFamilyGroup1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Nombre Familiar"
-                        android:layout_gravity="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="22dp" />
-
-                    <TextView
-                        android:id="@+id/relationshipFamilyGroup1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Parentesco"
-                        android:layout_gravity="center"
-                        android:textColor="@color/colorGray"
-                        android:textSize="18dp" />
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearLayoutFamilyGroup2"
+                <ListView
+                    android:id="@+id/listViewFamilyGroup"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/boton_redondeado"
-                    android:orientation="horizontal"
-                    android:textAlignment="center">
-
-                    <ImageView
-                        android:id="@+id/imageViewFamilyGroup2"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_weight="0.3"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/incognito" />
-
-                    <LinearLayout
-                        android:id="@+id/linearLayoutFamilyGroupText2"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/nameFamilyGroup2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Nombre Familiar"
-                            android:layout_gravity="center"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="22dp" />
-
-                        <TextView
-                            android:id="@+id/relationshipFamilyGroup2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Parentesco"
-                            android:layout_gravity="center"
-                            android:textColor="@color/colorGray"
-                            android:textSize="18dp" />
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
+                    android:layout_height="520dp"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"/>
 
                 <TextView
                     android:id="@+id/messageAgregar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:text="@string/FamilyGroup_add"
                     android:layout_gravity="center"
