@@ -44,7 +44,7 @@
                 android:layout_height="70dp"
                 android:layout_gravity="right"
                 android:layout_marginEnd="10dp"
-                app:srcCompat="@drawable/notification_enabled" />
+                app:srcCompat="@drawable/notification_disabled" />
 
         </FrameLayout>
 

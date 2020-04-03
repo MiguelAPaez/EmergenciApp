@@ -5,11 +5,13 @@ public class EntityFamilyGroup {
     private int imgParent;
     private String name;
     private String parent;
+    private String email;
 
-    public EntityFamilyGroup(int imgParent, String name, String parent) {
+    public EntityFamilyGroup(int imgParent, String name, String parent, String email) {
         this.imgParent = imgParent;
         this.name = name;
         this.parent = parent;
+        this.email = email;
     }
 
     public int getImgParent() {
@@ -23,4 +25,6 @@ public class EntityFamilyGroup {
     public String getParent() {
         return parent;
     }
+
+
 }

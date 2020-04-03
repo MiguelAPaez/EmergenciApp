@@ -145,6 +145,8 @@ public class Notificaciones extends AppCompatActivity {
     }
     private void eliminarSolicitud(){
         mDatabaseSolicitud.removeValue();
-        startActivity ( new Intent( Notificaciones.this , FamilyGroup.class ) );
+        Intent intent = new Intent(getApplicationContext(), FamilyGroup.class);
+        intent.putExtra("emailActual",solicitud.getEmailRem());
+        startActivityForResult(intent, 0);
     }
 }

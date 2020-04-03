@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean tienePermisoLocation = false;
     String dial = "tel:321";
     ProgressDialog progressDialog;
+    ImageView btnNotificaciones;
 
     public void onStart() {
         super.onStart();
@@ -50,18 +51,17 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        emailActual = currentUser.getEmail();
         if (!bussiness.verificarSesion()) {
             Intent intent = new Intent(MainActivity.this, Login.class);
             startActivityForResult(intent, 0);
         }
+        checkNotify();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        emailActual = currentUser.getEmail();
         if (!bussiness.verificarSesion()) {
             Intent intent = new Intent(MainActivity.this, Login.class);
             startActivityForResult(intent, 0);
@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         verificarYPedirPermisos();
-
         Button btnLogOut = (Button) findViewById(R.id.buttonLogOut);
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,48 +112,50 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), FamilyGroup.class);
+                intent.putExtra("emailActual", currentUser.getEmail());
                 startActivityForResult(intent, 0);
             }
         });
 
 
-        ImageView btnNotificaciones = (ImageView) findViewById( R.id.buttonNotification);
+        btnNotificaciones = (ImageView) findViewById( R.id.buttonNotification);
+        btnNotificaciones.setEnabled(false);
+        checkNotify();
         btnNotificaciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog = new ProgressDialog(v.getContext());
-                progressDialog.setMessage("Cargando notificaciones...");
-                progressDialog.show();
-                DatabaseReference mDatabaseSolicitud= FirebaseDatabase.getInstance().getReference().child("Solicitudes");
-                mDatabaseSolicitud.orderByChild("emailRem").equalTo(currentUser.getEmail());
-                mDatabaseSolicitud.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.exists()){
-                            SolicitudPersistence solPer = new SolicitudPersistence();
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                solPer = snapshot.getValue(SolicitudPersistence.class);
-                                if (!solPer.getEmailRem().isEmpty() && solPer.getEmailRem().equals(currentUser.getEmail())) {
-                                    String id = snapshot.getKey();
-                                    Intent intent = new Intent(getApplicationContext(), Notificaciones.class);
-                                    intent.putExtra("id",id);
-                                    intent.putExtra("solicitud", solPer);
-                                    startActivityForResult(intent, 0);
-                                    break;
+                if(btnNotificaciones.isEnabled()){
+                    progressDialog = new ProgressDialog(v.getContext());
+                    progressDialog.setMessage("Cargando notificaciones...");
+                    progressDialog.show();
+                    DatabaseReference mDatabaseSolicitud= FirebaseDatabase.getInstance().getReference().child("Solicitudes");
+                    mDatabaseSolicitud.orderByChild("emailRem").equalTo(currentUser.getEmail());
+                    mDatabaseSolicitud.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                SolicitudPersistence solPer = new SolicitudPersistence();
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    solPer = snapshot.getValue(SolicitudPersistence.class);
+                                    if (!solPer.getEmailRem().isEmpty() && solPer.getEmailRem().equals(currentUser.getEmail())) {
+                                        String id = snapshot.getKey();
+                                        Intent intent = new Intent(getApplicationContext(), Notificaciones.class);
+                                        intent.putExtra("id",id);
+                                        intent.putExtra("solicitud", solPer);
+                                        startActivityForResult(intent, 0);
+                                        break;
+                                    }
                                 }
                             }
+                            progressDialog.dismiss();
                         }
-                        else{
-                            Toast.makeText(getApplicationContext(),"No tiene notificaciones",Toast.LENGTH_SHORT).show();
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
                         }
-                        progressDialog.dismiss();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                    });
+                }
             }
         });
     }
@@ -230,6 +231,40 @@ public class MainActivity extends AppCompatActivity {
         } else {
             verificarYPedirPermisos();
         }
+    }
+    private void checkNotify() {
+        btnNotificaciones = (ImageView) findViewById( R.id.buttonNotification);
+        DatabaseReference mDatabaseSolicitud = FirebaseDatabase.getInstance().getReference().child("Solicitudes");
+        mDatabaseSolicitud.orderByChild("emailRem").equalTo(currentUser.getEmail());
+        mDatabaseSolicitud.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    boolean status = false;
+                    SolicitudPersistence solPer = new SolicitudPersistence();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        solPer = snapshot.getValue(SolicitudPersistence.class);
+                        if (!solPer.getEmailRem().isEmpty() && solPer.getEmailRem().equals(currentUser.getEmail())) {
+                            btnNotificaciones.setImageResource(R.drawable.notification_enabled);
+                            btnNotificaciones.setEnabled(true);
+                            status = true;
+                            break;
+                        }
+                    }
+                    if (!status){
+                        btnNotificaciones.setEnabled(false);
+                    }
+                }
+                else{
+                    btnNotificaciones.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
