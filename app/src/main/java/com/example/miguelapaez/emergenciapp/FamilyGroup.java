@@ -1,10 +1,8 @@
 package com.example.miguelapaez.emergenciapp;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -28,7 +26,7 @@ import java.util.ArrayList;
 
 public class FamilyGroup extends AppCompatActivity {
 
-    TextView message;
+    TextView message, noFamily;
     ListView listItemsFamilyGroup;
     private AdapterFamilyGroup adaptador;
     ArrayList<EntityFamilyGroup> listItems = new ArrayList<>();
@@ -46,9 +44,12 @@ public class FamilyGroup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_family_group);
         getSupportActionBar().hide();
+        noFamily = findViewById ( R.id.messageNoFamilyGroup );
         mDatabaseBasic = FirebaseDatabase.getInstance().getReference("Perfiles Basicos");
         emailActual = getIntent().getStringExtra("emailActual");
         listItemsFamilyGroup = findViewById(R.id.listViewFamilyGroup);
+        noFamily.setVisibility ( View.GONE );
+        listItemsFamilyGroup.setVisibility ( View.VISIBLE );
         adaptador = new AdapterFamilyGroup(this, listItems);
         listItemsFamilyGroup.setAdapter(adaptador);
         cargarGrupo();
@@ -100,6 +101,9 @@ public class FamilyGroup extends AppCompatActivity {
                                             familiar = snapshot.getValue(ReferenciaGrupoPersistence.class);
                                             cargarFamiliar(familiar);
                                         }
+                                    } else {
+                                        noFamily.setVisibility ( View.VISIBLE );
+                                        listItemsFamilyGroup.setVisibility ( View.GONE );
                                     }
                                 }
 

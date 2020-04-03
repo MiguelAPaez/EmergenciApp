@@ -1,8 +1,6 @@
 package com.example.miguelapaez.emergenciapp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,7 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.miguelapaez.emergenciapp.Entities.ReferenciaGrupo;
 import com.example.miguelapaez.emergenciapp.Entities.Solicitud;
 import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
 import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
@@ -112,6 +109,9 @@ public class mostrarFamiliarEncontrado extends AppCompatActivity {
                                         if (status) {
                                             checkSol();
                                         }
+                                    }
+                                    else {
+                                        checkSol();
                                     }
                                 }
 
