@@ -15,7 +15,7 @@
         tools:ignore="MissingConstraints">
 
         <LinearLayout
-            android:id="@+id/linearLayoutTitleRegister"
+            android:id="@+id/linearLayoutTitleFamilyRegister"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginStart="0dp"
@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/titleRegisterFamiliar"
+                android:id="@+id/titleFamilyRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -43,11 +43,10 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/scrollViewFamilyRegister"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_gravity="center"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
@@ -57,7 +56,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/linearLayoutNameRegisterFamiliar"
+                    android:id="@+id/linearLayoutNameFamilyRegister"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
@@ -74,13 +73,13 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/nameRegisterFamiliar"
+                            android:id="@+id/nameFamilyRegister"
                             android:hint="@string/name" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayoutLastNameRegisterFailiar"
+                    android:id="@+id/linearLayoutLastNameFamilyRegister"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
@@ -97,14 +96,32 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/lastNameRegisterFamiliar"
+                            android:id="@+id/lastNameFamilyRegister"
                             android:hint="@string/last_name" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/linearLayoutIdTypeFamilyRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
+
+                    <Spinner
+                        android:id="@+id/idTypeFamilyRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/name"
+                        android:entries="@array/idType" />
+                </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayoutIdRegisterFamiliar"
+                    android:id="@+id/linearLayoutIdFamilyRegister"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
@@ -121,14 +138,14 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/idRegisterFamiliar"
+                            android:id="@+id/idFamilyRegister"
                             android:hint="@string/id_number"
                             android:inputType="number"/>
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayoutDateRegisterFamiliar"
+                    android:id="@+id/linearLayoutDateFamilyRegister"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
@@ -146,13 +163,13 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/dateRegisterFamiliar"
+                            android:id="@+id/dateFamilyRegister"
                             android:hint="@string/date_birth"
                             android:enabled="false"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
-                        android:id="@+id/buttonDateRegisterFamiliar"
+                        android:id="@+id/buttonDateFamilyRegister"
                         android:layout_width="100dp"
                         android:layout_height="46dp"
                         android:layout_gravity="center"
@@ -166,10 +183,8 @@
                         android:textSize="15dp" />
                 </LinearLayout>
 
-
-
                 <LinearLayout
-                    android:id="@+id/linearLayoutPhoneRegisterFamiliar"
+                    android:id="@+id/linearLayoutPhoneFamilyRegister"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
@@ -186,14 +201,32 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/phoneRegisterFamiliar"
+                            android:id="@+id/phoneFamilyRegister"
                             android:hint="@string/phone"
                             android:inputType="number"/>
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayoutParentescoRegisterFamiliar"
+                    android:id="@+id/linearLayoutGenderFamilyRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape"
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
+
+                    <Spinner
+                        android:id="@+id/genderFamilyRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:entries="@array/gender" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutRelationshipFamilyRegister"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="8dp"
@@ -204,7 +237,7 @@
                     android:orientation="horizontal">
 
                     <Spinner
-                        android:id="@+id/parentescoRegisterFamiliar"
+                        android:id="@+id/relationshipFamilyRegister"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:entries="@array/parentesco" />
@@ -214,8 +247,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="135dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="10dp"
                     android:textAlignment="center"
                     android:orientation="horizontal">
 
@@ -277,7 +311,6 @@
                             android:textSize="45px" />
                     </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

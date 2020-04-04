@@ -115,8 +115,6 @@ public class Register extends AppCompatActivity {
             }
         } );
 
-        getSupportActionBar ().hide ();
-
         LinearLayout btn = (LinearLayout) findViewById ( R.id.buttonNextRegister );
         btn.setOnClickListener ( new View.OnClickListener () {
             @Override

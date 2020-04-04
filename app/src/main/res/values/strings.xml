@@ -38,6 +38,7 @@
     <string name="medicine">Medicamento Consumido</string>
     <string name="next">Perfil Médico ></string>
     <string name="sign_up">Registrar</string>
+    <string name="sign_up_family">Registrar Familiar</string>
 
     <string name="emergency">Emergencia</string>
     <string name="line_emergency">Llamar al 123</string>
@@ -68,6 +69,7 @@
     <string name="no_tiene_cuenta">¿Tú familiar no tiene una cuenta?</string>
     <string name="registro_familiar_titulo">Registro de Familiar</string>
     <string name="perfil_medico_familiar">Perfil médico del familiar</string>
+    <string name="perfil_medico_familiar_2">Perfil Médico Familiar</string>
     <string name="seguros_familiar">Seguros del familiar</string>
     <string name="perfilMedico">Perfil Médico</string>
     <string name="signUpBuscarFamiliar"><u>Regístralo</u></string>

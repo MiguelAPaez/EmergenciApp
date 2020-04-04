@@ -1,14 +1,24 @@
 package com.example.miguelapaez.emergenciapp;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
+import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
+import com.example.miguelapaez.emergenciapp.Validaciones.Validaciones;
 
 import java.util.Calendar;
 
@@ -18,6 +28,16 @@ public class activity_registro_familiar extends AppCompatActivity {
     EditText eDate;
     private int ano, mes, dia;
     private int anoaux, mesaux, diaaux;
+    String eAge;
+    EditText eName, eLastName, eID, ePhone;
+    ScrollView scrollView;
+    LinearLayout nameL, lastNameL, idL, typeIdL, dateL, phoneL, genderL, relationshipL;
+    Spinner spinTypeId, spinGender, spinRelationship;
+    FacadeNegocio bussiness = new ImplementacionNegocio ();
+    String name, lastName, typeId, id, age, phone, gender, relationship;
+    String redColor = "#40FF0000";
+    Validaciones objValidar;
+    boolean validacionOK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +45,32 @@ public class activity_registro_familiar extends AppCompatActivity {
         setContentView(R.layout.activity_registro_familiar);
         getSupportActionBar().hide();
 
-        bDate = (Button) findViewById( R.id.buttonDateRegisterFamiliar);
-        eDate = (EditText) findViewById(R.id.dateRegisterFamiliar);
+        //ScrollView Register
+        scrollView = (ScrollView) findViewById ( R.id.scrollViewFamilyRegister );
+
+        //LinearLayout de Register
+        nameL = (LinearLayout) findViewById ( R.id.linearLayoutNameFamilyRegister );
+        lastNameL = (LinearLayout) findViewById ( R.id.linearLayoutLastNameFamilyRegister );
+        typeIdL = (LinearLayout) findViewById ( R.id.linearLayoutIdTypeFamilyRegister );
+        idL = (LinearLayout) findViewById ( R.id.linearLayoutIdFamilyRegister );
+        dateL = (LinearLayout) findViewById ( R.id.linearLayoutDateFamilyRegister );
+        phoneL = (LinearLayout) findViewById ( R.id.linearLayoutPhoneFamilyRegister );
+        genderL = (LinearLayout) findViewById ( R.id.linearLayoutGenderFamilyRegister );
+        relationshipL = (LinearLayout) findViewById ( R.id.linearLayoutRelationshipFamilyRegister );
+
+        //EditText de Register
+        eName = (EditText) findViewById ( R.id.nameFamilyRegister );
+        eLastName = (EditText) findViewById ( R.id.lastNameFamilyRegister );
+        spinTypeId = (Spinner) findViewById ( R.id.idTypeFamilyRegister );
+        eID = (EditText) findViewById ( R.id.idFamilyRegister );
+        bDate = (Button) findViewById( R.id.buttonDateFamilyRegister);
+        eDate = (EditText) findViewById(R.id.dateFamilyRegister);
+        ePhone = (EditText) findViewById ( R.id.phoneFamilyRegister );
+        spinGender = (Spinner) findViewById ( R.id.genderFamilyRegister );
+        spinRelationship = (Spinner) findViewById ( R.id.relationshipFamilyRegister );
+
+        //Validaciones
+        objValidar = new Validaciones();
 
         bDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +96,217 @@ public class activity_registro_familiar extends AppCompatActivity {
             }
         });
 
+        LinearLayout btn = (LinearLayout) findViewById ( R.id.linearLayoutPerfilMedicoFamiliar );
+        btn.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                ThreadB b = new ThreadB ();
+                b.start();
 
+                synchronized(b){
+
+                    try{
+                        System.out.println("Waiting for b to complete...");
+                        b.wait();
+                    }catch(InterruptedException e){
+                        e.printStackTrace();
+                    }
+
+                    if(validacionOK) {
+                        llenarDatos ();
+                        Toast.makeText(activity_registro_familiar.this, "Perfil Médico", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent ( v.getContext () , HealthFamilyRegister.class );
+                        startActivity ( intent );
+                        /*
+                        Perfil profile = crearPerfil();
+                        PerfilBasico basicProfile = crearPerfilBasico();
+                        Intent intent = new Intent ( v.getContext () , HealthRegister.class );
+                        intent.putExtra ( "profile" , profile);
+                        intent.putExtra ( "basicProfile" , basicProfile);
+                        startActivity ( intent );*/
+                    }
+                }
+            }
+        } );
     }
+
+    private void llenarDatos(){
+        name = eName.getText().toString().trim();
+        lastName = eLastName.getText().toString().trim();
+        typeId = spinTypeId.getSelectedItem().toString().trim();
+        id = eID.getText().toString().trim();
+        eAge= bussiness.getAge(anoaux,mesaux,diaaux);
+        age = eAge;
+        phone = ePhone.getText().toString().trim();
+        gender = spinGender.getSelectedItem().toString().trim();
+        relationship = spinRelationship.getSelectedItem().toString().trim();
+    }
+
+    class ThreadB extends Thread{
+        int total;
+        @Override
+        public void run(){
+            synchronized(this){
+                validacionOK = validarDatos ();
+                notify();
+            }
+        }
+    }
+
+    public boolean validarDatos(){
+
+        //Validación Nombres
+        if(objValidar.Vacio ( eName )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su Nombre" , Toast.LENGTH_SHORT ).show ();
+                    eName.setError("Campo Requerido");
+                    eName.requestFocus();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
+            return false;
+        }
+
+        //Validación Apellidos
+        if(objValidar.Vacio ( eLastName )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese sus Apellidos" , Toast.LENGTH_SHORT ).show ();
+                    eLastName.setError("Campo Requerido");
+                    eLastName.requestFocus();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
+            return false;
+        }
+
+        //Validación Tipo de Identificación
+        String idType = spinTypeId.getSelectedItem().toString().trim();
+        if(objValidar.isEquals ( idType, "Tipo de Identificación" )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su Tipo de Identificación" , Toast.LENGTH_SHORT ).show ();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                    typeIdL.setBackgroundColor ( Color.parseColor ( redColor ) );
+                }
+            });
+            return false;
+        }
+
+        //Validación Número de Identificación
+        if(objValidar.Vacio ( eID )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su Número de Identificación" , Toast.LENGTH_SHORT ).show ();
+                    eID.setError("Campo Requerido");
+                    eID.requestFocus();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
+            return false;
+        }
+
+        //Validación Fecha de Nacimiento
+        if(objValidar.Vacio ( eDate )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su Fecha de Nacimiento" , Toast.LENGTH_SHORT ).show ();
+                    eDate.setError("Campo Requerido");
+                    eDate.requestFocus();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
+            return false;
+        }
+
+        //Validación Celular
+        if(objValidar.Vacio ( ePhone )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su Celular" , Toast.LENGTH_SHORT ).show ();
+                    ePhone.setError("Campo Requerido");
+                    ePhone.requestFocus();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
+            return false;
+        }
+
+        //Validación Género
+        String gender = spinGender.getSelectedItem().toString().trim();
+        if(objValidar.isEquals ( gender, "Género" )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese su Género" , Toast.LENGTH_SHORT ).show ();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                    genderL.setBackgroundColor ( Color.parseColor ( redColor ) );
+                }
+            });
+            return false;
+        }
+
+        //Validación Parentesco
+        String relationship = spinRelationship.getSelectedItem().toString().trim();
+        if(objValidar.isEquals ( relationship, "Parentesco" )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese el Parentesco con su Familiar" , Toast.LENGTH_SHORT ).show ();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                    relationshipL.setBackgroundColor ( Color.parseColor ( redColor ) );
+                }
+            });
+            return false;
+        }
+        return true;
+    }
+
 }
