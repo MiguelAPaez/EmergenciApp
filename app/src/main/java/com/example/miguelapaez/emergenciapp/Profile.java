@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -453,8 +452,8 @@ public class Profile extends AppCompatActivity {
                 @Override
                 public void run() {
                     Toast.makeText(getApplicationContext(), "Ingrese su Contraseña Actual", Toast.LENGTH_SHORT).show();
-                    password.setError("Campo Requerido");
-                    password.requestFocus();
+                    actualPassword.setError("Campo Requerido");
+                    actualPassword.requestFocus();
                     scrollView.post(new Runnable() {
                         @Override
                         public void run() {

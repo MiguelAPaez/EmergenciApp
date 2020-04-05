@@ -59,6 +59,9 @@ public class FamilyGroup extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(adapterView.getContext(), "Selecciona: "
                         + i, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(FamilyGroup.this, ProfileFamily.class);
+                //intent.putExtra("email", //Email Familiar);
+                startActivityForResult(intent, 0);
             }
         });
 

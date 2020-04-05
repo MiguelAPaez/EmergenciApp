@@ -27,6 +27,7 @@
     <string name="age">Edad</string>
     <string name="gender">Género</string>
     <string name="my_dates">Mis Datos Médicos</string>
+    <string name="medical_dates">Datos Médicos</string>
     <string name="eps">EPS</string>
     <string name="affiliation">Régimen de Afiliación</string>
     <string name="plan_complementary">Plan Complementario</string>
