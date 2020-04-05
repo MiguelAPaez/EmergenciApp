@@ -26,5 +26,7 @@ public class EntityFamilyGroup {
         return parent;
     }
 
-
+    public String getEmail() {
+        return email;
+    }
 }

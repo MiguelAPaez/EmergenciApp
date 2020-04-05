@@ -203,16 +203,16 @@ public class Profile extends AppCompatActivity {
         processDialog.setMessage("Cargando perfil");
         processDialog.show();
         mDatabaseBasic.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    PerfilBasicoPersistence user = new PerfilBasicoPersistence();
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        user = snapshot.getValue(PerfilBasicoPersistence.class);
-                        if (!user.getEmail().isEmpty() && user.getEmail().equals(currentUser.getEmail())) {
-                            break;
-                        }
-                    }
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                PerfilBasicoPersistence user = new PerfilBasicoPersistence();
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    user = snapshot.getValue(PerfilBasicoPersistence.class);
+                                    if (!user.getEmail().isEmpty() && user.getEmail().equals(currentUser.getEmail())) {
+                                        break;
+                                    }
+                                }
                     llenarDatosBasicos(user);
                     cargarPerfilMedico();
                     cargarPerfilXEPS();

@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), EmergencyOptions.class);
+                intent.putExtra("emailActual", currentUser.getEmail());
                 startActivityForResult(intent, 0);
             }
         });

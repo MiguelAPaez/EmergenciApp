@@ -60,7 +60,7 @@ public class FamilyGroup extends AppCompatActivity {
                 Toast.makeText(adapterView.getContext(), "Selecciona: "
                         + i, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(FamilyGroup.this, ProfileFamily.class);
-                //intent.putExtra("email", //Email Familiar);
+                intent.putExtra("email", listItems.get(i).getEmail());
                 startActivityForResult(intent, 0);
             }
         });
