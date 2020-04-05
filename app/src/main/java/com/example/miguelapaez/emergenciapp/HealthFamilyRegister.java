@@ -1,6 +1,7 @@
 package com.example.miguelapaez.emergenciapp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -13,15 +14,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.miguelapaez.emergenciapp.Entities.Perfil;
 import com.example.miguelapaez.emergenciapp.Entities.PerfilBasico;
+import com.example.miguelapaez.emergenciapp.Entities.PerfilMedico;
+import com.example.miguelapaez.emergenciapp.Entities.PerfilXEPS;
+import com.example.miguelapaez.emergenciapp.Entities.PerfilxPrepagada;
 import com.example.miguelapaez.emergenciapp.Negocio.FacadeNegocio;
 import com.example.miguelapaez.emergenciapp.Negocio.ImplementacionNegocio;
 import com.example.miguelapaez.emergenciapp.Validaciones.Validaciones;
 
 public class HealthFamilyRegister extends AppCompatActivity {
 
-    Perfil profile;
     PerfilBasico basicProfile;
     String activity;
     FacadeNegocio bussiness = new ImplementacionNegocio ();
@@ -31,7 +33,7 @@ public class HealthFamilyRegister extends AppCompatActivity {
     RadioButton ePC;
     String bloodType, disease, environmentAllergy, medicinesAllergy, medicine;
     String nombreEPS,regimenEPS;
-    String nombrePrepagada;
+    String nombrePrepagada, emailActual, relationship;
     String redColor = "#40FF0000";
     private LinearLayout editEpsLinear, editAfiliacionLinear, editComplementaryPlanLinear, editPrepaidMedicineLinear, editRhLinear,
             editDiseaseLinear, editambientalAllergyLinear, editMedicineAllergyLinear, editMedicineLinear;
@@ -64,9 +66,10 @@ public class HealthFamilyRegister extends AppCompatActivity {
         //EditText de Prepagada
         ePrepagada = (Spinner) findViewById(R.id.prepaidMedicineFamilyRegister);
 
-        /*//Recepción de datos Activity Registro Familiar
-        profile = (Perfil) getIntent().getSerializableExtra("profile");
-        basicProfile = (PerfilBasico) getIntent().getSerializableExtra("basicProfile");*/
+       //Recepción de datos Activity Registro Familiar
+        basicProfile = (PerfilBasico) getIntent().getSerializableExtra("basicProfile");
+        relationship = getIntent().getStringExtra("relationship");
+        emailActual = getIntent().getStringExtra("emailActual");
 
         //LinearLayout's
         editEpsLinear = (LinearLayout) findViewById ( R.id.linearLayoutEPSFamilyRegister );
@@ -102,7 +105,6 @@ public class HealthFamilyRegister extends AppCompatActivity {
                     if(validacionOK) {
                         llenarDatos ();
                         registrarUsuario ();
-                        Toast.makeText(HealthFamilyRegister.this, "Esperando para crear Familiar...", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -131,7 +133,14 @@ public class HealthFamilyRegister extends AppCompatActivity {
     }
 
     private void registrarUsuario() {
-
+        bussiness.guardarPerfilBasico(basicProfile);
+        bussiness.guardarPerfilMedico(crearPerfilMedico());
+        bussiness.guardarPerfilXEPS(crearPerfilXEPS());
+        bussiness.guardarPerfilXPrepagada(crearPerfilXPrepagada());
+        bussiness.guardarFamiliar(emailActual,basicProfile.getEmail(),relationship);
+        Toast.makeText(HealthFamilyRegister.this, "Usuario creado", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent ( getApplicationContext() , MainActivity.class );
+        startActivityForResult ( intent , 0 );
     }
 
     class ThreadB extends Thread{
@@ -303,5 +312,16 @@ public class HealthFamilyRegister extends AppCompatActivity {
         return true;
 
     }
-
+    private PerfilMedico crearPerfilMedico(){
+        PerfilMedico user = new PerfilMedico(basicProfile.getEmail(),bloodType,disease,environmentAllergy,medicinesAllergy,medicine);
+        return user;
+    }
+    private PerfilXEPS crearPerfilXEPS(){
+        PerfilXEPS user = new PerfilXEPS(basicProfile.getEmail(),nombreEPS,regimenEPS,planC);
+        return user;
+    }
+    private PerfilxPrepagada crearPerfilXPrepagada(){
+        PerfilxPrepagada user = new PerfilxPrepagada(basicProfile.getEmail(),nombrePrepagada);
+        return user;
+    }
 }

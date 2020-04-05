@@ -18,5 +18,6 @@ public interface FacadeNegocio {
     public void guardarPerfilXEPS(PerfilXEPS user);
     public void guardarPerfilXPrepagada(PerfilxPrepagada user);
     public void guardarPerfil(Perfil user);
+    public void guardarFamiliar(String emailP,String emailF, String rolF);
     public void crearSolicitud(Solicitud solicitud);
 }

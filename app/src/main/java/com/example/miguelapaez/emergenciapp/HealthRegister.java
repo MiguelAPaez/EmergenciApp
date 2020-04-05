@@ -150,7 +150,6 @@ public class HealthRegister extends AppCompatActivity {
 
     private void registrarUsuario() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        boolean response = false;
         progressDialog.setMessage("Registrando usuario...");
         progressDialog.show();
         mAuth.createUserWithEmailAndPassword(profile.getEmail(), profile.getPassword())

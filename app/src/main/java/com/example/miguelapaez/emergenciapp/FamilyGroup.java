@@ -75,6 +75,7 @@ public class FamilyGroup extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent(v.getContext(), activity_buscarFamiliar.class);
+                intent.putExtra("emailActual",emailActual);
                 startActivityForResult(intent, 0);
             }
         });

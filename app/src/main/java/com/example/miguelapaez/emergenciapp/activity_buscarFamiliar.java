@@ -28,10 +28,8 @@ public class activity_buscarFamiliar extends AppCompatActivity {
     FacadeNegocio bussiness = new ImplementacionNegocio();
     TextView message;
     EditText eEmail;
-    String email;
+    String email, emailActual;
     DatabaseReference mDatabaseBasic;
-    FirebaseAuth mAuth;
-    FirebaseUser currentUser;
     ProgressDialog progressDialog;
 
     @Override
@@ -42,8 +40,7 @@ public class activity_buscarFamiliar extends AppCompatActivity {
         message = (TextView) findViewById(R.id.messageBuscar);
         eEmail = (EditText) findViewById(R.id.InputEmailABuscar);
         mDatabaseBasic = FirebaseDatabase.getInstance().getReference("Perfiles Basicos");
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
+        emailActual = getIntent().getStringExtra("emailActual");
         progressDialog = new ProgressDialog(this);
         String font_path = "font/Arvo-Regular.ttf";
         Typeface TF = Typeface.createFromAsset(getAssets(), font_path);
@@ -57,6 +54,7 @@ public class activity_buscarFamiliar extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent(v.getContext(), activity_registro_familiar.class);
+                intent.putExtra("emailActual",emailActual);
                 startActivityForResult(intent, 0);
             }
         });
@@ -66,7 +64,7 @@ public class activity_buscarFamiliar extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 email = eEmail.getText().toString().trim();
-                if(!email.equals(currentUser.getEmail())){
+                if(!email.equals(emailActual)){
                     buscarFamiliar(email);
                 }
                 else {
@@ -90,7 +88,7 @@ public class activity_buscarFamiliar extends AppCompatActivity {
                         if (!user.getEmail().isEmpty() && user.getEmail().equals(email)) {
                             Intent intent = new Intent(getApplicationContext(), mostrarFamiliarEncontrado.class);
                             intent.putExtra("basicProfile", user);
-                            intent.putExtra("email", currentUser.getEmail());
+                            intent.putExtra("email", emailActual);
                             startActivity(intent);
                             break;
                         }

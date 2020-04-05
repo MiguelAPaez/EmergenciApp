@@ -50,7 +50,7 @@ public class Notificaciones extends AppCompatActivity {
                 progressDialog = new ProgressDialog(v.getContext());
                 progressDialog.setMessage("Aceptando solicitud...");
                 progressDialog.show();
-                mDatabaseBasic.orderByChild("emailRem").equalTo(solicitud.getEmailRem());
+                mDatabaseBasic.orderByChild("email").equalTo(solicitud.getEmailRem());
                 mDatabaseBasic.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -86,7 +86,7 @@ public class Notificaciones extends AppCompatActivity {
         });
     }
     private void cargarSolicitante(){
-        mDatabaseBasic.orderByChild("emailSol").equalTo(solicitud.getEmailSol());
+        mDatabaseBasic.orderByChild("email").equalTo(solicitud.getEmailSol());
         mDatabaseBasic.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -118,7 +118,7 @@ public class Notificaciones extends AppCompatActivity {
         }
     }
     private void actualizarSolicitante(){
-        mDatabaseBasic.orderByChild("emailSol").equalTo(solicitud.getEmailSol());
+        mDatabaseBasic.orderByChild("email").equalTo(solicitud.getEmailSol());
         mDatabaseBasic.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

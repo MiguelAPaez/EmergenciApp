@@ -233,6 +233,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void checkNotify() {
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
         btnNotificaciones = (ImageView) findViewById( R.id.buttonNotification);
         DatabaseReference mDatabaseSolicitud = FirebaseDatabase.getInstance().getReference().child("Solicitudes");
         mDatabaseSolicitud.orderByChild("emailRem").equalTo(currentUser.getEmail());
