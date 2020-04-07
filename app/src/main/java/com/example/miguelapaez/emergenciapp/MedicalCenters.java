@@ -9,7 +9,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.miguelapaez.emergenciapp.Adapters.AdapterMedicalCenters;
+import com.example.miguelapaez.emergenciapp.Entities.EntityMedicalCenter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
@@ -45,6 +48,10 @@ public class MedicalCenters extends AppCompatActivity {
     private String distance = "";
     private String duration = "";
 
+    ListView listItemsMedicalCenters;
+    private AdapterMedicalCenters adaptador;
+    ArrayList<EntityMedicalCenter> listItems = new ArrayList<>();
+
 
     JsonObjectRequest jsonObjectRequest;
     RequestQueue request;
@@ -65,24 +72,29 @@ public class MedicalCenters extends AppCompatActivity {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient ( this );
 
-        LinearLayout hospital = (LinearLayout) findViewById ( R.id.linearLayoutMedicalCenter1 );
-        hospital.setOnClickListener ( new View.OnClickListener () {
+        cargarLista();
+        listItemsMedicalCenters = findViewById(R.id.listViewMedicalCenters);
+        adaptador = new AdapterMedicalCenters ( this, listItems);
+        listItemsMedicalCenters.setAdapter(adaptador);
+
+        listItemsMedicalCenters.setOnItemClickListener ( new AdapterView.OnItemClickListener () {
             @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView <?> adapterView , View view , int i , long l) {
+                Toast.makeText ( adapterView.getContext (), "Selecciona: "
+                        +listItems.get(i).getName (), Toast.LENGTH_SHORT).show ();
 
                 String latUser = String.valueOf(latitudUser);
                 String lonUser = String.valueOf(longitudUser);
 
                 webServiceObtenerRuta ( latUser , lonUser ,
-                                        "4.628551" , "-74.064039"
-                );
+                                        listItems.get(i).getLatitud () , listItems.get(i).getLongitud () );
 
-                Intent intent = new Intent ( v.getContext () , MapsActivity.class );
-                intent.putExtra ( "latitud" , 4.628551 );
-                intent.putExtra ( "longitud" , -74.064039 );
+                Intent intent = new Intent ( MedicalCenters.this , MapsActivity.class );
+                intent.putExtra ( "latitud" , Double.valueOf ( listItems.get(i).getLatitud () ) );
+                intent.putExtra ( "longitud" , Double.valueOf ( listItems.get(i).getLongitud () ) );
                 intent.putExtra ( "distance", distance );
                 intent.putExtra ( "duration", duration );
-                intent.putExtra ( "name" , "Hospital San Ignacio" );
+                intent.putExtra ( "name" , listItems.get(i).getName () );
                 startActivityForResult ( intent , 0 );
             }
         } );
@@ -110,6 +122,13 @@ public class MedicalCenters extends AppCompatActivity {
                 } );
 
 
+    }
+
+    private void cargarLista(){
+        listItems.add(new EntityMedicalCenter ( "Hospital San Ignacio", "Cra. 7 No. 40-62", "4.628551", "-74.064039" ));
+        listItems.add(new EntityMedicalCenter ( "Clinica Marly", "Cl. 50 No. 9-67", "4.636828", "-74.065194" ));
+        listItems.add(new EntityMedicalCenter ( "Hospital Militar", "Tv. 3 # 49-02", "4.635096", "-74.062111" ));
+        listItems.add(new EntityMedicalCenter ( "Clinica El Country", "Cra. 16 #82-95", "4.669296", "-74.057093" ));
     }
 
     private void webServiceObtenerRuta(String latitudInicial, String longitudInicial, String latitudFinal, String longitudFinal) {
