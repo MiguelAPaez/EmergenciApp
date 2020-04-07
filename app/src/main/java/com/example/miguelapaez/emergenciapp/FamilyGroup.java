@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,10 +56,11 @@ public class FamilyGroup extends AppCompatActivity {
         listItemsFamilyGroup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(adapterView.getContext(), "Selecciona: "
-                        + i, Toast.LENGTH_SHORT).show();
+                /* Toast.makeText(adapterView.getContext(), "Selecciona: "
+                        + i, Toast.LENGTH_SHORT).show(); */
                 Intent intent = new Intent(FamilyGroup.this, ProfileFamily.class);
                 intent.putExtra("email", listItems.get(i).getEmail());
+                intent.putExtra("rol", listItems.get(i).getParent());
                 startActivityForResult(intent, 0);
             }
         });

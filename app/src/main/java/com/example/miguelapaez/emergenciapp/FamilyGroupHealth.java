@@ -21,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FamilyGroupHealth extends AppCompatActivity {
 
@@ -46,11 +45,10 @@ public class FamilyGroupHealth extends AppCompatActivity {
         listItemsFamilyGroup.setOnItemClickListener ( new AdapterView.OnItemClickListener () {
             @Override
             public void onItemClick(AdapterView <?> adapterView , View view , int i , long l) {
-                Toast.makeText ( adapterView.getContext (), "Selecciona: "
-                        +i, Toast.LENGTH_SHORT).show ();
+                Toast.makeText ( adapterView.getContext (), "Seleccionaste a: "
+                        +listItems.get(i).getName(), Toast.LENGTH_SHORT).show ();
                 Intent intent = new Intent ( FamilyGroupHealth.this , HealthQuestion.class );
                 intent.putExtra("email", listItems.get(i).getEmail());
-                intent.putExtra("email", listItems.get(i).getParent());
                 startActivityForResult ( intent , 0 );
             }
         } );
