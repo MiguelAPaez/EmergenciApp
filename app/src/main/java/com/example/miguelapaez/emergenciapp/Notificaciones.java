@@ -30,69 +30,53 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class Notificaciones extends AppCompatActivity {
-    TextView eName;
-    ImageView ePic;
-    DatabaseReference mDatabaseSolicitud, mDatabaseBasic;
-    SolicitudPersistence solicitud;
-    Button eBtnAccept,eBtnNeg;
-    String idSolicitud;
-    ProgressDialog progressDialog;
-
+    String emailActual;
+    DatabaseReference mDatabaseBasic;
     ListView listItemsNotificaciones;
     private AdapterFamilyGroup adaptador;
-    ArrayList <EntityFamilyGroup> listItems = new ArrayList<>();
+    ArrayList<EntityFamilyGroup> listItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notificaciones);
-        /*eName = (TextView) findViewById(R.id.textViewNameUserNotification);
-        ePic = (ImageView) findViewById(R.id.imageViewUserNotification);
-        eBtnAccept = (Button) findViewById(R.id.buttonConfirmarPeticion);
-        eBtnNeg = (Button) findViewById(R.id.buttonNegarPeticion);*/
 
-        listItemsNotificaciones = findViewById ( R.id.listViewNotificaciones );
-        adaptador = new AdapterFamilyGroup ( this, listItems);
+        listItemsNotificaciones = findViewById(R.id.listViewNotificaciones);
+        adaptador = new AdapterFamilyGroup(this, listItems);
         listItemsNotificaciones.setAdapter(adaptador);
-
-        solicitud = (SolicitudPersistence) getIntent().getSerializableExtra("solicitud");
-        idSolicitud = getIntent().getStringExtra("id");
-        mDatabaseSolicitud = FirebaseDatabase.getInstance().getReference().child("Solicitudes").child(idSolicitud);
+        emailActual = getIntent().getStringExtra("emailActual");
         mDatabaseBasic = FirebaseDatabase.getInstance().getReference().child("Perfiles Basicos");
-        cargarSolicitante();
+        cargarSolicitudes();
 
-        listItemsNotificaciones.setOnItemClickListener ( new AdapterView.OnItemClickListener () {
+        listItemsNotificaciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView <?> adapterView , View view , int i , long l) {
-                AlertDialog.Builder message = new AlertDialog.Builder ( Notificaciones.this );
-                message.setTitle ( listItems.get(i).getName () );
-                message.setMessage ( "Desea agregarte a su Grupo Familiar" );
-                message.setPositiveButton ( "Confirmar" , new DialogInterface.OnClickListener () {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AlertDialog.Builder message = new AlertDialog.Builder(Notificaciones.this);
+                message.setTitle(listItems.get(i).getName());
+                message.setMessage("Desea agregarte a su Grupo Familiar");
+                final EntityFamilyGroup buzz = listItems.get(i);
+                message.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface , int i) {
-                    /*
-                        progressDialog = new ProgressDialog(v.getContext());
-                        progressDialog.setMessage("Aceptando solicitud...");
-                        progressDialog.show();
-                        mDatabaseBasic.orderByChild("email").equalTo(solicitud.getEmailRem());
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        final String idP = mDatabaseBasic.push().getKey();
+                        mDatabaseBasic.orderByChild("email").equalTo(emailActual);
                         mDatabaseBasic.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists()){
-                                    PerfilBasicoPersistence user = new PerfilBasicoPersistence();
-                                    ReferenciaGrupo familiar = new ReferenciaGrupo(solicitud.getEmailSol(),solicitud.getRolSol());
+                                if (dataSnapshot.exists()) {
+                                    PerfilBasicoPersistence user;
+                                    ReferenciaGrupo familiar = new ReferenciaGrupo(buzz.getEmail(), buzz.getParent());
                                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                         user = snapshot.getValue(PerfilBasicoPersistence.class);
-                                        if (!user.getEmail().isEmpty() && user.getEmail().equals(solicitud.getEmailRem())) {
+                                        if (!user.getEmail().isEmpty() && user.getEmail().equals(emailActual)) {
                                             String idChild = snapshot.getKey();
-                                            mDatabaseBasic.child(idChild).child("Grupo").child(idSolicitud).setValue(familiar);
-                                            actualizarSolicitante();
+                                            mDatabaseBasic.child(idChild).child("Grupo").child(idP).setValue(familiar);
+                                            cargarSolicitud(emailActual, buzz.getEmail());
                                             break;
                                         }
                                     }
                                 }
-                                progressDialog.dismiss();
                             }
 
                             @Override
@@ -100,78 +84,37 @@ public class Notificaciones extends AppCompatActivity {
 
                             }
                         });
-                     */
-                    }
-                } );
-                message.setNegativeButton ( "Eliminar" , new DialogInterface.OnClickListener () {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface , int i) {
-                        Toast.makeText( Notificaciones.this, "Solicitud eliminada", Toast.LENGTH_SHORT).show();
-                        eliminarSolicitud();
-                    }
-                } );
-
-                AlertDialog dialog = message.create ();
-                dialog.show();
-            }
-        } );
-
-
-        /*eBtnAccept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressDialog = new ProgressDialog(v.getContext());
-                progressDialog.setMessage("Aceptando solicitud...");
-                progressDialog.show();
-                mDatabaseBasic.orderByChild("email").equalTo(solicitud.getEmailRem());
-                mDatabaseBasic.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.exists()){
-                            PerfilBasicoPersistence user = new PerfilBasicoPersistence();
-                            ReferenciaGrupo familiar = new ReferenciaGrupo(solicitud.getEmailSol(),solicitud.getRolSol());
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                user = snapshot.getValue(PerfilBasicoPersistence.class);
-                                if (!user.getEmail().isEmpty() && user.getEmail().equals(solicitud.getEmailRem())) {
-                                    String idChild = snapshot.getKey();
-                                    mDatabaseBasic.child(idChild).child("Grupo").child(idSolicitud).setValue(familiar);
-                                    actualizarSolicitante();
-                                    break;
-                                }
-                            }
-                        }
-                        progressDialog.dismiss();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
                     }
                 });
+                message.setNegativeButton("Eliminar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(Notificaciones.this, "Solicitud eliminada", Toast.LENGTH_SHORT).show();
+                        eliminarSolicitudNeg(emailActual, buzz.getEmail());
+                    }
+                });
+
+                AlertDialog dialog = message.create();
+                dialog.show();
             }
         });
-        eBtnNeg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Solicitud eliminada",Toast.LENGTH_SHORT).show();
-                eliminarSolicitud();
-            }
-        });*/
     }
-    private void cargarSolicitante(){
-        mDatabaseBasic.orderByChild("email").equalTo(solicitud.getEmailSol());
-        mDatabaseBasic.addValueEventListener(new ValueEventListener() {
+
+    private void cargarSolicitudes() {
+        DatabaseReference mDatabaseSolicitud = FirebaseDatabase.getInstance().getReference().child("Solicitudes");
+        mDatabaseSolicitud.orderByChild("emailRem").equalTo(emailActual);
+        mDatabaseSolicitud.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    PerfilBasicoPersistence user = new PerfilBasicoPersistence();
+                if (dataSnapshot.exists()) {
+                    SolicitudPersistence solPer;
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        user = snapshot.getValue(PerfilBasicoPersistence.class);
-                        if (!user.getEmail().isEmpty() && user.getEmail().equals(solicitud.getEmailSol())) {
-                            break;
+                        solPer = snapshot.getValue(SolicitudPersistence.class);
+                        if (!solPer.getEmailRem().isEmpty() && solPer.getEmailRem().equals(emailActual)) {
+                            String id = snapshot.getKey();
+                            cargarSolicitante(solPer);
                         }
                     }
-                    llenarSolicitante(user);
                 }
             }
 
@@ -181,29 +124,84 @@ public class Notificaciones extends AppCompatActivity {
             }
         });
     }
-    private void llenarSolicitante(PerfilBasicoPersistence user){
-        String name = user.getName() + " " + user.getLastName();
-        eName.setText(name);
-        if (user.getGender().equals("Masculino")) {
-            ePic.setImageResource(R.drawable.hombre);
-        } else if (user.getGender().equals("Femenino")) {
-            ePic.setImageResource(R.drawable.mujer);
-        }
-    }
-    private void actualizarSolicitante(){
+
+    private void cargarSolicitante(final SolicitudPersistence solicitud) {
         mDatabaseBasic.orderByChild("email").equalTo(solicitud.getEmailSol());
         mDatabaseBasic.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     PerfilBasicoPersistence user = new PerfilBasicoPersistence();
-                    ReferenciaGrupo familiar = new ReferenciaGrupo(solicitud.getEmailRem(),solicitud.getRolRem());
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        user = snapshot.getValue(PerfilBasicoPersistence.class);
+                        if (!user.getEmail().isEmpty() && user.getEmail().equals(solicitud.getEmailSol())) {
+                            llenarSolicitante(user, solicitud.getRolSol());
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void llenarSolicitante(PerfilBasicoPersistence user, String rol) {
+        String name = user.getName() + " " + user.getLastName();
+        int img = R.drawable.incognito;
+        if (user.getGender().equals("Masculino")) {
+            img = R.drawable.hombre;
+        } else if (user.getGender().equals("Femenino")) {
+            img = R.drawable.mujer;
+        }
+        EntityFamilyGroup fam = new EntityFamilyGroup(img, name, rol, user.getEmail());
+        listItems.add(fam);
+        adaptador.notifyDataSetChanged();
+    }
+
+    private void cargarSolicitud(final String emailActual, final String emailSol) {
+        DatabaseReference mDatabaseSolicitud = FirebaseDatabase.getInstance().getReference().child("Solicitudes");
+        mDatabaseSolicitud.orderByChild("emailRem").equalTo(emailActual);
+        mDatabaseSolicitud.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    SolicitudPersistence solPer;
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        solPer = snapshot.getValue(SolicitudPersistence.class);
+                        if ((!solPer.getEmailRem().isEmpty() && solPer.getEmailRem().equals(emailActual)) && (!solPer.getEmailSol().isEmpty() && solPer.getEmailSol().equals(emailSol))) {
+                            String id = snapshot.getKey();
+                            actualizarSolicitante(solPer, id);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void actualizarSolicitante(final SolicitudPersistence solicitud, final String id) {
+        final String idP = mDatabaseBasic.push().getKey();
+        mDatabaseBasic.orderByChild("email").equalTo(solicitud.getEmailSol());
+        mDatabaseBasic.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    PerfilBasicoPersistence user;
+                    ReferenciaGrupo familiar = new ReferenciaGrupo(solicitud.getEmailRem(), solicitud.getRolRem());
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         user = snapshot.getValue(PerfilBasicoPersistence.class);
                         if (!user.getEmail().isEmpty() && user.getEmail().equals(solicitud.getEmailSol())) {
                             String idChild = snapshot.getKey();
-                            mDatabaseBasic.child(idChild).child("Grupo").child(idSolicitud).setValue(familiar);
-                            eliminarSolicitud();
+                            mDatabaseBasic.child(idChild).child("Grupo").child(idP).setValue(familiar);
+                            eliminarSolicitud(id);
                             break;
                         }
                     }
@@ -216,10 +214,39 @@ public class Notificaciones extends AppCompatActivity {
             }
         });
     }
-    private void eliminarSolicitud(){
+
+    private void eliminarSolicitud(String idSolicitud) {
+        DatabaseReference mDatabaseSolicitud = FirebaseDatabase.getInstance().getReference().child("Solicitudes").child(idSolicitud);
         mDatabaseSolicitud.removeValue();
         Intent intent = new Intent(getApplicationContext(), FamilyGroup.class);
-        intent.putExtra("emailActual",solicitud.getEmailRem());
+        intent.putExtra("emailActual", emailActual);
         startActivityForResult(intent, 0);
+    }
+
+    private void eliminarSolicitudNeg(final String emailActual, final String emailSol) {
+        DatabaseReference mDatabaseSolicitud = FirebaseDatabase.getInstance().getReference().child("Solicitudes");
+        mDatabaseSolicitud.orderByChild("emailRem").equalTo(emailActual);
+        mDatabaseSolicitud.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    SolicitudPersistence solPer = new SolicitudPersistence();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        solPer = snapshot.getValue(SolicitudPersistence.class);
+                        if ((!solPer.getEmailRem().isEmpty() && solPer.getEmailRem().equals(emailActual)) && (!solPer.getEmailSol().isEmpty() && solPer.getEmailSol().equals(emailSol))) {
+                            String id = snapshot.getKey();
+                            DatabaseReference mDatabaseSolicitud = FirebaseDatabase.getInstance().getReference().child("Solicitudes").child(id);
+                            mDatabaseSolicitud.removeValue();
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

@@ -126,36 +126,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(btnNotificaciones.isEnabled()){
-                    progressDialog = new ProgressDialog(v.getContext());
-                    progressDialog.setMessage("Cargando notificaciones...");
-                    progressDialog.show();
-                    DatabaseReference mDatabaseSolicitud= FirebaseDatabase.getInstance().getReference().child("Solicitudes");
-                    mDatabaseSolicitud.orderByChild("emailRem").equalTo(currentUser.getEmail());
-                    mDatabaseSolicitud.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.exists()){
-                                SolicitudPersistence solPer = new SolicitudPersistence();
-                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    solPer = snapshot.getValue(SolicitudPersistence.class);
-                                    if (!solPer.getEmailRem().isEmpty() && solPer.getEmailRem().equals(currentUser.getEmail())) {
-                                        String id = snapshot.getKey();
-                                        Intent intent = new Intent(getApplicationContext(), Notificaciones.class);
-                                        intent.putExtra("id",id);
-                                        intent.putExtra("solicitud", solPer);
-                                        startActivityForResult(intent, 0);
-                                        break;
-                                    }
-                                }
-                            }
-                            progressDialog.dismiss();
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
+                    Intent intent = new Intent(getApplicationContext(), Notificaciones.class);
+                    intent.putExtra("emailActual", currentUser.getEmail());
+                    startActivityForResult(intent, 0);
                 }
             }
         });
@@ -255,10 +228,12 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     if (!status){
+                        btnNotificaciones.setImageResource(R.drawable.notification_disabled);
                         btnNotificaciones.setEnabled(false);
                     }
                 }
                 else{
+                    btnNotificaciones.setImageResource(R.drawable.notification_disabled);
                     btnNotificaciones.setEnabled(false);
                 }
             }
