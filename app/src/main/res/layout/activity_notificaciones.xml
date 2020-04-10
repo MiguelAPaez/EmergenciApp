@@ -44,6 +44,7 @@
             android:divider="@null"
             android:choiceMode="singleChoice"
             android:listSelector="@color/colorBackgroundAux"
+            android:layout_marginTop="5dp"
             android:dividerHeight="0dp"/>
 
     </LinearLayout>
