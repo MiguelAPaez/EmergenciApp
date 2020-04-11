@@ -72,7 +72,7 @@ public class Notificaciones extends AppCompatActivity {
                                         if (!user.getEmail().isEmpty() && user.getEmail().equals(emailActual)) {
                                             String idChild = snapshot.getKey();
                                             mDatabaseBasic.child(idChild).child("Grupo").child(idP).setValue(familiar);
-                                            cargarSolicitud(emailActual, buzz.getEmail());
+                                            cargarSolicitud(emailActual, buzz.getEmail(),idP);
                                             break;
                                         }
                                     }
@@ -161,7 +161,7 @@ public class Notificaciones extends AppCompatActivity {
         adaptador.notifyDataSetChanged();
     }
 
-    private void cargarSolicitud(final String emailActual, final String emailSol) {
+    private void cargarSolicitud(final String emailActual, final String emailSol, final String idP) {
         DatabaseReference mDatabaseSolicitud = FirebaseDatabase.getInstance().getReference().child("Solicitudes");
         mDatabaseSolicitud.orderByChild("emailRem").equalTo(emailActual);
         mDatabaseSolicitud.addValueEventListener(new ValueEventListener() {
@@ -173,7 +173,7 @@ public class Notificaciones extends AppCompatActivity {
                         solPer = snapshot.getValue(SolicitudPersistence.class);
                         if ((!solPer.getEmailRem().isEmpty() && solPer.getEmailRem().equals(emailActual)) && (!solPer.getEmailSol().isEmpty() && solPer.getEmailSol().equals(emailSol))) {
                             String id = snapshot.getKey();
-                            actualizarSolicitante(solPer, id);
+                            actualizarSolicitante(solPer, id, idP);
                             break;
                         }
                     }
@@ -187,8 +187,7 @@ public class Notificaciones extends AppCompatActivity {
         });
     }
 
-    private void actualizarSolicitante(final SolicitudPersistence solicitud, final String id) {
-        final String idP = mDatabaseBasic.push().getKey();
+    private void actualizarSolicitante(final SolicitudPersistence solicitud, final String id, final String idP) {
         mDatabaseBasic.orderByChild("email").equalTo(solicitud.getEmailSol());
         mDatabaseBasic.addValueEventListener(new ValueEventListener() {
             @Override
