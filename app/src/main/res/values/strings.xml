@@ -101,4 +101,6 @@
     <string name="Confirmar">✓</string>
     <string name="Eliminar">X</string>
 
+    <string name="actMap">Actualizar Ubicación</string>
+
 </resources>

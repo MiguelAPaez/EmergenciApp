@@ -17,14 +17,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProfileFamily"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".HealthFamilyRegister"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Notificaciones"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".mostrarFamiliarEncontrado"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ProfileFamily"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HealthFamilyRegister"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Notificaciones"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mostrarFamiliarEncontrado"
+            android:screenOrientation="portrait" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -40,36 +52,43 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MedicalCenters"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".FamilyGroupHealth"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".HealthQuestion"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".FamilyGroup"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity_registro_familiar"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity_buscarFamiliar"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".EmergencyOptions"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Profile"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".HealthRegister"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Register"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Login"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MedicalCenters"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FamilyGroupHealth"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HealthQuestion"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FamilyGroup"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity_registro_familiar"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity_buscarFamiliar"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EmergencyOptions"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HealthRegister"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Register"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

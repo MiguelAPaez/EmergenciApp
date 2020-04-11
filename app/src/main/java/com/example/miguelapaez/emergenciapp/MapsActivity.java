@@ -9,6 +9,8 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -35,9 +43,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,6 +75,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double longitudMedicalCenter = 0;
     private String nameMedicalCenter = "";
 
+    JsonObjectRequest jsonObjectRequest;
+    RequestQueue request;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -84,6 +100,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         duration = (String) getIntent().getSerializableExtra( "duration");
         nameMedicalCenter = (String) getIntent().getSerializableExtra( "name");
 
+        request = Volley.newRequestQueue( getApplicationContext());
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager ()
@@ -97,6 +115,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } else {
             showSettingDialog ();
         }
+
+        Button btnAct = (Button) findViewById( R.id.buttonActMap);
+        btnAct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                mFusedLocationClient = LocationServices.getFusedLocationProviderClient ( v.getContext () );
+                webServiceObtenerRuta(String.valueOf(latitudUser),String.valueOf(longitudUser),String.valueOf(latitudMedicalCenter),String.valueOf(longitudMedicalCenter));
+            }
+        });
 
         mFusedLocationClient.getLastLocation ().addOnSuccessListener (
                 this , new OnSuccessListener <Location> () {
@@ -278,6 +306,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        mMap.setMapStyle( MapStyleOptions.loadRawResourceStyle(this, R.raw.style_json));
+
 
         if (checkSelfPermission ( Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -377,5 +407,206 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // mMap.moveCamera ( CameraUpdateFactory.newLatLng ( posicion ) );
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(posicion, 15));
     }
+
+
+    private void webServiceObtenerRuta(String latitudInicial, String longitudInicial, String latitudFinal, String longitudFinal) {
+
+        String url="https://maps.googleapis.com/maps/api/directions/json?origin="+latitudInicial+","+longitudInicial
+                +"&destination="+latitudFinal+","+longitudFinal+"&key=AIzaSyBcbJP6b85tsc2tS5vdPnGwVnp89RQE9HY";
+
+        Log.i( "URL: ", url);
+
+        jsonObjectRequest=new JsonObjectRequest ( Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                //Este método PARSEA el JSONObject que retorna del API de Rutas de Google devolviendo
+                //una lista del lista de HashMap Strings con el listado de Coordenadas de Lat y Long,
+                //con la cual se podrá dibujar pollinas que describan la ruta entre 2 puntos.
+                JSONArray jRoutes = null;
+                JSONArray jLegs = null;
+                JSONArray jSteps = null;
+
+                try {
+
+                    jRoutes = response.getJSONArray("routes");
+
+                    /** Traversing all routes */
+                    for(int i=0;i<jRoutes.length();i++){
+                        jLegs = ( (JSONObject)jRoutes.get(i)).getJSONArray("legs");
+                        List<HashMap<String, String>> path = new ArrayList <HashMap<String, String>> ();
+
+                        /** Traversing all legs */
+                        for(int j=0;j<jLegs.length();j++){
+                            distance = (String)((JSONObject)((JSONObject)jLegs.get(j)).get("distance")).get("text");
+                            duration = (String)((JSONObject)((JSONObject)jLegs.get(j)).get("duration")).get("text");
+                            jSteps = ( (JSONObject)jLegs.get(j)).getJSONArray("steps");
+
+                            /** Traversing all steps */
+                            for(int k=0;k<jSteps.length();k++){
+                                String polyline = "";
+                                polyline = (String)((JSONObject)((JSONObject)jSteps.get(k)).get("polyline")).get("points");
+                                List <LatLng> list = decodePoly( polyline);
+
+                                /** Traversing all points */
+                                for(int l=0;l<list.size();l++){
+                                    HashMap <String, String> hm = new HashMap<String, String>();
+                                    hm.put("lat", Double.toString(((LatLng)list.get(l)).latitude) );
+                                    hm.put("lng", Double.toString(((LatLng)list.get( l)).longitude) );
+                                    path.add(hm);
+                                }
+                            }
+                            Utilidades.routes.add(path);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }catch (Exception e){
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText( getApplicationContext(), "No se puede conectar "+error.toString(), Toast.LENGTH_LONG).show();
+                System.out.println();
+                Log.d( "ERROR: ", error.toString());
+            }
+        }
+        );
+        Log.i( "jsonObjectRequest: ", String.valueOf ( jsonObjectRequest ) );
+        request.add(jsonObjectRequest);
+        ActualizarMap();
+    }
+
+    private void ActualizarMap() {
+
+        LatLng center = null;
+        ArrayList <LatLng> points = new ArrayList<LatLng>();
+        PolylineOptions lineOptions = new PolylineOptions();
+
+        // setUpMapIfNeeded();
+
+        // recorriendo todas las rutas
+        for(int z=0;z<Utilidades.routes.size();z++){
+            points = new ArrayList<LatLng>();
+            lineOptions = new PolylineOptions();
+
+            // Obteniendo el detalle de la ruta
+            List <HashMap <String, String>> pathAux = Utilidades.routes.get(z);
+
+            // Obteniendo todos los puntos y/o coordenadas de la ruta
+            for(int y=0;y<pathAux.size();y++){
+                HashMap<String,String> point = pathAux.get(y);
+
+                double lat = Double.parseDouble(point.get("lat"));
+                double lng = Double.parseDouble(point.get("lng"));
+                LatLng position = new LatLng(lat, lng);
+
+                if (center == null) {
+                    //Obtengo la 1ra coordenada para centrar el mapa en la misma.
+                    center = new LatLng(lat, lng);
+                }
+                points.add(position);
+            }
+
+            // Agregamos todos los puntos en la ruta al objeto LineOptions
+            lineOptions.addAll(points);
+            //Definimos el grosor de las Polilíneas
+            lineOptions.width(2);
+            //Definimos el color de la Polilíneas
+            lineOptions.color( Color.BLUE);
+        }
+
+        // Dibujamos las Polilineas en el Google Map para cada ruta
+        mMap.addPolyline(lineOptions);
+
+        markerMedicalCenter(latitudMedicalCenter,longitudMedicalCenter,nameMedicalCenter);
+
+        agregarMarcador ( latitudUser,longitudUser );
+
+        Toast.makeText ( MapsActivity.this, "¡Mapa Actualizado!", Toast.LENGTH_SHORT).show ();
+
+    }
+
+    public List<List<HashMap<String,String>>> parse(JSONObject jObject){
+        //Este método PARSEA el JSONObject que retorna del API de Rutas de Google devolviendo
+        //una lista del lista de HashMap Strings con el listado de Coordenadas de Lat y Long,
+        //con la cual se podrá dibujar pollinas que describan la ruta entre 2 puntos.
+        JSONArray jRoutes = null;
+        JSONArray jLegs = null;
+        JSONArray jSteps = null;
+
+        try {
+
+            jRoutes = jObject.getJSONArray("routes");
+
+            /** Traversing all routes */
+            for(int i=0;i<jRoutes.length();i++){
+                jLegs = ( (JSONObject)jRoutes.get(i)).getJSONArray("legs");
+                List<HashMap<String, String>> path = new ArrayList<HashMap<String, String>>();
+
+                /** Traversing all legs */
+                for(int j=0;j<jLegs.length();j++){
+                    distance = (String)((JSONObject)((JSONObject)jLegs.get(j)).get("distance")).get("text");
+                    duration = (String)((JSONObject)((JSONObject)jLegs.get(j)).get("duration")).get("text");
+                    jSteps = ( (JSONObject)jLegs.get(j)).getJSONArray("steps");
+
+                    /** Traversing all steps */
+                    for(int k=0;k<jSteps.length();k++){
+                        String polyline = "";
+                        polyline = (String)((JSONObject)((JSONObject)jSteps.get(k)).get("polyline")).get("points");
+                        List<LatLng> list = decodePoly(polyline);
+
+                        /** Traversing all points */
+                        for(int l=0;l<list.size();l++){
+                            HashMap<String, String> hm = new HashMap<String, String>();
+                            hm.put("lat", Double.toString(((LatLng)list.get(l)).latitude) );
+                            hm.put("lng", Double.toString(((LatLng)list.get(l)).longitude) );
+                            path.add(hm);
+                        }
+                    }
+                    Utilidades.routes.add(path);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }catch (Exception e){
+        }
+        return Utilidades.routes;
+    }
+
+    private List<LatLng> decodePoly(String encoded) {
+
+        List<LatLng> poly = new ArrayList<LatLng>();
+        int index = 0, len = encoded.length();
+        int lat = 0, lng = 0;
+
+        while (index < len) {
+            int b, shift = 0, result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lat += dlat;
+
+            shift = 0;
+            result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lng += dlng;
+
+            LatLng p = new LatLng((((double) lat / 1E5)),
+                                  (((double) lng / 1E5)));
+            poly.add(p);
+        }
+
+        return poly;
+    }
+
 
 }
