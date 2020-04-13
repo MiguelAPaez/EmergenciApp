@@ -60,6 +60,10 @@ public class PerfilBasico extends Perfil {
         this.age = age;
     }
 
+    public int getAge2() {
+         return Integer.parseInt(this.age);
+    }
+
     public String getPhone() {
         return phone;
     }

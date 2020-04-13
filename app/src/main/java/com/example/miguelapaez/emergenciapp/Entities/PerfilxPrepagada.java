@@ -24,4 +24,9 @@ public class PerfilxPrepagada {
     public void setNombrePrepada(String nombrePrepada) {
         this.nombrePrepada = nombrePrepada;
     }
+
+    public String getNombre() {
+
+        return this.nombrePrepada;
+    }
 }

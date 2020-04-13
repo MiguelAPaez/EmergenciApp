@@ -25,6 +25,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.miguelapaez.emergenciapp.Adapters.AdapterMedicalCenters;
 import com.example.miguelapaez.emergenciapp.Entities.EntityMedicalCenter;
+import com.example.miguelapaez.emergenciapp.Entities.Especialidad;
+import com.example.miguelapaez.emergenciapp.Entities.PerfilBasico;
+import com.example.miguelapaez.emergenciapp.Entities.PerfilXEPS;
+import com.example.miguelapaez.emergenciapp.Entities.PerfilxPrepagada;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
@@ -279,4 +283,186 @@ public class MedicalCenters extends AppCompatActivity {
         return poly;
     }
 
-}
+    public ArrayList filtradoDeHospitales(ArrayList<EntityMedicalCenter> IPSCandidatas, ArrayList<Especialidad> especialistasNecesarios, PerfilXEPS perfilEps, PerfilxPrepagada perfilPrepagada, PerfilBasico perfilBasico){
+
+
+        ArrayList<EntityMedicalCenter> IPSConConveniosMedico = new ArrayList<>();
+        ArrayList<EntityMedicalCenter> IPSConConveniosMedicoPrepagada = new ArrayList<>();
+        ArrayList<EntityMedicalCenter> IPSConConveniosMedicoEPS = new ArrayList<>();
+        ArrayList<EntityMedicalCenter> IPSQueAtiendanPorLaEdad = new ArrayList<>();
+        ArrayList<EntityMedicalCenter> IPSConEspecialistasNecesarios = new ArrayList<>();
+        ArrayList<EntityMedicalCenter> IPSDescartadas = new ArrayList<>();
+
+        IPSConConveniosMedicoPrepagada = filtradoPrepagada(IPSCandidatas, perfilPrepagada);
+
+        if(IPSConConveniosMedicoPrepagada.size() == 0){
+            IPSConConveniosMedicoEPS = filtradoEPS(IPSCandidatas, perfilEps);
+            IPSConConveniosMedico = IPSConConveniosMedicoEPS;
+        }else{
+            IPSConConveniosMedico = IPSConConveniosMedicoPrepagada;
+        }
+
+
+        for(int i = 0; i < IPSConConveniosMedico.size(); i++){
+
+            if(IPSQueAtiendanPorLaEdad.get(i).AtiendeSegunLaEdad(perfilBasico.getAge2())){
+
+                IPSQueAtiendanPorLaEdad.add(IPSConConveniosMedico.get(i));
+            }
+        }
+
+        if(IPSQueAtiendanPorLaEdad.isEmpty()){
+
+            IPSQueAtiendanPorLaEdad = IPSConConveniosMedico;
+        }
+
+        int max = 0;
+        for(int i = 0; i < IPSQueAtiendanPorLaEdad.size(); i++){
+            if(max <= IPSQueAtiendanPorLaEdad.get(i).especialidadesDisponibles(especialistasNecesarios)){
+                max = IPSQueAtiendanPorLaEdad.get(i).especialidadesDisponibles(especialistasNecesarios);
+            }
+        }
+
+        if(max > 0) {
+            while (true) {
+                for (int i = 0; i < IPSQueAtiendanPorLaEdad.size(); i++) {
+
+                    if (IPSQueAtiendanPorLaEdad.get(i).especialidadesDisponibles(especialistasNecesarios) == max) {
+
+                        IPSConEspecialistasNecesarios.add(IPSQueAtiendanPorLaEdad.get(i));
+                    }
+                }
+                max--;
+                if (max <= 0) {
+                    break;
+                }
+            }
+        }
+
+        if(IPSConEspecialistasNecesarios.isEmpty()){
+
+            IPSConEspecialistasNecesarios = IPSQueAtiendanPorLaEdad;
+        }
+
+        int n = IPSConEspecialistasNecesarios.size() / 2;
+        ordenamientoDeIPSSegunTiempoAcceso(IPSConEspecialistasNecesarios, 0, n- 1);
+        ordenamientoDeIPSSegunPercepcion(IPSConEspecialistasNecesarios, 0, obtenerIndiceIPSMasLejana(IPSConEspecialistasNecesarios));
+
+        return IPSConEspecialistasNecesarios;
+    }
+
+    private void ordenamientoDeIPSSegunTiempoAcceso(ArrayList<EntityMedicalCenter> IPSCandidatas, int l, int r){
+
+        if( l >= r){
+            return;
+        }
+
+        int pivot = CalcularDistanciasEneGoogleMaps(IPSCandidatas.get(r));
+        int cnt = l;
+
+        for (int i = l; i <= r; i++)
+        {
+            if (CalcularDistanciasEneGoogleMaps(IPSCandidatas.get(i)) <= pivot)
+            {
+                swap(IPSCandidatas,cnt, i);
+                cnt++;
+            }
+        }
+
+
+        ordenamientoDeIPSSegunTiempoAcceso(IPSCandidatas, l, cnt-2);
+        ordenamientoDeIPSSegunTiempoAcceso(IPSCandidatas, cnt, r);
+
+    }
+
+    private void swap(ArrayList<EntityMedicalCenter> IPSCandidatas ,int a, int b)
+    {
+        EntityMedicalCenter temp = IPSCandidatas.get(a);
+        IPSCandidatas.set(a, IPSCandidatas.get(b));
+        IPSCandidatas.set(b, temp);
+
+    }
+
+    private void ordenamientoDeIPSSegunPercepcion(ArrayList<EntityMedicalCenter> IPSCandidatas, int l, int r){
+
+        if( l >= r){
+            return;
+        }
+
+        float pivot = CalcularPuntuacionesEnGoogleMaps(IPSCandidatas.get(r));
+        int cnt = l;
+
+        for (int i = l; i <= r; i++)
+        {
+            if (CalcularPuntuacionesEnGoogleMaps(IPSCandidatas.get(i)) > pivot + 1)
+            {
+                swap(IPSCandidatas,cnt, i);
+                cnt++;
+            }
+        }
+
+
+        ordenamientoDeIPSSegunPercepcion(IPSCandidatas, l, cnt-2);
+        ordenamientoDeIPSSegunPercepcion(IPSCandidatas, cnt, r);
+
+
+    }
+
+    private int obtenerIndiceIPSMasLejana(ArrayList<EntityMedicalCenter> IPSCandidatas){
+
+        int n = 0;
+        for(int i = 0; i < IPSCandidatas.size(); i++){
+            if(CalcularDistanciasEneGoogleMaps(IPSCandidatas.get(i)) <= 20){
+                n++;
+            }else{
+                return n;
+            }
+
+        }
+        return n;
+    }
+
+    private int CalcularDistanciasEneGoogleMaps(EntityMedicalCenter entityMedicalCenter) {
+
+        return 10;
+    }
+
+    private float CalcularPuntuacionesEnGoogleMaps(EntityMedicalCenter entityMedicalCenter) {
+
+        return (float)3.1;
+    }
+
+
+    public ArrayList filtradoPrepagada(ArrayList<EntityMedicalCenter> IPSCandidatas, PerfilxPrepagada perfilPrepagada){
+
+        ArrayList<EntityMedicalCenter> IPSConConveniosMedicoPrepagada = new ArrayList<>();
+        for(int i = 0; i < IPSCandidatas.size(); i++){
+
+            if(IPSCandidatas.get(i).TieneConvenio(perfilPrepagada.getNombre())){
+
+                IPSConConveniosMedicoPrepagada.add(IPSCandidatas.get(i));
+            }
+        }
+        return IPSConConveniosMedicoPrepagada;
+
+    }
+
+    public ArrayList filtradoEPS(ArrayList<EntityMedicalCenter> IPSCandidatas,  PerfilXEPS perfilEps){
+
+        ArrayList<EntityMedicalCenter> IPSConConveniosMedicoEPS = new ArrayList<>();
+        for(int i = 0; i < IPSCandidatas.size(); i++){
+
+            if(IPSCandidatas.get(i).TieneConvenio(perfilEps.getNombreEPS())){
+
+                IPSConConveniosMedicoEPS.add(IPSCandidatas.get(i));
+            }
+        }
+
+        if(IPSConConveniosMedicoEPS.isEmpty()){
+
+            IPSConConveniosMedicoEPS = IPSCandidatas;
+        }
+        return IPSConConveniosMedicoEPS;
+    }
+
+    }
