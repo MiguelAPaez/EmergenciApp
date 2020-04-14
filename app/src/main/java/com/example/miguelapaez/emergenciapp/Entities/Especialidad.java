@@ -53,11 +53,18 @@ public class Especialidad {
 
         for(Dia dias : diasAtencion){
 
-            if(dias.getDia() == dia && dias.getHoraInicio() =< horaActual && horaActual <= dias.getHoraFin()){
+            if( (dias.getDia() == dia) && (conversorHoraStringFloat(dias.getHoraInicio()) <= conversorHoraStringFloat(horaActual)) &&
+            (conversorHoraStringFloat(horaActual)) <= (conversorHoraStringFloat(dias.getHoraFin()))){
                 return true;
             }
          }
         return false;
+
+    }
+
+    private float conversorHoraStringFloat(String hora){
+
+        return Float.parseFloat(hora.substring(0,1)) + (Float.parseFloat(hora.substring(3,4)) / 100);
 
     }
 }

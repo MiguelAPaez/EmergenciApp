@@ -19,11 +19,29 @@ public class EntityMedicalCenter {
     private int edadMinimaDeAtencion;
     private int edadMaximaDeAtencion;
 
-    public EntityMedicalCenter(String name , String direction , String latitud , String longitud) {
+    public EntityMedicalCenter(String name, String direction, String latitud, String longitud, int edadMinimaDeAtencion, int edadMaximaDeAtencion) {
         this.name = name;
         this.direction = direction;
         this.latitud = latitud;
         this.longitud = longitud;
+        this.edadMinimaDeAtencion = edadMinimaDeAtencion;
+        this.edadMaximaDeAtencion = edadMaximaDeAtencion;
+    }
+
+    public int getEdadMinimaDeAtencion() {
+        return edadMinimaDeAtencion;
+    }
+
+    public void setEdadMinimaDeAtencion(int edadMinimaDeAtencion) {
+        this.edadMinimaDeAtencion = edadMinimaDeAtencion;
+    }
+
+    public int getEdadMaximaDeAtencion() {
+        return edadMaximaDeAtencion;
+    }
+
+    public void setEdadMaximaDeAtencion(int edadMaximaDeAtencion) {
+        this.edadMaximaDeAtencion = edadMaximaDeAtencion;
     }
 
     public String getName() {

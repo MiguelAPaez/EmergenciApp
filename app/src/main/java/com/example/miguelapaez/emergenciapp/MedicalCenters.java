@@ -129,10 +129,10 @@ public class MedicalCenters extends AppCompatActivity {
     }
 
     private void cargarLista(){
-        listItems.add(new EntityMedicalCenter ( "Hospital San Ignacio", "Cra. 7 No. 40-62", "4.628551", "-74.064039" ));
-        listItems.add(new EntityMedicalCenter ( "Clinica Marly", "Cl. 50 No. 9-67", "4.636828", "-74.065194" ));
-        listItems.add(new EntityMedicalCenter ( "Hospital Militar", "Tv. 3 # 49-02", "4.635096", "-74.062111" ));
-        listItems.add(new EntityMedicalCenter ( "Clinica El Country", "Cra. 16 #82-95", "4.669296", "-74.057093" ));
+        listItems.add(new EntityMedicalCenter ( "Hospital San Ignacio", "Cra. 7 No. 40-62", "4.628551", "-74.064039" , 0, 100));
+        listItems.add(new EntityMedicalCenter ( "Clinica Marly", "Cl. 50 No. 9-67", "4.636828", "-74.065194", 0, 100 ));
+        listItems.add(new EntityMedicalCenter ( "Hospital Militar", "Tv. 3 # 49-02", "4.635096", "-74.062111", 0, 100 ));
+        listItems.add(new EntityMedicalCenter ( "Clinica El Country", "Cra. 16 #82-95", "4.669296", "-74.057093", 0, 100 ));
     }
 
     private void webServiceObtenerRuta(String latitudInicial, String longitudInicial, String latitudFinal, String longitudFinal) {
@@ -283,10 +283,11 @@ public class MedicalCenters extends AppCompatActivity {
         return poly;
     }
 
-    public ArrayList filtradoDeHospitales(ArrayList<EntityMedicalCenter> IPSCandidatas, ArrayList<Especialidad> especialistasNecesarios, PerfilXEPS perfilEps, PerfilxPrepagada perfilPrepagada, PerfilBasico perfilBasico){
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public ArrayList<EntityMedicalCenter> filtradoDeHospitales(ArrayList<EntityMedicalCenter> IPSCandidatas, ArrayList<Especialidad> especialistasNecesarios, PerfilXEPS perfilEps, PerfilxPrepagada perfilPrepagada, PerfilBasico perfilBasico){
 
 
-        ArrayList<EntityMedicalCenter> IPSConConveniosMedico = new ArrayList<>();
+        ArrayList<EntityMedicalCenter> IPSConConveniosMedicos = new ArrayList<>();
         ArrayList<EntityMedicalCenter> IPSConConveniosMedicoPrepagada = new ArrayList<>();
         ArrayList<EntityMedicalCenter> IPSConConveniosMedicoEPS = new ArrayList<>();
         ArrayList<EntityMedicalCenter> IPSQueAtiendanPorLaEdad = new ArrayList<>();
@@ -297,23 +298,23 @@ public class MedicalCenters extends AppCompatActivity {
 
         if(IPSConConveniosMedicoPrepagada.size() == 0){
             IPSConConveniosMedicoEPS = filtradoEPS(IPSCandidatas, perfilEps);
-            IPSConConveniosMedico = IPSConConveniosMedicoEPS;
+            IPSConConveniosMedicos = IPSConConveniosMedicoEPS;
         }else{
-            IPSConConveniosMedico = IPSConConveniosMedicoPrepagada;
+            IPSConConveniosMedicos = IPSConConveniosMedicoPrepagada;
         }
 
 
-        for(int i = 0; i < IPSConConveniosMedico.size(); i++){
+        for(int i = 0; i < IPSConConveniosMedicos.size(); i++){
 
             if(IPSQueAtiendanPorLaEdad.get(i).AtiendeSegunLaEdad(perfilBasico.getAge2())){
 
-                IPSQueAtiendanPorLaEdad.add(IPSConConveniosMedico.get(i));
+                IPSQueAtiendanPorLaEdad.add(IPSConConveniosMedicos.get(i));
             }
         }
 
         if(IPSQueAtiendanPorLaEdad.isEmpty()){
 
-            IPSQueAtiendanPorLaEdad = IPSConConveniosMedico;
+            IPSQueAtiendanPorLaEdad = IPSConConveniosMedicos;
         }
 
         int max = 0;
@@ -463,6 +464,11 @@ public class MedicalCenters extends AppCompatActivity {
             IPSConConveniosMedicoEPS = IPSCandidatas;
         }
         return IPSConConveniosMedicoEPS;
+    }
+
+    public void concatenadorDeListasDeIPS(ArrayList<EntityMedicalCenter> IPSMasAdecuadas, ArrayList<EntityMedicalCenter> IPSSinEspecialistasNecesarios,
+                                          ArrayList<EntityMedicalCenter> IPSQueNoAtiendeSegunLaEdad, ArrayList<EntityMedicalCenter> IPSSinSeguros){
+
     }
 
     }
