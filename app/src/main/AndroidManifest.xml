@@ -17,7 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity"
+        <activity android:name=".HealthQuestionsPelvis"></activity>
+        <activity android:name=".HealthQuestionsFace" />
+        <activity
+            android:name=".SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -88,8 +91,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -9,15 +9,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HealthQuestion extends AppCompatActivity {
-
+public class HealthQuestionsPelvis extends AppCompatActivity {
     GridLayout mainGrid;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate ( savedInstanceState );
-        setContentView ( R.layout.activity_health_question );
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_health_questions_pelvis);
         getSupportActionBar().hide();
 
         mainGrid = (GridLayout) findViewById(R.id.gridLayoutQuestion1);
@@ -36,7 +33,7 @@ public class HealthQuestion extends AppCompatActivity {
                 public void onClick(View view) {
                     Toast.makeText ( view.getContext (), "Seleccionaste a: "
                             +finalI, Toast.LENGTH_SHORT).show ();
-                    Intent intent = new Intent ( HealthQuestion.this, HealthQuestionsFace.class);
+                    Intent intent = new Intent ( HealthQuestionsPelvis.this, MedicalCenters.class);
                     intent.putExtra("info","This is activity from card item index  "+finalI);
                     startActivity(intent);
 
@@ -44,5 +41,4 @@ public class HealthQuestion extends AppCompatActivity {
             });
         }
     }
-
 }
