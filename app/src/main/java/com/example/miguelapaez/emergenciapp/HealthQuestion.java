@@ -1,7 +1,9 @@
 package com.example.miguelapaez.emergenciapp;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
@@ -9,9 +11,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HealthQuestion extends AppCompatActivity {
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
+public class HealthQuestion extends AppCompatActivity {
+    private double latitudUser = 0;
+    private double longitudUser = 0;
     GridLayout mainGrid;
+    private FusedLocationProviderClient mFusedLocationClient;
+    String email;
 
 
     @Override
@@ -19,9 +28,20 @@ public class HealthQuestion extends AppCompatActivity {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_health_question );
         getSupportActionBar().hide();
-
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        email = getIntent().getStringExtra("email");
         mainGrid = (GridLayout) findViewById(R.id.gridLayoutQuestion1);
-
+        mFusedLocationClient.getLastLocation().addOnSuccessListener(
+                this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        Log.i("LOCATION", "onSuccess location");
+                        if (location != null) {
+                            longitudUser = location.getLongitude();
+                            latitudUser = location.getLatitude();
+                        }
+                    }
+                });
         setSingleEvent(mainGrid);
     }
 
@@ -36,8 +56,13 @@ public class HealthQuestion extends AppCompatActivity {
                 public void onClick(View view) {
                     Toast.makeText ( view.getContext (), "Seleccionaste a: "
                             +finalI, Toast.LENGTH_SHORT).show ();
+                    String latUser = String.valueOf(latitudUser);
+                    String lonUser = String.valueOf(longitudUser);
                     Intent intent = new Intent ( HealthQuestion.this, MedicalCenters.class);
                     intent.putExtra("info","This is activity from card item index  "+finalI);
+                    intent.putExtra("latitud",latUser);
+                    intent.putExtra("longitud",lonUser);
+                    intent.putExtra("email",email);
                     startActivity(intent);
 
                 }
