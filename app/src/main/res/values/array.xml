@@ -26,11 +26,8 @@
     <string-array name="eps">
         <item>EPS</item>
         <item>Nueva EPS</item>
-        <item>Salud Vida</item>
+        <item>Compensar</item>
         <item>Coomeva</item>
-        <item>Salud Total</item>
-        <item>EPS Sanitas</item>
-        <item>Otro</item>
     </string-array>
 
     <string-array name="eps_regime">
@@ -42,13 +39,9 @@
     <string-array name="prepaid_medicine">
         <item>Medicina Prepagada</item>
         <item>Ninguna</item>
-        <item>Axa Colpatria</item>
+        <item>Emermédica</item>
         <item>Coomeva</item>
-        <item>Colmédica</item>
         <item>Colsanitas</item>
-        <item>Emi</item>
-        <item>MedPlus</item>
-        <item>Sura</item>
     </string-array>
 
     <string-array name="blood_type">
@@ -72,7 +65,6 @@
         <item>Cáncer</item>
         <item>Asma</item>
         <item>Estrés</item>
-        <item>Otra</item>
     </string-array>
 
     <string-array name="environment_allergy">
@@ -85,7 +77,6 @@
         <item>Sol</item>
         <item>Picaduras de Insectos</item>
         <item>Níquel</item>
-        <item>Otra</item>
     </string-array>
 
     <string-array name="medicines_allergy">
@@ -95,7 +86,6 @@
         <item>Anticonvulsivos</item>
         <item>Insulina</item>
         <item>Sulfamidas</item>
-        <item>Otra</item>
     </string-array>
 
     <string-array name="medicines">
@@ -107,7 +97,6 @@
         <item>Paracetamol</item>
         <item>Rituximab</item>
         <item>Tamsulosina</item>
-        <item>Otro</item>
     </string-array>
 
 </resources>
