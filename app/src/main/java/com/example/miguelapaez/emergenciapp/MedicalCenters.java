@@ -25,7 +25,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.miguelapaez.emergenciapp.Adapters.AdapterMedicalCenters;
 import com.example.miguelapaez.emergenciapp.Entities.EntityMedicalCenter;
-import com.example.miguelapaez.emergenciapp.MapsActivity;
 import com.example.miguelapaez.emergenciapp.Persistence.EntidadPersistence;
 import com.example.miguelapaez.emergenciapp.Persistence.EspecialidadPersistence;
 import com.example.miguelapaez.emergenciapp.Persistence.IPSPersistence;
@@ -33,8 +32,6 @@ import com.example.miguelapaez.emergenciapp.Persistence.PerfilBasicoPersistence;
 import com.example.miguelapaez.emergenciapp.Persistence.PerfilXEPSPersistence;
 import com.example.miguelapaez.emergenciapp.Persistence.PerfilXPrepagadaPersistence;
 import com.example.miguelapaez.emergenciapp.Persistence.ReferenciaConvenioPersistence;
-import com.example.miguelapaez.emergenciapp.R;
-import com.example.miguelapaez.emergenciapp.Utilidades;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -61,6 +58,7 @@ public class MedicalCenters extends AppCompatActivity {
     private String distance = "";
     private String duration = "";
     private String email;
+    private String answer;
     private DatabaseReference mDatabasePerfilEPS, mDatabasePerfilPrepagada, mDatabaseEPS, mDatabasePrepagada, mDatabaseIPS, mDatabaseBasic;
     private ArrayList<String> listEspecialidades;
     ListView listItemsMedicalCenters;
@@ -86,6 +84,7 @@ public class MedicalCenters extends AppCompatActivity {
         latitudUser = getIntent().getStringExtra("latitud");
         longitudUser = getIntent().getStringExtra("longitud");
         email = getIntent().getStringExtra("email");
+        answer =  getIntent().getStringExtra("answer1");
         listEspecialidades = getIntent().getStringArrayListExtra("especialidades");
         //Firebase
         mDatabasePerfilEPS = FirebaseDatabase.getInstance().getReference("PerfilesXEPS");

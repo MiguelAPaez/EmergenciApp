@@ -57,7 +57,7 @@
                     android:orientation="vertical">
 
                     <GridLayout
-                        android:id="@+id/gridLayoutQuestion1"
+                        android:id="@+id/gridLayoutQuestionFace"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="8dp"

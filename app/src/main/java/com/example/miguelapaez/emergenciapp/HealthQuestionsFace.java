@@ -11,6 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class HealthQuestionsFace extends AppCompatActivity {
 
+    private String latUser;
+    private String lonUser;
+    private String email;
+    private String answer1;
+
     GridLayout mainGrid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +23,12 @@ public class HealthQuestionsFace extends AppCompatActivity {
         setContentView(R.layout.activity_health_questions_face);
         getSupportActionBar().hide();
 
-        mainGrid = (GridLayout) findViewById(R.id.gridLayoutQuestion1);
+        latUser = getIntent().getStringExtra("latitud");
+        lonUser = getIntent().getStringExtra("longitud");
+        email = getIntent().getStringExtra("email");
+        answer1 =  getIntent().getStringExtra("answer1");
+
+        mainGrid = (GridLayout) findViewById(R.id.gridLayoutQuestionFace);
 
         setSingleEvent(mainGrid);
     }
@@ -34,9 +44,24 @@ public class HealthQuestionsFace extends AppCompatActivity {
                 public void onClick(View view) {
                     Toast.makeText ( view.getContext (), "Seleccionaste a: "
                             +finalI, Toast.LENGTH_SHORT).show ();
-                    Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
-                    intent.putExtra("info","This is activity from card item index  "+finalI);
-                    startActivity(intent);
+                    if(finalI == 0){
+                        Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
+                        intent.putExtra("info","This is activity from card item index  "+finalI);
+                        intent.putExtra("answer1",answer1+"/Cerebro");
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
+                    if(finalI == 1){
+                        Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
+                        intent.putExtra("info","This is activity from card item index  "+finalI);
+                        intent.putExtra("answer1",answer1+"/Nariz");
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
 
                 }
             });

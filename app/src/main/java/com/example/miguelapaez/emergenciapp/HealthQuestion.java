@@ -73,12 +73,24 @@ public class HealthQuestion extends AppCompatActivity {
                             +finalI, Toast.LENGTH_SHORT).show ();
                     String latUser = String.valueOf(latitudUser);
                     String lonUser = String.valueOf(longitudUser);
-                    Intent intent = new Intent ( HealthQuestion.this, MedicalCenters.class);
-                    intent.putExtra("info","This is activity from card item index  "+finalI);
-                    intent.putExtra("latitud",latUser);
-                    intent.putExtra("longitud",lonUser);
-                    intent.putExtra("email",email);
-                    startActivity(intent);
+                    if(finalI == 0){
+                        Intent intent = new Intent ( HealthQuestion.this, HealthQuestionsFace.class);
+                        intent.putExtra("info","This is activity from card item index  "+finalI);
+                        intent.putExtra("answer1","Cara");
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
+                    if(finalI == 2){
+                        Intent intent = new Intent ( HealthQuestion.this, HealthQuestionsPelvis.class);
+                        intent.putExtra("info","This is activity from card item index  "+finalI);
+                        intent.putExtra("answer1","Pelvis");
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
 
                 }
             });

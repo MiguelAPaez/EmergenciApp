@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HealthQuestionsPelvis">
+    tools:context=".HealthQuestionsPelvis"
     android:background="@color/colorBackground"
-    android:orientation="vertical"
+    android:orientation="vertical">
 
 
     <LinearLayout
@@ -56,7 +56,7 @@
                 android:orientation="vertical">
 
                 <GridLayout
-                    android:id="@+id/gridLayoutQuestion1"
+                    android:id="@+id/gridLayoutQuestionPelvis"
                     android:layout_width="wrap_content"
                     android:layout_height="489dp"
                     android:layout_marginStart="8dp"
