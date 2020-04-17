@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class HealthQuestionsFace extends AppCompatActivity {
 
     private String latUser;
@@ -45,9 +47,12 @@ public class HealthQuestionsFace extends AppCompatActivity {
                     Toast.makeText ( view.getContext (), "Seleccionaste a: "
                             +finalI, Toast.LENGTH_SHORT).show ();
                     if(finalI == 0){
+                        ArrayList<String> especialidades = new ArrayList<>();
+                        especialidades.add("general");
                         Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
                         intent.putExtra("info","This is activity from card item index  "+finalI);
-                        intent.putExtra("answer1",answer1+"/Cerebro");
+                        //intent.putExtra("answer1",answer1+"/Cerebro");
+                        intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("latitud",latUser);
                         intent.putExtra("longitud",lonUser);
                         intent.putExtra("email",email);

@@ -1,11 +1,9 @@
 package com.example.miguelapaez.emergenciapp.Persistence;
 
-import java.util.List;
-
 public class IPSPersistence {
     private String nombre;
-    private String latitud;
-    private String longitud;
+    private double latitud;
+    private double longitud;
     private int edadMin;
     private int edadMax;
     private double calificacion;
@@ -28,19 +26,19 @@ public class IPSPersistence {
         this.nombre = nombre;
     }
 
-    public String getLatitud() {
+    public double getLatitud() {
         return latitud;
     }
 
-    public void setLatitud(String latitud) {
+    public void setLatitud(double latitud) {
         this.latitud = latitud;
     }
 
-    public String getLongitud() {
+    public double getLongitud() {
         return longitud;
     }
 
-    public void setLongitud(String longitud) {
+    public void setLongitud(double longitud) {
         this.longitud = longitud;
     }
 
