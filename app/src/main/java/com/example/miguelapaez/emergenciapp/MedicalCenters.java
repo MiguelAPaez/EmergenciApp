@@ -147,6 +147,7 @@ public class MedicalCenters extends AppCompatActivity {
                             break;
                         } else {
                             cargarEntidadEPS();
+                            break;
                         }
                     }
                 }
@@ -170,6 +171,7 @@ public class MedicalCenters extends AppCompatActivity {
                         user = snapshot.getValue(PerfilXEPSPersistence.class);
                         if (!user.getEmailPerfil().isEmpty() && user.getEmailPerfil().equals(email)) {
                             cargarEPS(user);
+                            break;
                         }
                     }
                 }
@@ -276,7 +278,9 @@ public class MedicalCenters extends AppCompatActivity {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         ips = snapshot.getValue(IPSPersistence.class);
                         if (!ips.getId().isEmpty() && ips.getId().equals(id)) {
-                            EntityMedicalCenter med = new EntityMedicalCenter(ips.getNombre(), ips.getDireccion(), ips.getLatitud(), ips.getLatitud(), ips.getEdadMin(), ips.getEdadMax(), ips.getCalificacion());
+                            String latitud = String.valueOf(ips.getLatitud());
+                            String longitud = String.valueOf(ips.getLongitud());
+                            EntityMedicalCenter med = new EntityMedicalCenter(ips.getNombre(), ips.getDireccion(), latitud, longitud, ips.getEdadMin(), ips.getEdadMax(), ips.getCalificacion());
                             verificarEdad(med, snapshot.getKey());
                             break;
                         }
@@ -304,6 +308,7 @@ public class MedicalCenters extends AppCompatActivity {
                             int edad = Integer.parseInt(user.getAge());
                             if (edad > med.getEdadMin() && edad < med.getEdadMax()) {
                                 verificarEspecialidades(med, id);
+                                break;
                             }
                         }
                     }
@@ -324,23 +329,23 @@ public class MedicalCenters extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     String[] days;
                     Calendar calendar = Calendar.getInstance();
-                    ArrayList<String> especialidades = null;
+                    ArrayList<String> especialidades = new ArrayList<>();
                     ArrayList<String> copyListEsp = listEspecialidades;
                     int day = calendar.get(Calendar.DAY_OF_WEEK);
                     String dayS = String.valueOf(day);
                     int hora = calendar.get(Calendar.HOUR_OF_DAY);
                     EspecialidadPersistence especialidad;
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        especialidad = snapshot.getValue(EspecialidadPersistence.class);
-                        days = especialidad.getDias().split(",");
-                        List<String> listDays = new ArrayList<>(Arrays.asList(days));
-                        if (!especialidad.getEspecialidad().isEmpty()) {
+                        if (snapshot.exists()) {
+                            especialidad = snapshot.getValue(EspecialidadPersistence.class);
+                            days = especialidad.getDias().split(",");
+                            List<String> listDays = new ArrayList<>(Arrays.asList(days));
                             if (listDays.contains(dayS) && hora > especialidad.gethInicio() && hora < especialidad.gethFin()) {
                                 especialidades.add(especialidad.getEspecialidad());
                             }
                         }
                     }
-
+                    System.out.println(especialidades);
                     if (especialidades.containsAll(copyListEsp)) {
                         getDuracion(med);
                     } else {

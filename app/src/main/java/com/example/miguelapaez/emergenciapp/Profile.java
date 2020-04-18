@@ -748,7 +748,7 @@ public class Profile extends AppCompatActivity {
                                                                 String id;
                                                                 Perfil userUpdated = new Perfil(emailAux);
                                                                 userUpdated.setPassword(passwordAux);
-                                                                PerfilPersistence user = new PerfilPersistence();
+                                                                PerfilPersistence user;
                                                                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                                                     user = snapshot.getValue(PerfilPersistence.class);
                                                                     if (!user.getEmail().isEmpty() && user.getEmail().equals(emailActual)) {
@@ -793,13 +793,20 @@ public class Profile extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     String id;
-                    PerfilBasicoPersistence user = new PerfilBasicoPersistence();
+                    PerfilBasicoPersistence user;
                     PerfilBasico userUpdated = new PerfilBasico(emailAux, nameAux, lastNameAux, idTypeAux, idAux, ageAux, phoneAux, genderAux);
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         user = snapshot.getValue(PerfilBasicoPersistence.class);
                         if (!user.getEmail().isEmpty() && user.getEmail().equals(emailActual)) {
                             id = snapshot.getKey();
-                            mDatabaseBasic.child(id).setValue(userUpdated);
+                            mDatabaseBasic.child(id).child("age").setValue(userUpdated.getAge());
+                            mDatabaseBasic.child(id).child("email").setValue(userUpdated.getEmail());
+                            mDatabaseBasic.child(id).child("gender").setValue(userUpdated.getGender());
+                            mDatabaseBasic.child(id).child("id").setValue(userUpdated.getId());
+                            mDatabaseBasic.child(id).child("lastName").setValue(userUpdated.getLastName());
+                            mDatabaseBasic.child(id).child("name").setValue(userUpdated.getName());
+                            mDatabaseBasic.child(id).child("phone").setValue(userUpdated.getPhone());
+                            mDatabaseBasic.child(id).child("typeId").setValue(userUpdated.getTypeId());
                             actualizarPerfilMedico();
                             break;
                         }
