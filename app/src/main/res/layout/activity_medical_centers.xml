@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:weightSum="10"
+    android:orientation="vertical"
     android:background="@color/colorBackground"
     tools:context=".MedicalCenters">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:id="@+id/linearLayoutTitleMedicalCenters"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:layout_weight="2"
+            android:layout_gravity="center"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
             android:background="@color/colorWhite"
@@ -30,50 +28,35 @@
                 android:id="@+id/titleMedicalCenters"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.5"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:text="@string/medicalcenters_title"
                 android:textAlignment="center"
                 android:textColor="@color/colorBlack"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                tools:ignore="NestedWeights,Suspicious0dp" />
         </LinearLayout>
 
-        <ScrollView
+        <ListView
+            android:id="@+id/listViewMedicalCenters"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/scrollViewRegister"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ListView
-                    android:id="@+id/listViewMedicalCenters"
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:choiceMode="singleChoice"
-                    android:divider="@null"
-                    android:dividerHeight="0dp"
-                    android:listSelector="@color/colorBackgroundAux" />
-
-            </LinearLayout>
-        </ScrollView>
+            android:layout_height="500dp"
+            android:layout_weight="5"
+            android:choiceMode="singleChoice"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:listSelector="@color/colorBackgroundAux" />
 
         <TextView
             android:id="@+id/textMessageMedicalCenters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="@string/medicalcenters_message1"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:textStyle="bold"
             android:textAlignment="center"/>
 
@@ -81,10 +64,11 @@
             android:id="@+id/buttonCallMedicalCenters"
             android:layout_width="300dp"
             android:layout_height="100dp"
+            android:layout_weight="2"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:layout_gravity="center"
             android:background="@drawable/shape_main_1"
             android:orientation="horizontal"
@@ -110,7 +94,4 @@
 
         </LinearLayout>
 
-    </LinearLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -111,5 +111,6 @@
     <string name="abdomen_inferior">Abdomen Inferior</string>
 
     <string name="actMap">Actualizar Ubicación</string>
+    <string name="endEmergency">Finalizar Emergencia</string>
 
 </resources>

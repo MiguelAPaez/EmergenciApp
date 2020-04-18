@@ -1,6 +1,8 @@
 package com.example.miguelapaez.emergenciapp;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -125,6 +127,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 webServiceObtenerRuta(String.valueOf(latitudUser),String.valueOf(longitudUser),String.valueOf(latitudMedicalCenter),String.valueOf(longitudMedicalCenter));
             }
         });
+
+        Button btnEnd = (Button) findViewById ( R.id.buttonEndEmergency );
+        btnEnd.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder message = new AlertDialog.Builder( MapsActivity.this);
+                message.setTitle(nameMedicalCenter);
+                message.setMessage("¿Qué tal te pareció la atención en " + nameMedicalCenter + "?");
+                message.setPositiveButton("Buena", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(MapsActivity.this, "Calificación Buena!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MapsActivity.this, MainActivity.class));
+                    }
+                });
+                message.setNegativeButton("Mala", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(MapsActivity.this, "Calificación Mala!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MapsActivity.this, MainActivity.class));
+                    }
+                });
+
+                AlertDialog dialog = message.create();
+                dialog.show();
+            }
+        } );
 
         mFusedLocationClient.getLastLocation ().addOnSuccessListener (
                 this , new OnSuccessListener <Location> () {
@@ -399,8 +428,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void agregarMarcador(double latitud, double longitud){
         LatLng posicion = new LatLng ( latitud , longitud );
-        mMap.addMarker ( new MarkerOptions ().position ( posicion ).title ( "Marcador en mi posición" )
-                                 .snippet("Latitud: " + latitud + " Longitud: " + longitud) //Texto de información
+        mMap.addMarker ( new MarkerOptions ().position ( posicion ).title ( "Mi Ubicación Actual" )
                                  .alpha(0.5f)
                                  .icon(BitmapDescriptorFactory
                                                .defaultMarker( BitmapDescriptorFactory.HUE_BLUE)));
