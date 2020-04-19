@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class HealthQuestionsPelvis extends AppCompatActivity {
 
     private String latUser;
@@ -46,8 +48,26 @@ public class HealthQuestionsPelvis extends AppCompatActivity {
                             +finalI, Toast.LENGTH_SHORT).show ();
                     if(finalI == 0){
                         Intent intent = new Intent ( HealthQuestionsPelvis.this, MedicalCenters.class);
+                        ArrayList<String> especialidades = new ArrayList<>();
+                        especialidades.add("Gastroenterologo");
+                        especialidades.add("Nefrologo");
+                        intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("info","This is activity from card item index  "+finalI);
                         intent.putExtra("answer1",answer1+"/AbdomenInferior");
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
+                    if(finalI == 1){
+                        Intent intent = new Intent ( HealthQuestionsPelvis.this, MedicalCenters.class);
+                        ArrayList<String> especialidades = new ArrayList<>();
+                        especialidades.add("Gastroenterologo");
+                        especialidades.add("Urologo");
+                        especialidades.add("Nefrologo");
+                        intent.putStringArrayListExtra("especialidades",especialidades);
+                        intent.putExtra("info","This is activity from card item index  "+finalI);
+                        intent.putExtra("answer1",answer1+"/pichirilo");
                         intent.putExtra("latitud",latUser);
                         intent.putExtra("longitud",lonUser);
                         intent.putExtra("email",email);
