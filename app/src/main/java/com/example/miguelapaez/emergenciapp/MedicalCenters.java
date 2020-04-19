@@ -331,6 +331,11 @@ public class MedicalCenters extends AppCompatActivity {
                     Calendar calendar = Calendar.getInstance();
                     ArrayList<String> especialidades = new ArrayList<>();
                     ArrayList<String> copyListEsp = listEspecialidades;
+
+                    for(int i = 0; i< listEspecialidades.size(); i++){
+                        System.out.println("-------------ESpecialidades "+ listEspecialidades + "------------");
+                    }
+
                     int day = calendar.get(Calendar.DAY_OF_WEEK);
                     String dayS = String.valueOf(day);
                     int hora = calendar.get(Calendar.HOUR_OF_DAY);
