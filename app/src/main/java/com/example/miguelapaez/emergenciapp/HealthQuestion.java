@@ -82,6 +82,15 @@ public class HealthQuestion extends AppCompatActivity {
                         intent.putExtra("email",email);
                         startActivity(intent);
                     }
+                    if(finalI == 1){
+                        Intent intent = new Intent ( HealthQuestion.this, MedicalCenters.class);
+                        intent.putExtra("info","This is activity from card item index  "+finalI);
+                        intent.putExtra("answer1","Torax");
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
                     if(finalI == 2){
                         Intent intent = new Intent ( HealthQuestion.this, HealthQuestionsPelvis.class);
                         intent.putExtra("info","This is activity from card item index  "+finalI);
@@ -91,6 +100,16 @@ public class HealthQuestion extends AppCompatActivity {
                         intent.putExtra("email",email);
                         startActivity(intent);
                     }
+                    if(finalI == 3){
+                        Intent intent = new Intent ( HealthQuestion.this, MedicalCenters.class);
+                        intent.putExtra("info","This is activity from card item index  "+finalI);
+                        intent.putExtra("answer1","Extremidades");
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
+
 
                 }
             });

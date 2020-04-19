@@ -393,12 +393,20 @@ public class MedicalCenters extends AppCompatActivity {
                             duracionIPS = (int) ((JSONObject) ((JSONObject) jLegs.get(j)).get("duration")).get("value");
                         }
                     }
+
                     med.setDuration(duracionIPS);
                     //Algoritmo de alejo
-                    algortimoOrdenamiento(med);
+                    listItems.add(med);
+                    algortimoOrdenamientoTiempoAcceso(0, listItems.size() - 1);
+                    imprimirLista();
+                    algoritmoOrdenamientoPuntuacionGoogle(indexDeIpsAUnMaximoDeVeinteMins());
+                    imprimirLista();
                     //Add a la lista
                     //listItems.get(index).setDuration(duracionIPS);
-                    //System.out.println("Nombre:" + listItems.get(index).getName() + "Duracion" + listItems.get(index).getDuration());
+
+
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (Exception e) {
@@ -416,12 +424,146 @@ public class MedicalCenters extends AppCompatActivity {
         request.add(jsonObjectRequest);
     }
 
-    private void algortimoOrdenamiento(EntityMedicalCenter ent) {
-        listItems.add(ent);
-        //Organiza
-        adaptador.notifyDataSetChanged();
+    private void imprimirLista(){
+
+        System.out.println("----------------------");
+        for(int i = 0; i < listItems.size(); i++){
+
+            System.out.println("Nombre: " + listItems.get(i).getName());
+            System.out.println("                                Duracion:     " + listItems.get(i).getDuration());
+            System.out.println("                                Calificación: " + listItems.get(i).getCalificacion());
+
+        }
+        System.out.println("----------------------");
     }
 
+    private int indexDeIpsAUnMaximoDeVeinteMins(){
+
+
+        for(int i = 0; i < listItems.size(); i++){
+
+            if(listItems.get(i).getDuration() > 2000 && i > 0){
+
+                return i - 1;
+            }else if(listItems.get(i).getDuration() > 2000){
+
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
+    private void algortimoOrdenamientoTiempoAcceso(int l, int r) {
+
+
+
+        if (l >= r)
+        {
+            return;
+        }
+
+        // Choose pivot to be the last element in the subarray
+        double pivot = listItems.get(r).getDuration();
+
+        // Index indicating the "split" between elements smaller than pivot and
+        // elements greater than pivot
+        int cnt = l;
+
+        // Traverse through array from l to r
+        for (int i = l; i <= r; i++)
+        {
+            // If an element less than or equal to the pivot is found...
+            if ( listItems.get(i).getDuration() <= pivot)
+            {
+                // Then swap arr[cnt] and arr[i] so that the smaller element arr[i]
+                // is to the left of all elements greater than pivot
+
+                EntityMedicalCenter medCentAuxiliar = listItems.get(i);
+                EntityMedicalCenter medCentAuxiliar2 = listItems.get(cnt);
+                listItems.set(cnt, medCentAuxiliar);
+                listItems.set(i, medCentAuxiliar2);
+
+                // Make sure to increment cnt so we can keep track of what to swap
+                // arr[i] with
+                cnt++;
+            }
+        }
+
+        // NOTE: cnt is currently at one plus the pivot's index
+        // (Hence, the cnt-2 when recursively sorting the left side of pivot)
+        algortimoOrdenamientoTiempoAcceso(l, cnt-2); // Recursively sort the left side of pivot
+        algortimoOrdenamientoTiempoAcceso(cnt, r);   // Recursively sort the right side of pivot
+
+        adaptador.notifyDataSetChanged();
+    }
+    private void algoritmoOrdenamientoPuntuacionGoogle(int n){
+
+        for (int i = 0; i < ( n  ); i++) {
+            for (int j = 0; j < n - i ; j++) {
+                if (listItems.get(j).getCalificacion() + 0.8 < listItems.get(j+1).getCalificacion())
+                {
+                    /*
+                    temp = array[j];
+                    array[j] = array[j+1];
+                    array[j+1] = temp;
+*/
+                    EntityMedicalCenter medCentAuxiliar = listItems.get(j);
+                    EntityMedicalCenter medCentAuxiliar2 = listItems.get(j+1);
+                    listItems.set(j, medCentAuxiliar2);
+                    listItems.set(j+1, medCentAuxiliar);
+                }
+            }
+        }
+
+    }
+
+    private void algortimoOrdenamientoPuntuacionGoogle(int l, int r) {
+
+
+        if (l >= r)
+        {
+            return;
+        }
+
+        // Choose pivot to be the last element in the subarray
+        double pivot = listItems.get(r).getCalificacion();
+        double pivot2 = pivot + 0.8;
+        boolean bandera = listItems.get(0).getCalificacion() >= (pivot + 0.8);
+
+        // Index indicating the "split" between elements smaller than pivot and
+        // elements greater than pivot
+        int cnt = l;
+
+        // Traverse through array from l to r
+        for (int i = l; i <= r; i++)
+        {
+            // If an element less than or equal to the pivot is found...
+            if ( listItems.get(i).getCalificacion() >= (pivot))
+            {
+                // Then swap arr[cnt] and arr[i] so that the smaller element arr[i]
+                // is to the left of all elements greater than pivot
+
+                EntityMedicalCenter medCentAuxiliar = listItems.get(i);
+                EntityMedicalCenter medCentAuxiliar2 = listItems.get(cnt);
+                listItems.set(cnt, medCentAuxiliar);
+                listItems.set(i, medCentAuxiliar2);
+
+                // Make sure to increment cnt so we can keep track of what to swap
+                // arr[i] with
+                cnt++;
+            }
+        }
+
+        // NOTE: cnt is currently at one plus the pivot's index
+        // (Hence, the cnt-2 when recursively sorting the left side of pivot)
+        algortimoOrdenamientoPuntuacionGoogle( l, cnt-2); // Recursively sort the left side of pivot
+        algortimoOrdenamientoPuntuacionGoogle( cnt, r);   // Recursively sort the right side of pivot
+
+
+
+        adaptador.notifyDataSetChanged();
+    }
     private void webServiceObtenerRuta(String latitudInicial, String longitudInicial, String latitudFinal, String longitudFinal) {
 
         String url = "https://maps.googleapis.com/maps/api/directions/json?origin=" + latitudInicial + "," + longitudInicial

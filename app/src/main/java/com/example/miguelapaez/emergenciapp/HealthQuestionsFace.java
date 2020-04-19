@@ -51,7 +51,7 @@ public class HealthQuestionsFace extends AppCompatActivity {
                         especialidades.add("general");
                         Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
                         intent.putExtra("info","This is activity from card item index  "+finalI);
-                        //intent.putExtra("answer1",answer1+"/Cerebro");
+                        intent.putExtra("answer1",answer1+"/Cabeza");
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("latitud",latUser);
                         intent.putExtra("longitud",lonUser);
@@ -62,6 +62,42 @@ public class HealthQuestionsFace extends AppCompatActivity {
                         Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
                         intent.putExtra("info","This is activity from card item index  "+finalI);
                         intent.putExtra("answer1",answer1+"/Nariz");
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
+                    if(finalI == 2){
+                        Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
+                        intent.putExtra("info","This is activity from card item index  "+finalI);
+                        intent.putExtra("answer1",answer1+"/Oidos");
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
+                    if(finalI == 3){
+                        Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
+                        intent.putExtra("info","This is activity from card item index  "+finalI);
+                        intent.putExtra("answer1",answer1+"/Boca");
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
+                    if(finalI == 4){
+                        Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
+                        intent.putExtra("info","This is activity from card item index  "+finalI);
+                        intent.putExtra("answer1",answer1+"/Ojos");
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
+                    if(finalI == 5){
+                        Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
+                        intent.putExtra("info","This is activity from card item index  "+finalI);
+                        intent.putExtra("answer1",answer1+"/Garganta");
                         intent.putExtra("latitud",latUser);
                         intent.putExtra("longitud",lonUser);
                         intent.putExtra("email",email);
