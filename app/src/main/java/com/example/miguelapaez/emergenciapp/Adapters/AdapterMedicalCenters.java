@@ -46,9 +46,12 @@ public class AdapterMedicalCenters extends BaseAdapter {
         view = LayoutInflater.from( context).inflate( R.layout.item_medical_center, null);
         TextView name = (TextView) view.findViewById ( R.id.nameMedicalCenter );
         TextView direction = (TextView) view.findViewById ( R.id.addressMedicalCenter );
+        TextView time = (TextView) view.findViewById ( R.id.timeToMedicalCenter );
 
         name.setText ( item.getName () );
         direction.setText ( item.getDirection () );
+        int min = (item.getDuration ()*1)/60;
+        time.setText ( "Tiempo estimado: " + min + " minutos");
 
         return view;
     }
