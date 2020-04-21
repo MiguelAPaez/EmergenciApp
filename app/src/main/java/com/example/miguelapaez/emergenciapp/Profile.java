@@ -52,7 +52,7 @@ public class Profile extends AppCompatActivity {
     private String nameAux, lastNameAux, idTypeAux, idAux, ageAux, emailAux, passwordAux, phoneAux, genderAux, epsAux, afiliacionAux, prepaidMedicineAux, rhAux, diseaseAux, ambientalAllergyAux, medicineAllergyAux, medicineAux, actualPasswordAux;
     private boolean complementaryPlanAux = false;
     ScrollView scrollView;
-    private LinearLayout passwordLinear, actualPasswordLinear, validatePasswordLinear, titleMedical, ageLinear, genderLinear, epsLinear, afiliacionLinear, complmentaryLinear, prepaidLinear, rhLinear, diseaseLinear,
+    private LinearLayout titleLinear, passwordLinear, actualPasswordLinear, validatePasswordLinear, titleMedical, ageLinear, genderLinear, epsLinear, afiliacionLinear, complmentaryLinear, prepaidLinear, rhLinear, diseaseLinear,
             environmentLinear, medicineAllergyLinear, medicineLinear, editEpsLinear, editAfiliacionLinear, editComplementaryPlanLinear, editPrepaidMedicineLinear, editRhLinear,
             editDiseaseLinear, editambientalAllergyLinear, editMedicineAllergyLinear, editMedicineLinear;
     private Button updateButton;
@@ -134,6 +134,7 @@ public class Profile extends AppCompatActivity {
         scrollView = (ScrollView) findViewById(R.id.scrollViewProfile);
 
         //LinearLayout's
+        titleLinear = (LinearLayout) findViewById(R.id.linearLayoutTitleProfile);
         passwordLinear = (LinearLayout) findViewById(R.id.linearPasswordProfile);
         validatePasswordLinear = (LinearLayout) findViewById(R.id.linearLayoutValidatePasswordProfile);
         actualPasswordLinear = (LinearLayout) findViewById(R.id.linearLayoutActualPasswordProfile);
@@ -349,6 +350,7 @@ public class Profile extends AppCompatActivity {
         actualPasswordLinear.setVisibility(View.VISIBLE);
         validatePasswordLinear.setVisibility(View.VISIBLE);
         title.setText(R.string.update_profile);
+        titleLinear.setMinimumHeight ( 110 );
         epsLinear.setVisibility(View.GONE);
         afiliacionLinear.setVisibility(View.GONE);
         complmentaryLinear.setVisibility(View.GONE);

@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:weightSum="10"
+    android:orientation="vertical"
     android:background="@color/colorBackground"
     tools:context=".Profile">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:id="@+id/linearLayoutTitleProfile"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="110dp"
+            android:layout_weight="2"
             android:layout_marginStart="0dp"
+            android:layout_gravity="center"
             android:layout_marginEnd="0dp"
             android:background="@color/colorWhite"
             android:orientation="horizontal"
@@ -35,17 +33,15 @@
                 android:text="@string/profile_activity"
                 android:textAlignment="center"
                 android:textColor="@color/colorBlack"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                tools:ignore="NestedWeights,Suspicious0dp"/>
         </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/scrollViewProfile"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_weight="6">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -632,31 +628,6 @@
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textMessageProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/profile_question"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:textAlignment="center"/>
-
-                <TextView
-                    android:id="@+id/meessageSignUpProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="15dp"
-                    android:text="@string/profile_edit"
-                    android:textColor="@color/colorBlue"
-                    android:textSize="18dp"
-                    android:textAlignment="center" />
-
                 <LinearLayout
                     android:id="@+id/linearLayouteditEPSProfile"
                     android:layout_width="match_parent"
@@ -869,7 +840,7 @@
                     android:layout_height="46dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="30dp"
                     android:background="@drawable/shapebutton"
                     android:text="@string/update"
                     android:textAllCaps="false"
@@ -880,5 +851,32 @@
 
             </LinearLayout>
         </ScrollView>
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textMessageProfile"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/profile_question"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/meessageSignUpProfile"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="15dp"
+            android:text="@string/profile_edit"
+            android:textColor="@color/colorBlue"
+            android:textSize="18dp"
+            android:textAlignment="center" />
+
+</LinearLayout>
