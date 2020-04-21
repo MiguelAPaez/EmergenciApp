@@ -146,8 +146,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder message = new AlertDialog.Builder(MapsActivity.this);
-                message.setTitle(nameMedicalCenter);
+                AlertDialog.Builder message = new AlertDialog.Builder( MapsActivity.this);
+                message.setTitle("Tú opinión es importante");
+
                 message.setMessage("¿Qué tal te pareció la atención en " + nameMedicalCenter + "?");
                 message.setPositiveButton("Buena", new DialogInterface.OnClickListener() {
                     @Override
