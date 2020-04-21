@@ -15,6 +15,8 @@ public class EntityMedicalCenter {
     private double calificacion;
     private List<EspecialidadPersistence> especialidades;
     private int duration;
+    private String id;
+    private boolean qualificated = false;
 
     public EntityMedicalCenter(String name, String direction, String latitud, String longitud, int edadMin, int edadMax, double calificacion) {
         this.name = name;
@@ -68,5 +70,21 @@ public class EntityMedicalCenter {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public boolean isQualificated() {
+        return qualificated;
+    }
+
+    public void setQualificated(boolean qualificated) {
+        this.qualificated = qualificated;
     }
 }

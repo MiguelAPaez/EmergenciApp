@@ -25,6 +25,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.miguelapaez.emergenciapp.Adapters.AdapterMedicalCenters;
 import com.example.miguelapaez.emergenciapp.Entities.EntityMedicalCenter;
+import com.example.miguelapaez.emergenciapp.Persistence.CalificacionPersistence;
 import com.example.miguelapaez.emergenciapp.Persistence.EntidadPersistence;
 import com.example.miguelapaez.emergenciapp.Persistence.EspecialidadPersistence;
 import com.example.miguelapaez.emergenciapp.Persistence.IPSPersistence;
@@ -58,8 +59,8 @@ public class MedicalCenters extends AppCompatActivity {
     private String distance = "";
     private String duration = "";
     private String email;
-    private String answer;
-    private DatabaseReference mDatabasePerfilEPS, mDatabasePerfilPrepagada, mDatabaseEPS, mDatabasePrepagada, mDatabaseIPS, mDatabaseBasic;
+    //private String answer;
+    private DatabaseReference mDatabasePerfilEPS, mDatabasePerfilPrepagada, mDatabaseEPS, mDatabasePrepagada, mDatabaseIPS, mDatabaseBasic, mDatabaseCalificaciones;
     private ArrayList<String> listEspecialidades;
     ListView listItemsMedicalCenters;
     private AdapterMedicalCenters adaptador;
@@ -73,7 +74,7 @@ public class MedicalCenters extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView( R.layout.activity_medical_centers);
+        setContentView(R.layout.activity_medical_centers);
         getSupportActionBar().hide();
 
         request = Volley.newRequestQueue(getApplicationContext());
@@ -84,7 +85,7 @@ public class MedicalCenters extends AppCompatActivity {
         latitudUser = getIntent().getStringExtra("latitud");
         longitudUser = getIntent().getStringExtra("longitud");
         email = getIntent().getStringExtra("email");
-        answer =  getIntent().getStringExtra("answer1");
+        //answer =  getIntent().getStringExtra("answer1");
         listEspecialidades = getIntent().getStringArrayListExtra("especialidades");
         //Firebase
         mDatabasePerfilEPS = FirebaseDatabase.getInstance().getReference("PerfilesXEPS");
@@ -95,6 +96,7 @@ public class MedicalCenters extends AppCompatActivity {
         mDatabasePrepagada = FirebaseDatabase.getInstance().getReference("Prepagadas");
         mDatabaseIPS = FirebaseDatabase.getInstance().getReference("IPSs");
         mDatabaseBasic = FirebaseDatabase.getInstance().getReference("Perfiles Basicos");
+        mDatabaseCalificaciones = FirebaseDatabase.getInstance().getReference("Calificaciones");
 
         listItemsMedicalCenters = findViewById(R.id.listViewMedicalCenters);
         adaptador = new AdapterMedicalCenters(this, listItems);
@@ -111,6 +113,8 @@ public class MedicalCenters extends AppCompatActivity {
                         listItems.get(i).getLatitud(), listItems.get(i).getLongitud());
 
                 Intent intent = new Intent(MedicalCenters.this, MapsActivity.class);
+                intent.putExtra("email", email);
+                intent.putExtra("idIPS", listItems.get(i).getId());
                 intent.putExtra("latitud", Double.valueOf(listItems.get(i).getLatitud()));
                 intent.putExtra("longitud", Double.valueOf(listItems.get(i).getLongitud()));
                 intent.putExtra("distance", distance);
@@ -281,6 +285,7 @@ public class MedicalCenters extends AppCompatActivity {
                             String latitud = String.valueOf(ips.getLatitud());
                             String longitud = String.valueOf(ips.getLongitud());
                             EntityMedicalCenter med = new EntityMedicalCenter(ips.getNombre(), ips.getDireccion(), latitud, longitud, ips.getEdadMin(), ips.getEdadMax(), ips.getCalificacion());
+                            med.setId(ips.getId());
                             verificarEdad(med, snapshot.getKey());
                             break;
                         }
@@ -331,11 +336,6 @@ public class MedicalCenters extends AppCompatActivity {
                     Calendar calendar = Calendar.getInstance();
                     ArrayList<String> especialidades = new ArrayList<>();
                     ArrayList<String> copyListEsp = listEspecialidades;
-
-                    for(int i = 0; i< listEspecialidades.size(); i++){
-                        System.out.println("-------------ESpecialidades "+ listEspecialidades + "------------");
-                    }
-
                     int day = calendar.get(Calendar.DAY_OF_WEEK);
                     String dayS = String.valueOf(day);
                     int hora = calendar.get(Calendar.HOUR_OF_DAY);
@@ -350,7 +350,6 @@ public class MedicalCenters extends AppCompatActivity {
                             }
                         }
                     }
-                    System.out.println(especialidades);
                     if (especialidades.containsAll(copyListEsp)) {
                         getDuracion(med);
                     } else {
@@ -373,8 +372,6 @@ public class MedicalCenters extends AppCompatActivity {
     private void getDuracion(final EntityMedicalCenter med) {
         final String[] url = {"https://maps.googleapis.com/maps/api/directions/json?origin=" + latitudUser + "," + longitudUser
                 + "&destination=" + med.getLatitud() + "," + med.getLongitud() + "&key=AIzaSyBcbJP6b85tsc2tS5vdPnGwVnp89RQE9HY"};
-
-        Log.i("URL: ", url[0]);
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url[0], null, new Response.Listener<JSONObject>() {
             @Override
@@ -400,18 +397,13 @@ public class MedicalCenters extends AppCompatActivity {
                     }
 
                     med.setDuration(duracionIPS);
+                    getCalificationUser(med);
                     //Algoritmo de alejo
-                    listItems.add(med);
+                    /*listItems.add(med);
                     algortimoOrdenamientoTiempoAcceso(0, listItems.size() - 1);
                     imprimirLista();
                     algoritmoOrdenamientoPuntuacionGoogle(indexDeIpsAUnMaximoDeVeinteMins());
-                    imprimirLista();
-                    //Add a la lista
-                    //listItems.get(index).setDuration(duracionIPS);
-
-
-
-
+                    imprimirLista();*/
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (Exception e) {
@@ -429,10 +421,49 @@ public class MedicalCenters extends AppCompatActivity {
         request.add(jsonObjectRequest);
     }
 
-    private void imprimirLista(){
+    private void getCalificationUser(final EntityMedicalCenter med) {
+        mDatabaseCalificaciones.orderByChild("email").equalTo(email);
+        mDatabaseCalificaciones.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    CalificacionPersistence note;
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if (snapshot.exists()) {
+                            note = snapshot.getValue(CalificacionPersistence.class);
+                            System.out.println(note.getIdIPS());
+                            if (note.getIdIPS().equals(med.getId()) && note.getEmail().equals(email) && note.isCalificacion()) {
+                                System.out.println(med.getName());
+                                    med.setQualificated(note.isCalificacion());
+                                    listItems.add(0, med);
+                                    adaptador.notifyDataSetChanged();
+                                    break;
+                            } else {
+                                listItems.add(med);
+                                algortimoOrdenamientoTiempoAcceso(indexPref(), listItems.size() - 1);
+                                algoritmoOrdenamientoPuntuacionGoogle(indexDeIpsAUnMaximoDeVeinteMins());
+                                break;
+                            }
+                        }
+                    }
+                } else {
+                    listItems.add(med);
+                    algortimoOrdenamientoTiempoAcceso(indexPref(), listItems.size() - 1);
+                    algoritmoOrdenamientoPuntuacionGoogle(indexDeIpsAUnMaximoDeVeinteMins());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void imprimirLista() {
 
         System.out.println("----------------------");
-        for(int i = 0; i < listItems.size(); i++){
+        for (int i = 0; i < listItems.size(); i++) {
 
             System.out.println("Nombre: " + listItems.get(i).getName());
             System.out.println("                                Duracion:     " + listItems.get(i).getDuration());
@@ -442,29 +473,32 @@ public class MedicalCenters extends AppCompatActivity {
         System.out.println("----------------------");
     }
 
-    private int indexDeIpsAUnMaximoDeVeinteMins(){
+    private int indexPref(){
+        for (int i = 0 ; i < listItems.size(); i++) {
+            if(!listItems.get(i).isQualificated()){
+                return i;
+            }
+        }
+        return 0;
+    }
+    private int indexDeIpsAUnMaximoDeVeinteMins() {
 
+        for (int i = indexPref() ; i < listItems.size(); i++) {
 
-        for(int i = 0; i < listItems.size(); i++){
-
-            if(listItems.get(i).getDuration() > 2000 && i > 0){
+            if (listItems.get(i).getDuration() > (1200 + listItems.get(indexPref()).getDuration()) && i > 0) {
 
                 return i - 1;
-            }else if(listItems.get(i).getDuration() > 2000){
+            } else if (listItems.get(i).getDuration() > (1200 + listItems.get(indexPref()).getDuration())) {
 
                 return i;
             }
         }
-
         return 0;
     }
 
     private void algortimoOrdenamientoTiempoAcceso(int l, int r) {
 
-
-
-        if (l >= r)
-        {
+        if (l >= r) {
             return;
         }
 
@@ -476,11 +510,9 @@ public class MedicalCenters extends AppCompatActivity {
         int cnt = l;
 
         // Traverse through array from l to r
-        for (int i = l; i <= r; i++)
-        {
+        for (int i = l; i <= r; i++) {
             // If an element less than or equal to the pivot is found...
-            if ( listItems.get(i).getDuration() <= pivot)
-            {
+            if (listItems.get(i).getDuration() <= pivot) {
                 // Then swap arr[cnt] and arr[i] so that the smaller element arr[i]
                 // is to the left of all elements greater than pivot
 
@@ -497,26 +529,26 @@ public class MedicalCenters extends AppCompatActivity {
 
         // NOTE: cnt is currently at one plus the pivot's index
         // (Hence, the cnt-2 when recursively sorting the left side of pivot)
-        algortimoOrdenamientoTiempoAcceso(l, cnt-2); // Recursively sort the left side of pivot
+        algortimoOrdenamientoTiempoAcceso(l, cnt - 2); // Recursively sort the left side of pivot
         algortimoOrdenamientoTiempoAcceso(cnt, r);   // Recursively sort the right side of pivot
 
         adaptador.notifyDataSetChanged();
     }
-    private void algoritmoOrdenamientoPuntuacionGoogle(int n){
 
-        for (int i = 0; i < ( n  ); i++) {
-            for (int j = 0; j < n - i ; j++) {
-                if (listItems.get(j).getCalificacion() + 0.8 < listItems.get(j+1).getCalificacion())
-                {
+    private void algoritmoOrdenamientoPuntuacionGoogle(int n) {
+
+        for (int i = 0; i < (n); i++) {
+            for (int j = 0; j < n - i; j++) {
+                if (listItems.get(j).getCalificacion() + 0.8 < listItems.get(j + 1).getCalificacion()) {
                     /*
                     temp = array[j];
                     array[j] = array[j+1];
                     array[j+1] = temp;
 */
                     EntityMedicalCenter medCentAuxiliar = listItems.get(j);
-                    EntityMedicalCenter medCentAuxiliar2 = listItems.get(j+1);
+                    EntityMedicalCenter medCentAuxiliar2 = listItems.get(j + 1);
                     listItems.set(j, medCentAuxiliar2);
-                    listItems.set(j+1, medCentAuxiliar);
+                    listItems.set(j + 1, medCentAuxiliar);
                 }
             }
         }
@@ -526,8 +558,7 @@ public class MedicalCenters extends AppCompatActivity {
     private void algortimoOrdenamientoPuntuacionGoogle(int l, int r) {
 
 
-        if (l >= r)
-        {
+        if (l >= r) {
             return;
         }
 
@@ -541,11 +572,9 @@ public class MedicalCenters extends AppCompatActivity {
         int cnt = l;
 
         // Traverse through array from l to r
-        for (int i = l; i <= r; i++)
-        {
+        for (int i = l; i <= r; i++) {
             // If an element less than or equal to the pivot is found...
-            if ( listItems.get(i).getCalificacion() >= (pivot))
-            {
+            if (listItems.get(i).getCalificacion() >= (pivot)) {
                 // Then swap arr[cnt] and arr[i] so that the smaller element arr[i]
                 // is to the left of all elements greater than pivot
 
@@ -562,13 +591,13 @@ public class MedicalCenters extends AppCompatActivity {
 
         // NOTE: cnt is currently at one plus the pivot's index
         // (Hence, the cnt-2 when recursively sorting the left side of pivot)
-        algortimoOrdenamientoPuntuacionGoogle( l, cnt-2); // Recursively sort the left side of pivot
-        algortimoOrdenamientoPuntuacionGoogle( cnt, r);   // Recursively sort the right side of pivot
-
+        algortimoOrdenamientoPuntuacionGoogle(l, cnt - 2); // Recursively sort the left side of pivot
+        algortimoOrdenamientoPuntuacionGoogle(cnt, r);   // Recursively sort the right side of pivot
 
 
         adaptador.notifyDataSetChanged();
     }
+
     private void webServiceObtenerRuta(String latitudInicial, String longitudInicial, String latitudFinal, String longitudFinal) {
 
         String url = "https://maps.googleapis.com/maps/api/directions/json?origin=" + latitudInicial + "," + longitudInicial
@@ -615,7 +644,7 @@ public class MedicalCenters extends AppCompatActivity {
                                     path.add(hm);
                                 }
                             }
-                            Utilidades.routes.add( path);
+                            Utilidades.routes.add(path);
                         }
                     }
                 } catch (JSONException e) {

@@ -27,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.miguelapaez.emergenciapp.Persistence.CalificacionPersistence;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -49,6 +50,11 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -76,6 +82,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double latitudMedicalCenter = 0;
     private double longitudMedicalCenter = 0;
     private String nameMedicalCenter = "";
+    private DatabaseReference mDatabaseCalificacion;
+    private String email;
+    private String idIPS;
 
     JsonObjectRequest jsonObjectRequest;
     RequestQueue request;
@@ -84,8 +93,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate ( savedInstanceState );
-        setContentView ( R.layout.activity_maps );
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_maps);
 
         /*
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -96,78 +105,87 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         //Recepción de datos Activity MedicalCenters
-        latitudMedicalCenter = (Double) getIntent().getSerializableExtra( "latitud");
-        longitudMedicalCenter = (Double) getIntent().getSerializableExtra( "longitud");
-        distance = (String) getIntent().getSerializableExtra( "distance");
-        duration = (String) getIntent().getSerializableExtra( "duration");
-        nameMedicalCenter = (String) getIntent().getSerializableExtra( "name");
+        latitudMedicalCenter = (Double) getIntent().getSerializableExtra("latitud");
+        longitudMedicalCenter = (Double) getIntent().getSerializableExtra("longitud");
+        distance = (String) getIntent().getSerializableExtra("distance");
+        duration = (String) getIntent().getSerializableExtra("duration");
+        nameMedicalCenter = (String) getIntent().getSerializableExtra("name");
+        email = getIntent().getStringExtra("email");
+        idIPS = getIntent().getStringExtra("idIPS");
 
-        request = Volley.newRequestQueue( getApplicationContext());
+        mDatabaseCalificacion = FirebaseDatabase.getInstance().getReference("Calificaciones");
+
+
+        request = Volley.newRequestQueue(getApplicationContext());
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager ()
-                .findFragmentById ( R.id.map );
-        mapFragment.getMapAsync ( this );
-        initGoogleAPIClient ();
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient ( this );
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+        initGoogleAPIClient();
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         //mLocationRequest = createLocationRequest ();
-        if (checkSelfPermission ( Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission ( Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
-            requestLocationPermission ();
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestLocationPermission();
         } else {
-            showSettingDialog ();
+            showSettingDialog();
         }
 
-        Button btnAct = (Button) findViewById( R.id.buttonActMap);
+        Button btnAct = (Button) findViewById(R.id.buttonActMap);
         btnAct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mMap.clear();
-                mFusedLocationClient = LocationServices.getFusedLocationProviderClient ( v.getContext () );
-                webServiceObtenerRuta(String.valueOf(latitudUser),String.valueOf(longitudUser),String.valueOf(latitudMedicalCenter),String.valueOf(longitudMedicalCenter));
+                mFusedLocationClient = LocationServices.getFusedLocationProviderClient(v.getContext());
+                webServiceObtenerRuta(String.valueOf(latitudUser), String.valueOf(longitudUser), String.valueOf(latitudMedicalCenter), String.valueOf(longitudMedicalCenter));
             }
         });
 
-        Button btnEnd = (Button) findViewById ( R.id.buttonEndEmergency );
-        btnEnd.setOnClickListener ( new View.OnClickListener () {
+        Button btnEnd = (Button) findViewById(R.id.buttonEndEmergency);
+        btnEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder message = new AlertDialog.Builder( MapsActivity.this);
+                AlertDialog.Builder message = new AlertDialog.Builder(MapsActivity.this);
                 message.setTitle(nameMedicalCenter);
                 message.setMessage("¿Qué tal te pareció la atención en " + nameMedicalCenter + "?");
                 message.setPositiveButton("Buena", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Toast.makeText(MapsActivity.this, "Calificación Buena!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MapsActivity.this, MainActivity.class));
+                        registarCalificacion(true);
+                        Intent intent = new Intent(MapsActivity.this, MainActivity.class);
+                        startActivity(intent);
                     }
                 });
                 message.setNegativeButton("Mala", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Toast.makeText(MapsActivity.this, "Calificación Mala!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MapsActivity.this, MainActivity.class));
+                        registarCalificacion(false);
+                        Intent intent = new Intent(MapsActivity.this, MainActivity.class);
+                        startActivity(intent);
                     }
                 });
 
                 AlertDialog dialog = message.create();
                 dialog.show();
             }
-        } );
+        });
 
-        mFusedLocationClient.getLastLocation ().addOnSuccessListener (
-                this , new OnSuccessListener <Location> () {
+        mFusedLocationClient.getLastLocation().addOnSuccessListener(
+                this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
-                        Log.i ( "LOCATION" , "onSuccess location" );
+                        Log.i("LOCATION", "onSuccess location");
                         if (location != null) {
-                            longitudUser = location.getLongitude ();
-                            latitudUser = location.getLatitude ();
-                            altitud = location.getAltitude ();
-                            agregarMarcador ( latitudUser, longitudUser );
+                            longitudUser = location.getLongitude();
+                            latitudUser = location.getLatitude();
+                            altitud = location.getAltitude();
+                            agregarMarcador(latitudUser, longitudUser);
                         }
                     }
-                } );
+                });
         /*
         mLocationCallback = new LocationCallback () {
             @Override
@@ -180,80 +198,123 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         };*/
 
-        mapFragment = (SupportMapFragment) getSupportFragmentManager ()
-                .findFragmentById ( R.id.map );
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
         assert mapFragment != null;
-        mapFragment.getMapAsync ( this );
+        mapFragment.getMapAsync(this);
 
+    }
+
+    private void registarCalificacion(final boolean calificacion) {
+        mDatabaseCalificacion.orderByChild("email").equalTo(email);
+        mDatabaseCalificacion.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    CalificacionPersistence note = new CalificacionPersistence();
+                    boolean asigned = false;
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if (snapshot.exists()) {
+                            note = snapshot.getValue(CalificacionPersistence.class);
+                            if (note.getEmail().equals(email) && note.getIdIPS().equals(idIPS)) {
+                                String id = snapshot.getKey();
+                                note.setCalificacion(calificacion);
+                                mDatabaseCalificacion.child(id).setValue(note);
+                                asigned = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!asigned) {
+                        String id = mDatabaseCalificacion.push().getKey();
+                        note.setEmail(email);
+                        note.setCalificacion(calificacion);
+                        note.setIdIPS(idIPS);
+                        mDatabaseCalificacion.child(id).setValue(note);
+                    }
+                } else {
+                    String id = mDatabaseCalificacion.push().getKey();
+                    CalificacionPersistence note = new CalificacionPersistence();
+                    note.setEmail(email);
+                    note.setCalificacion(calificacion);
+                    note.setIdIPS(idIPS);
+                    mDatabaseCalificacion.child(id).setValue(note);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
     private void requestLocationPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale ( MapsActivity.this , android.Manifest.permission.ACCESS_FINE_LOCATION )) {
-            ActivityCompat.requestPermissions ( MapsActivity.this , new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION} , ACCESS_FINE_LOCATION_INTENT_ID );
+        if (ActivityCompat.shouldShowRequestPermissionRationale(MapsActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)) {
+            ActivityCompat.requestPermissions(MapsActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_FINE_LOCATION_INTENT_ID);
         } else {
-            ActivityCompat.requestPermissions ( MapsActivity.this , new String[]{Manifest.permission.ACCESS_FINE_LOCATION} , ACCESS_FINE_LOCATION_INTENT_ID );
+            ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_FINE_LOCATION_INTENT_ID);
         }
     }
 
     private void showSettingDialog() {
-        LocationRequest locationRequest = LocationRequest.create ();
-        locationRequest.setPriority ( LocationRequest.PRIORITY_HIGH_ACCURACY );
-        locationRequest.setInterval ( 30 * 1000 );
-        locationRequest.setFastestInterval ( 5 * 1000 );
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder ()
-                .addLocationRequest ( locationRequest );
-        builder.setAlwaysShow ( true );
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(30 * 1000);
+        locationRequest.setFastestInterval(5 * 1000);
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
+        builder.setAlwaysShow(true);
 
-        PendingResult <LocationSettingsResult> result =
-                LocationServices.SettingsApi.checkLocationSettings ( mGoogleApiClient , builder.build () );
-        result.setResultCallback ( new ResultCallback <LocationSettingsResult> () {
+        PendingResult<LocationSettingsResult> result =
+                LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
+        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
             @Override
             public void onResult(LocationSettingsResult result) {
-                final Status status = result.getStatus ();
-                final LocationSettingsStates state = result.getLocationSettingsStates ();
-                switch (status.getStatusCode ()) {
+                final Status status = result.getStatus();
+                final LocationSettingsStates state = result.getLocationSettingsStates();
+                switch (status.getStatusCode()) {
                     case LocationSettingsStatusCodes.SUCCESS:
-                        Log.e ( "TAG" , "SUCCESS" );
+                        Log.e("TAG", "SUCCESS");
                         break;
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                        Log.e ( "TAG" , "RESOLUTION_REQUIRED" );
+                        Log.e("TAG", "RESOLUTION_REQUIRED");
                         try {
-                            status.startResolutionForResult ( MapsActivity.this , REQUEST_CHECK_SETTINGS );
+                            status.startResolutionForResult(MapsActivity.this, REQUEST_CHECK_SETTINGS);
                         } catch (IntentSender.SendIntentException e) {
-                            e.printStackTrace ();
+                            e.printStackTrace();
                         }
                         break;
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                        Log.e ( "TAG" , "GPS NO DISPONIBLE" );
+                        Log.e("TAG", "GPS NO DISPONIBLE");
                         break;
                 }
             }
-        } );
+        });
     }
-
 
 
     private void initGoogleAPIClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder ( MapsActivity.this )
-                .addApi ( LocationServices.API )
-                .build ();
-        mGoogleApiClient.connect ();
+        mGoogleApiClient = new GoogleApiClient.Builder(MapsActivity.this)
+                .addApi(LocationServices.API)
+                .build();
+        mGoogleApiClient.connect();
     }
 
     @Override
-    protected void onActivityResult(int requestCode , int resultCode , Intent data) {
-        super.onActivityResult ( requestCode , resultCode , data );
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_CHECK_SETTINGS: {
                 if (resultCode == RESULT_OK) {
-                    startLocationUpdates (); //Se encendió la localización!!!
+                    startLocationUpdates(); //Se encendió la localización!!!
                 } else {
-                    Toast.makeText (
-                            this ,
-                            "Sin acceso a localización, hardware deshabilitado!" ,
+                    Toast.makeText(
+                            this,
+                            "Sin acceso a localización, hardware deshabilitado!",
                             Toast.LENGTH_LONG
-                    ).show ();
+                    ).show();
                 }
                 return;
             }
@@ -261,32 +322,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     protected LocationRequest createLocationRequest() {
-        LocationRequest mLocationRequest = new LocationRequest ();
-        mLocationRequest.setInterval ( 10000 ); //tasa de refresco en milisegundos
-        mLocationRequest.setFastestInterval ( 5000 ); //máxima tasa de refresco
-        mLocationRequest.setPriority ( LocationRequest.PRIORITY_HIGH_ACCURACY );
+        LocationRequest mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(10000); //tasa de refresco en milisegundos
+        mLocationRequest.setFastestInterval(5000); //máxima tasa de refresco
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         return mLocationRequest;
     }
 
     @Override
     protected void onResume() {
-        super.onResume ();
-        startLocationUpdates ();
+        super.onResume();
+        startLocationUpdates();
     }
 
     @Override
     protected void onPause() {
-        super.onPause ();
+        super.onPause();
         // stopLocationUpdates ();
     }
 
     private void startLocationUpdates() {
         //Verificación de permiso!!
-        if (ContextCompat.checkSelfPermission (
-                this ,
+        if (ContextCompat.checkSelfPermission(
+                this,
                 Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED) {
-            mFusedLocationClient.requestLocationUpdates ( mLocationRequest , null );
+            mFusedLocationClient.requestLocationUpdates(mLocationRequest, null);
         }
     }
 
@@ -297,9 +358,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     */
 
     @Override
-    public void onRequestPermissionsResult(int requestCode , @NonNull String[] permissions , @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult ( requestCode , permissions , grantResults );
-        Log.e ( "TAG" , "onRequestPermissionsResult" );
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.e("TAG", "onRequestPermissionsResult");
         switch (requestCode) {
             case ACCESS_FINE_LOCATION_INTENT_ID: {
                 // Si se cancela la solicitud, las matrices de resultados están vacías.
@@ -307,14 +368,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //Si el permiso otorgado muestra el cuadro de diálogo de ubicación si APIClient no es nulo
                     if (mGoogleApiClient == null) {
-                        initGoogleAPIClient ();
-                        showSettingDialog ();
+                        initGoogleAPIClient();
+                        showSettingDialog();
                     } else
-                        showSettingDialog ();
+                        showSettingDialog();
 
 
                 } else {
-                    Toast.makeText ( MapsActivity.this , "Location Permission denied." , Toast.LENGTH_SHORT ).show ();
+                    Toast.makeText(MapsActivity.this, "Location Permission denied.", Toast.LENGTH_SHORT).show();
                 }
                 return;
             }
@@ -335,10 +396,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        mMap.setMapStyle( MapStyleOptions.loadRawResourceStyle(this, R.raw.style_json));
+        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_json));
 
 
-        if (checkSelfPermission ( Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    Activity#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -355,22 +416,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         LatLng center = null;
-        ArrayList <LatLng> points = new ArrayList<LatLng>();
+        ArrayList<LatLng> points = new ArrayList<LatLng>();
         PolylineOptions lineOptions = new PolylineOptions();
 
         // setUpMapIfNeeded();
 
         // recorriendo todas las rutas
-        for(int i=0;i<Utilidades.routes.size();i++){
+        for (int i = 0; i < Utilidades.routes.size(); i++) {
             points = new ArrayList<LatLng>();
             lineOptions = new PolylineOptions();
 
             // Obteniendo el detalle de la ruta
-            List <HashMap <String, String>> path = Utilidades.routes.get( i);
+            List<HashMap<String, String>> path = Utilidades.routes.get(i);
 
             // Obteniendo todos los puntos y/o coordenadas de la ruta
-            for(int j=0;j<path.size();j++){
-                HashMap<String,String> point = path.get(j);
+            for (int j = 0; j < path.size(); j++) {
+                HashMap<String, String> point = path.get(j);
 
                 double lat = Double.parseDouble(point.get("lat"));
                 double lng = Double.parseDouble(point.get("lng"));
@@ -388,7 +449,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //Definimos el grosor de las Polilíneas
             lineOptions.width(2);
             //Definimos el color de la Polilíneas
-            lineOptions.color( Color.BLUE);
+            lineOptions.color(Color.BLUE);
         }
 
         // Dibujamos las Polilineas en el Google Map para cada ruta
@@ -408,30 +469,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         /////////////
         */
 
-        markerMedicalCenter(latitudMedicalCenter,longitudMedicalCenter,nameMedicalCenter);
+        markerMedicalCenter(latitudMedicalCenter, longitudMedicalCenter, nameMedicalCenter);
 
     }
 
 
-    public void markerMedicalCenter(double latitud, double longitud, String name){
+    public void markerMedicalCenter(double latitud, double longitud, String name) {
         LatLng position = new LatLng(latitud, longitud);
         if (mMap != null) {
             MarkerOptions myMarkerOptions = new MarkerOptions();
             myMarkerOptions.position(position);
             myMarkerOptions.title(name);
-            myMarkerOptions.snippet ( "Distancia: " + distance + " " + "Duración: " + duration );
-            myMarkerOptions.icon( BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_ORANGE));
+            myMarkerOptions.snippet("Distancia: " + distance + " " + "Duración: " + duration);
+            myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
             mMap.addMarker(myMarkerOptions);
             // mMap.moveCamera( CameraUpdateFactory.newLatLngZoom( position, 15));
         }
     }
 
-    public void agregarMarcador(double latitud, double longitud){
-        LatLng posicion = new LatLng ( latitud , longitud );
-        mMap.addMarker ( new MarkerOptions ().position ( posicion ).title ( "Mi Ubicación Actual" )
-                                 .alpha(0.5f)
-                                 .icon(BitmapDescriptorFactory
-                                               .defaultMarker( BitmapDescriptorFactory.HUE_BLUE)));
+    public void agregarMarcador(double latitud, double longitud) {
+        LatLng posicion = new LatLng(latitud, longitud);
+        mMap.addMarker(new MarkerOptions().position(posicion).title("Mi Ubicación Actual")
+                .alpha(0.5f)
+                .icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         // mMap.moveCamera ( CameraUpdateFactory.newLatLng ( posicion ) );
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(posicion, 15));
     }
@@ -439,12 +500,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void webServiceObtenerRuta(String latitudInicial, String longitudInicial, String latitudFinal, String longitudFinal) {
 
-        String url="https://maps.googleapis.com/maps/api/directions/json?origin="+latitudInicial+","+longitudInicial
-                +"&destination="+latitudFinal+","+longitudFinal+"&key=AIzaSyBcbJP6b85tsc2tS5vdPnGwVnp89RQE9HY";
+        String url = "https://maps.googleapis.com/maps/api/directions/json?origin=" + latitudInicial + "," + longitudInicial
+                + "&destination=" + latitudFinal + "," + longitudFinal + "&key=AIzaSyBcbJP6b85tsc2tS5vdPnGwVnp89RQE9HY";
 
-        Log.i( "URL: ", url);
+        Log.i("URL: ", url);
 
-        jsonObjectRequest=new JsonObjectRequest ( Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 //Este método PARSEA el JSONObject que retorna del API de Rutas de Google devolviendo
@@ -459,27 +520,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     jRoutes = response.getJSONArray("routes");
 
                     /** Traversing all routes */
-                    for(int i=0;i<jRoutes.length();i++){
-                        jLegs = ( (JSONObject)jRoutes.get(i)).getJSONArray("legs");
-                        List<HashMap<String, String>> path = new ArrayList <HashMap<String, String>> ();
+                    for (int i = 0; i < jRoutes.length(); i++) {
+                        jLegs = ((JSONObject) jRoutes.get(i)).getJSONArray("legs");
+                        List<HashMap<String, String>> path = new ArrayList<HashMap<String, String>>();
 
                         /** Traversing all legs */
-                        for(int j=0;j<jLegs.length();j++){
-                            distance = (String)((JSONObject)((JSONObject)jLegs.get(j)).get("distance")).get("text");
-                            duration = (String)((JSONObject)((JSONObject)jLegs.get(j)).get("duration")).get("text");
-                            jSteps = ( (JSONObject)jLegs.get(j)).getJSONArray("steps");
+                        for (int j = 0; j < jLegs.length(); j++) {
+                            distance = (String) ((JSONObject) ((JSONObject) jLegs.get(j)).get("distance")).get("text");
+                            duration = (String) ((JSONObject) ((JSONObject) jLegs.get(j)).get("duration")).get("text");
+                            jSteps = ((JSONObject) jLegs.get(j)).getJSONArray("steps");
 
                             /** Traversing all steps */
-                            for(int k=0;k<jSteps.length();k++){
+                            for (int k = 0; k < jSteps.length(); k++) {
                                 String polyline = "";
-                                polyline = (String)((JSONObject)((JSONObject)jSteps.get(k)).get("polyline")).get("points");
-                                List <LatLng> list = decodePoly( polyline);
+                                polyline = (String) ((JSONObject) ((JSONObject) jSteps.get(k)).get("polyline")).get("points");
+                                List<LatLng> list = decodePoly(polyline);
 
                                 /** Traversing all points */
-                                for(int l=0;l<list.size();l++){
-                                    HashMap <String, String> hm = new HashMap<String, String>();
-                                    hm.put("lat", Double.toString(((LatLng)list.get(l)).latitude) );
-                                    hm.put("lng", Double.toString(((LatLng)list.get( l)).longitude) );
+                                for (int l = 0; l < list.size(); l++) {
+                                    HashMap<String, String> hm = new HashMap<String, String>();
+                                    hm.put("lat", Double.toString(((LatLng) list.get(l)).latitude));
+                                    hm.put("lng", Double.toString(((LatLng) list.get(l)).longitude));
                                     path.add(hm);
                                 }
                             }
@@ -488,19 +549,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }catch (Exception e){
+                } catch (Exception e) {
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText( getApplicationContext(), "No se puede conectar "+error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "No se puede conectar " + error.toString(), Toast.LENGTH_LONG).show();
                 System.out.println();
-                Log.d( "ERROR: ", error.toString());
+                Log.d("ERROR: ", error.toString());
             }
         }
         );
-        Log.i( "jsonObjectRequest: ", String.valueOf ( jsonObjectRequest ) );
+        Log.i("jsonObjectRequest: ", String.valueOf(jsonObjectRequest));
         request.add(jsonObjectRequest);
         ActualizarMap();
     }
@@ -508,22 +569,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void ActualizarMap() {
 
         LatLng center = null;
-        ArrayList <LatLng> points = new ArrayList<LatLng>();
+        ArrayList<LatLng> points = new ArrayList<LatLng>();
         PolylineOptions lineOptions = new PolylineOptions();
 
         // setUpMapIfNeeded();
 
         // recorriendo todas las rutas
-        for(int z=0;z<Utilidades.routes.size();z++){
+        for (int z = 0; z < Utilidades.routes.size(); z++) {
             points = new ArrayList<LatLng>();
             lineOptions = new PolylineOptions();
 
             // Obteniendo el detalle de la ruta
-            List <HashMap <String, String>> pathAux = Utilidades.routes.get(z);
+            List<HashMap<String, String>> pathAux = Utilidades.routes.get(z);
 
             // Obteniendo todos los puntos y/o coordenadas de la ruta
-            for(int y=0;y<pathAux.size();y++){
-                HashMap<String,String> point = pathAux.get(y);
+            for (int y = 0; y < pathAux.size(); y++) {
+                HashMap<String, String> point = pathAux.get(y);
 
                 double lat = Double.parseDouble(point.get("lat"));
                 double lng = Double.parseDouble(point.get("lng"));
@@ -541,21 +602,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //Definimos el grosor de las Polilíneas
             lineOptions.width(2);
             //Definimos el color de la Polilíneas
-            lineOptions.color( Color.BLUE);
+            lineOptions.color(Color.BLUE);
         }
 
         // Dibujamos las Polilineas en el Google Map para cada ruta
         mMap.addPolyline(lineOptions);
 
-        markerMedicalCenter(latitudMedicalCenter,longitudMedicalCenter,nameMedicalCenter);
+        markerMedicalCenter(latitudMedicalCenter, longitudMedicalCenter, nameMedicalCenter);
 
-        agregarMarcador ( latitudUser,longitudUser );
+        agregarMarcador(latitudUser, longitudUser);
 
-        Toast.makeText ( MapsActivity.this, "¡Mapa Actualizado!", Toast.LENGTH_SHORT).show ();
+        Toast.makeText(MapsActivity.this, "¡Mapa Actualizado!", Toast.LENGTH_SHORT).show();
 
     }
 
-    public List<List<HashMap<String,String>>> parse(JSONObject jObject){
+    public List<List<HashMap<String, String>>> parse(JSONObject jObject) {
         //Este método PARSEA el JSONObject que retorna del API de Rutas de Google devolviendo
         //una lista del lista de HashMap Strings con el listado de Coordenadas de Lat y Long,
         //con la cual se podrá dibujar pollinas que describan la ruta entre 2 puntos.
@@ -568,27 +629,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             jRoutes = jObject.getJSONArray("routes");
 
             /** Traversing all routes */
-            for(int i=0;i<jRoutes.length();i++){
-                jLegs = ( (JSONObject)jRoutes.get(i)).getJSONArray("legs");
+            for (int i = 0; i < jRoutes.length(); i++) {
+                jLegs = ((JSONObject) jRoutes.get(i)).getJSONArray("legs");
                 List<HashMap<String, String>> path = new ArrayList<HashMap<String, String>>();
 
                 /** Traversing all legs */
-                for(int j=0;j<jLegs.length();j++){
-                    distance = (String)((JSONObject)((JSONObject)jLegs.get(j)).get("distance")).get("text");
-                    duration = (String)((JSONObject)((JSONObject)jLegs.get(j)).get("duration")).get("text");
-                    jSteps = ( (JSONObject)jLegs.get(j)).getJSONArray("steps");
+                for (int j = 0; j < jLegs.length(); j++) {
+                    distance = (String) ((JSONObject) ((JSONObject) jLegs.get(j)).get("distance")).get("text");
+                    duration = (String) ((JSONObject) ((JSONObject) jLegs.get(j)).get("duration")).get("text");
+                    jSteps = ((JSONObject) jLegs.get(j)).getJSONArray("steps");
 
                     /** Traversing all steps */
-                    for(int k=0;k<jSteps.length();k++){
+                    for (int k = 0; k < jSteps.length(); k++) {
                         String polyline = "";
-                        polyline = (String)((JSONObject)((JSONObject)jSteps.get(k)).get("polyline")).get("points");
+                        polyline = (String) ((JSONObject) ((JSONObject) jSteps.get(k)).get("polyline")).get("points");
                         List<LatLng> list = decodePoly(polyline);
 
                         /** Traversing all points */
-                        for(int l=0;l<list.size();l++){
+                        for (int l = 0; l < list.size(); l++) {
                             HashMap<String, String> hm = new HashMap<String, String>();
-                            hm.put("lat", Double.toString(((LatLng)list.get(l)).latitude) );
-                            hm.put("lng", Double.toString(((LatLng)list.get(l)).longitude) );
+                            hm.put("lat", Double.toString(((LatLng) list.get(l)).latitude));
+                            hm.put("lng", Double.toString(((LatLng) list.get(l)).longitude));
                             path.add(hm);
                         }
                     }
@@ -597,7 +658,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        }catch (Exception e){
+        } catch (Exception e) {
         }
         return Utilidades.routes;
     }
@@ -629,14 +690,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             lng += dlng;
 
             LatLng p = new LatLng((((double) lat / 1E5)),
-                                  (((double) lng / 1E5)));
+                    (((double) lng / 1E5)));
             poly.add(p);
         }
 
         return poly;
     }
-
-
 
 
 }

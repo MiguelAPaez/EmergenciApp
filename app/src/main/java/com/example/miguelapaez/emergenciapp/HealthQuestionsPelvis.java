@@ -16,7 +16,7 @@ public class HealthQuestionsPelvis extends AppCompatActivity {
     private String latUser;
     private String lonUser;
     private String email;
-    private String answer1;
+    //private String answer1;
 
     GridLayout mainGrid;
     @Override
@@ -28,7 +28,7 @@ public class HealthQuestionsPelvis extends AppCompatActivity {
         latUser = getIntent().getStringExtra("latitud");
         lonUser = getIntent().getStringExtra("longitud");
         email = getIntent().getStringExtra("email");
-        answer1 =  getIntent().getStringExtra("answer1");
+        //answer1 =  getIntent().getStringExtra("answer1");
 
         mainGrid = (GridLayout) findViewById(R.id.gridLayoutQuestionPelvis);
 
@@ -49,11 +49,11 @@ public class HealthQuestionsPelvis extends AppCompatActivity {
                     if(finalI == 0){
                         Intent intent = new Intent ( HealthQuestionsPelvis.this, MedicalCenters.class);
                         ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("Gastroenterologo");
-                        especialidades.add("Nefrologo");
+                        especialidades.add("gastroenterología");
+                        especialidades.add("nefrología");
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("info","This is activity from card item index  "+finalI);
-                        intent.putExtra("answer1",answer1+"/AbdomenInferior");
+                        //intent.putExtra("answer1",answer1+"/AbdomenInferior");
                         intent.putExtra("latitud",latUser);
                         intent.putExtra("longitud",lonUser);
                         intent.putExtra("email",email);
@@ -62,12 +62,12 @@ public class HealthQuestionsPelvis extends AppCompatActivity {
                     if(finalI == 1){
                         Intent intent = new Intent ( HealthQuestionsPelvis.this, MedicalCenters.class);
                         ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("Gastroenterologo");
-                        especialidades.add("Urologo");
-                        especialidades.add("Nefrologo");
+                        especialidades.add("gastroenterología");
+                        especialidades.add("urología");
+                        especialidades.add("nefrología");
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("info","This is activity from card item index  "+finalI);
-                        intent.putExtra("answer1",answer1+"/pichirilo");
+                        //intent.putExtra("answer1",answer1+"/pichirilo");
                         intent.putExtra("latitud",latUser);
                         intent.putExtra("longitud",lonUser);
                         intent.putExtra("email",email);

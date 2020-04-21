@@ -16,7 +16,7 @@ public class HealthQuestionsFace extends AppCompatActivity {
     private String latUser;
     private String lonUser;
     private String email;
-    private String answer1;
+    //private String answer1;
 
     GridLayout mainGrid;
     @Override
@@ -28,7 +28,6 @@ public class HealthQuestionsFace extends AppCompatActivity {
         latUser = getIntent().getStringExtra("latitud");
         lonUser = getIntent().getStringExtra("longitud");
         email = getIntent().getStringExtra("email");
-        answer1 =  getIntent().getStringExtra("answer1");
 
         mainGrid = (GridLayout) findViewById(R.id.gridLayoutQuestionFace);
 
@@ -48,12 +47,14 @@ public class HealthQuestionsFace extends AppCompatActivity {
                             +finalI, Toast.LENGTH_SHORT).show ();
                     if(finalI == 0){
                         ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("Neurologo");
-                        especialidades.add("Oftlmologo");
-                        especialidades.add("Otorrinolaringologo");
+                        /*
+                        especialidades.add("neurología");
+                        especialidades.add("oftalmología");
+                        especialidades.add("otorrinolaringología");*/
+                        especialidades.add("general");
                         Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
-                        intent.putExtra("info","This is activity from card item index  "+finalI);
-                        intent.putExtra("answer1","");
+                        //intent.putExtra("info","This is activity from card item index  "+finalI);
+                        //intent.putExtra("answer1","");
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("latitud",latUser);
                         intent.putExtra("longitud",lonUser);
@@ -62,12 +63,12 @@ public class HealthQuestionsFace extends AppCompatActivity {
                     }
                     if(finalI == 1){
                         ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("Neurologo");
-                        especialidades.add("Otorrinolaringologo");
+                        especialidades.add("neurología");
+                        especialidades.add("otorrinolaringología");
                         Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("info","This is activity from card item index  "+finalI);
-                        intent.putExtra("answer1",answer1+"/Nariz");
+                        //intent.putExtra("answer1",answer1+"/Nariz");
                         intent.putExtra("latitud",latUser);
                         intent.putExtra("longitud",lonUser);
                         intent.putExtra("email",email);
@@ -77,11 +78,11 @@ public class HealthQuestionsFace extends AppCompatActivity {
 
                         Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
                         ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("Neurologo");
-                        especialidades.add("Otorrinolaringologo");
+                        especialidades.add("neurología");
+                        especialidades.add("otorrinolaringología");
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("info","This is activity from card item index  "+finalI);
-                        intent.putExtra("answer1",answer1+"/Oidos");
+                        //intent.putExtra("answer1",answer1+"/Oidos");
                         intent.putExtra("latitud",latUser);
                         intent.putExtra("longitud",lonUser);
                         intent.putExtra("email",email);
@@ -90,11 +91,11 @@ public class HealthQuestionsFace extends AppCompatActivity {
                     if(finalI == 3){
                         Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
                         ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("Neurologo");
-                        especialidades.add("Otorrinolaringologo");
+                        especialidades.add("neurología");
+                        especialidades.add("otorrinolaringología");
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("info","This is activity from card item index  "+finalI);
-                        intent.putExtra("answer1",answer1+"/Boca");
+                        //intent.putExtra("answer1",answer1+"/Boca");
                         intent.putExtra("latitud",latUser);
                         intent.putExtra("longitud",lonUser);
                         intent.putExtra("email",email);
@@ -103,11 +104,11 @@ public class HealthQuestionsFace extends AppCompatActivity {
                     if(finalI == 4){
                         Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
                         ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("Neurologo");
-                        especialidades.add("Oftalmologo");
+                        especialidades.add("neurología");
+                        especialidades.add("oftalmología");
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("info","This is activity from card item index  "+finalI);
-                        intent.putExtra("answer1",answer1+"/Ojos");
+                        //intent.putExtra("answer1",answer1+"/Ojos");
                         intent.putExtra("latitud",latUser);
                         intent.putExtra("longitud",lonUser);
                         intent.putExtra("email",email);
@@ -116,11 +117,11 @@ public class HealthQuestionsFace extends AppCompatActivity {
                     if(finalI == 5){
                         Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
                         ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("Neumologo");
-                        especialidades.add("Otorrinolaringologo");
+                        especialidades.add("neumología");
+                        especialidades.add("otorrinolaringología");
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("info","This is activity from card item index  "+finalI);
-                        intent.putExtra("answer1",answer1+"/Garganta");
+                        //intent.putExtra("answer1",answer1+"/Garganta");
                         intent.putExtra("latitud",latUser);
                         intent.putExtra("longitud",lonUser);
                         intent.putExtra("email",email);
