@@ -335,7 +335,7 @@ public class MedicalCenters extends AppCompatActivity {
                     String[] days;
                     Calendar calendar = Calendar.getInstance();
                     ArrayList<String> especialidades = new ArrayList<>();
-                    ArrayList<String> copyListEsp = listEspecialidades;
+                    ArrayList<String> copyListEsp = (ArrayList<String>) listEspecialidades.clone();
                     int day = calendar.get(Calendar.DAY_OF_WEEK);
                     String dayS = String.valueOf(day);
                     int hora = calendar.get(Calendar.HOUR_OF_DAY);
@@ -351,10 +351,12 @@ public class MedicalCenters extends AppCompatActivity {
                         }
                     }
                     if (especialidades.containsAll(copyListEsp)) {
+                        System.out.println("2" + copyListEsp);
                         getDuracion(med);
                     } else {
                         copyListEsp.remove(0);
                         if (especialidades.containsAll(copyListEsp)) {
+                            System.out.println("2" + copyListEsp);
                             getDuracion(med);
                         }
                     }
@@ -427,27 +429,31 @@ public class MedicalCenters extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    boolean carried = false;
                     CalificacionPersistence note;
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        System.out.println(snapshot.getKey());
                         if (snapshot.exists()) {
                             note = snapshot.getValue(CalificacionPersistence.class);
-                            System.out.println(note.getIdIPS());
                             if (note.getIdIPS().equals(med.getId()) && note.getEmail().equals(email) && note.isCalificacion()) {
                                 System.out.println(med.getName());
-                                    med.setQualificated(note.isCalificacion());
-                                    listItems.add(0, med);
-                                    adaptador.notifyDataSetChanged();
-                                    break;
-                            } else {
-                                listItems.add(med);
-                                algortimoOrdenamientoTiempoAcceso(indexPref(), listItems.size() - 1);
-                                algoritmoOrdenamientoPuntuacionGoogle(indexDeIpsAUnMaximoDeVeinteMins());
+                                med.setQualificated(note.isCalificacion());
+                                listItems.add(0, med);
+                                adaptador.notifyDataSetChanged();
+                                carried = true;
                                 break;
                             }
                         }
                     }
+                    if (!carried) {
+                        listItems.add(med);
+                        adaptador.notifyDataSetChanged();
+                        algortimoOrdenamientoTiempoAcceso(indexPref(), listItems.size() - 1);
+                        algoritmoOrdenamientoPuntuacionGoogle(indexDeIpsAUnMaximoDeVeinteMins());
+                    }
                 } else {
                     listItems.add(med);
+                    adaptador.notifyDataSetChanged();
                     algortimoOrdenamientoTiempoAcceso(indexPref(), listItems.size() - 1);
                     algoritmoOrdenamientoPuntuacionGoogle(indexDeIpsAUnMaximoDeVeinteMins());
                 }
@@ -473,17 +479,18 @@ public class MedicalCenters extends AppCompatActivity {
         System.out.println("----------------------");
     }
 
-    private int indexPref(){
-        for (int i = 0 ; i < listItems.size(); i++) {
-            if(!listItems.get(i).isQualificated()){
+    private int indexPref() {
+        for (int i = 0; i < listItems.size(); i++) {
+            if (!listItems.get(i).isQualificated()) {
                 return i;
             }
         }
         return 0;
     }
+
     private int indexDeIpsAUnMaximoDeVeinteMins() {
 
-        for (int i = indexPref() ; i < listItems.size(); i++) {
+        for (int i = indexPref(); i < listItems.size(); i++) {
 
             if (listItems.get(i).getDuration() > (1200 + listItems.get(indexPref()).getDuration()) && i > 0) {
 

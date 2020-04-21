@@ -219,8 +219,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             note = snapshot.getValue(CalificacionPersistence.class);
                             if (note.getEmail().equals(email) && note.getIdIPS().equals(idIPS)) {
                                 String id = snapshot.getKey();
-                                note.setCalificacion(calificacion);
-                                mDatabaseCalificacion.child(id).setValue(note);
+                                if(calificacion != note.isCalificacion()){
+                                    note.setCalificacion(calificacion);
+                                    mDatabaseCalificacion.child(id).setValue(note);
+                                }
                                 asigned = true;
                                 break;
                             }
