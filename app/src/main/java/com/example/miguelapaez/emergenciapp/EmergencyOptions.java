@@ -65,6 +65,7 @@ public class EmergencyOptions extends AppCompatActivity {
             }
 
             public void onFinish() {
+                notificarFamiliar();
                 Toast.makeText( EmergencyOptions.this, "Informar Familiares", Toast.LENGTH_SHORT).show();
                 // Enviar ubicación: https://maps.google.com/?q=4.190984,-74.4871482 (latitud, longitud)
                 Intent intent = new Intent(EmergencyOptions.this, MainActivity.class);
@@ -101,7 +102,7 @@ public class EmergencyOptions extends AppCompatActivity {
     }
 
     private void cargarFamiliar(String id){
-        mDatabaseBasic.child("Perfiles Basicos").child(id).child("Grupo").addValueEventListener(new ValueEventListener() {
+        mDatabaseBasic.child(id).child("Grupo").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -133,6 +134,7 @@ public class EmergencyOptions extends AppCompatActivity {
                         if(snapshot.exists()){
                             user = snapshot.getValue(PerfilBasicoPersistence.class);
                             if(user.getEmail().equals(email)){
+                                System.out.println("Num: " + user.getPhone());
                                 String mensaje = "Tengo una emergencia, por favor comunícate conmigo. Esta es mi ubicacación: ";
                                 enviarMensaje(user.getPhone(),mensaje);
                                 break;
