@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -59,6 +60,17 @@ public class EmergencyOptions extends AppCompatActivity {
                 startActivity(intent);
             }
         }.start();
+    }
+
+    private void enviarMensaje(String numero , String mensaje) {
+        try {
+            SmsManager sms = SmsManager.getDefault ();
+            sms.sendTextMessage ( numero , null , mensaje , null , null );
+            Toast.makeText ( getApplicationContext () , "Mensaje Enviado." , Toast.LENGTH_LONG ).show ();
+        } catch (Exception e) {
+            Toast.makeText ( getApplicationContext () , "Mensaje no enviado, datos incorrectos", Toast.LENGTH_LONG).show();
+                        e.printStackTrace ();
+        }
     }
 
     @Override
