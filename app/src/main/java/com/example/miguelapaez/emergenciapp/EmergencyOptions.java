@@ -85,8 +85,7 @@ public class EmergencyOptions extends AppCompatActivity {
                             user = snapshot.getValue(PerfilBasicoPersistence.class);
                             if(user.getEmail().equals(emailActual)){
                                 String id = snapshot.getKey();
-                                String name = user.getName() + " " + user.getLastName();
-                                cargarFamiliar(id,name);
+                                cargarFamiliar(id);
                                 break;
                             }
                         }
@@ -101,7 +100,7 @@ public class EmergencyOptions extends AppCompatActivity {
         });
     }
 
-    private void cargarFamiliar(String id, final String name){
+    private void cargarFamiliar(String id){
         mDatabaseBasic.child("Perfiles Basicos").child(id).child("Grupo").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -110,7 +109,7 @@ public class EmergencyOptions extends AppCompatActivity {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         if(snapshot.exists()){
                             fam = snapshot.getValue(ReferenciaGrupoPersistence.class);
-                            obtenerNumero(fam.getEmail(),name);
+                            obtenerNumero(fam.getEmail());
                         }
                     }
                 }
@@ -123,7 +122,7 @@ public class EmergencyOptions extends AppCompatActivity {
         });
     }
 
-    private void obtenerNumero(final String email, String name){
+    private void obtenerNumero(final String email){
         mDatabaseBasic.orderByChild("email").equalTo(email);
         mDatabaseBasic.addValueEventListener(new ValueEventListener() {
             @Override
@@ -134,6 +133,8 @@ public class EmergencyOptions extends AppCompatActivity {
                         if(snapshot.exists()){
                             user = snapshot.getValue(PerfilBasicoPersistence.class);
                             if(user.getEmail().equals(email)){
+                                String mensaje = "Tengo una emergencia, por favor comunícate conmigo. Esta es mi ubicacación: ";
+                                enviarMensaje(user.getPhone(),mensaje);
                                 break;
                             }
                         }
