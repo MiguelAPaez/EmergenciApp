@@ -169,7 +169,6 @@ public class EmergencyOptions extends AppCompatActivity {
                         if(snapshot.exists()){
                             user = snapshot.getValue(PerfilBasicoPersistence.class);
                             if(user.getEmail().equals(email)){
-                                System.out.println("Num: " + user.getPhone());
                                 String mensaje = "Tengo una emergencia, por favor comunícate conmigo. Esta es mi ubicacación: " + "https://maps.google.com/?q="+latitudUser+","+longitudUser;
                                 enviarMensaje(user.getPhone(),mensaje);
                                 break;
