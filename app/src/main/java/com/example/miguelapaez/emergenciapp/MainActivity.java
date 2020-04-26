@@ -36,8 +36,10 @@ public class MainActivity extends AppCompatActivity {
     FacadeNegocio bussiness = new ImplementacionNegocio();
     private static final int CODIGO_PERMISOS_CALL = 1;
     private static final int CODIGO_PERMISOS_LOCATION = 2;
+    private static final int CODIGO_PERMISOS_MESSAGE = 3;
     private boolean tienePermisoCall = false;
     private boolean tienePermisoLocation = false;
+    private boolean tienePermisoMessage = false;
     String dial = "tel:321";
     ProgressDialog progressDialog;
     ImageView btnNotificaciones;
@@ -142,6 +144,9 @@ public class MainActivity extends AppCompatActivity {
         if (!tienePermisoLocation) {
             permisoLocation();
         }
+        if (!tienePermisoMessage){
+            permisoMessage();
+        }
     }
 
     private void permisoCall() {
@@ -172,6 +177,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void permisoMessage() {
+        int estadoDePermiso = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS);
+        if (estadoDePermiso == PackageManager.PERMISSION_GRANTED) {
+
+        } else {
+            // Si no, entonces pedimos permisos. Ahora mira onRequestPermissionsResult
+            ActivityCompat.requestPermissions(
+                    MainActivity.this,
+                    new String[]{Manifest.permission.SEND_SMS},
+                    CODIGO_PERMISOS_MESSAGE
+            );
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -191,8 +210,18 @@ public class MainActivity extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(MainActivity.this, "El permiso para ubicacón está habilitado", Toast.LENGTH_SHORT).show();
                     tienePermisoLocation = true;
+                    verificarYPedirPermisos();
                 } else {
                     Toast.makeText(MainActivity.this, "El permiso para ubicación está denegado", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case CODIGO_PERMISOS_MESSAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(MainActivity.this, "El permiso para mensajes está habilitado", Toast.LENGTH_SHORT).show();
+                    tienePermisoMessage = true;
+                    verificarYPedirPermisos();
+                } else {
+                    Toast.makeText(MainActivity.this, "El permiso para mensajes está denegado", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
