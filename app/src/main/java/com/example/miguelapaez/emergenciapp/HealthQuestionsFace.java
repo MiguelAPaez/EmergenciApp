@@ -48,11 +48,9 @@ public class HealthQuestionsFace extends AppCompatActivity {
                     if(finalI == 0){
                         ArrayList<String> especialidades = new ArrayList<>();
 
-                        /*especialidades.add("neurología");
+                        especialidades.add("neurología");
                         especialidades.add("oftalmología");
-                        especialidades.add("otorrinolaringología");*/
-                        especialidades.add("general");
-                        //especialidades.add("odontología");
+                        especialidades.add("otorrinolaringología");
                         Intent intent = new Intent ( HealthQuestionsFace.this, MedicalCenters.class);
                         //intent.putExtra("info","This is activity from card item index  "+finalI);
                         //intent.putExtra("answer1","");

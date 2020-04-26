@@ -9,11 +9,21 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.miguelapaez.emergenciapp.Persistence.PerfilBasicoPersistence;
+import com.example.miguelapaez.emergenciapp.Persistence.ReferenciaGrupoPersistence;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class EmergencyOptions extends AppCompatActivity {
     String emailActual;
     CountDownTimer countDownTimer;
+    DatabaseReference mDatabaseBasic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +31,7 @@ public class EmergencyOptions extends AppCompatActivity {
         setContentView ( R.layout.activity_emergency_options );
         getSupportActionBar().hide();
         emailActual = getIntent().getStringExtra("emailActual");
+        mDatabaseBasic = FirebaseDatabase.getInstance().getReference("Perfiles Basicos");
 
         LinearLayout health = (LinearLayout) findViewById ( R.id.linearLayoutHealthEmergency );
         health.setOnClickListener ( new View.OnClickListener () {
@@ -59,11 +70,88 @@ public class EmergencyOptions extends AppCompatActivity {
                 startActivity(intent);
             }
         }.start();
+
     }
 
+    private void notificarFamiliar(){
+        mDatabaseBasic.orderByChild("email").equalTo(emailActual);
+        mDatabaseBasic.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    PerfilBasicoPersistence user;
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if(snapshot.exists()){
+                            user = snapshot.getValue(PerfilBasicoPersistence.class);
+                            if(user.getEmail().equals(emailActual)){
+                                String id = snapshot.getKey();
+                                String name = user.getName() + " " + user.getLastName();
+                                cargarFamiliar(id,name);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void cargarFamiliar(String id, final String name){
+        mDatabaseBasic.child("Perfiles Basicos").child(id).child("Grupo").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    ReferenciaGrupoPersistence fam;
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if(snapshot.exists()){
+                            fam = snapshot.getValue(ReferenciaGrupoPersistence.class);
+                            obtenerNumero(fam.getEmail(),name);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void obtenerNumero(final String email, String name){
+        mDatabaseBasic.orderByChild("email").equalTo(email);
+        mDatabaseBasic.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    PerfilBasicoPersistence user;
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if(snapshot.exists()){
+                            user = snapshot.getValue(PerfilBasicoPersistence.class);
+                            if(user.getEmail().equals(email)){
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
     @Override
     protected void onPause() {
         super.onPause ();
         countDownTimer.cancel();
     }
+
+
 }
