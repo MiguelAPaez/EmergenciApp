@@ -169,8 +169,9 @@ public class EmergencyOptions extends AppCompatActivity {
                         if(snapshot.exists()){
                             user = snapshot.getValue(PerfilBasicoPersistence.class);
                             if(user.getEmail().equals(email)){
-                                String mensaje = "Tengo una emergencia, por favor comunícate conmigo. Esta es mi ubicacación: " + "https://maps.google.com/?q="+latitudUser+","+longitudUser;
-                                enviarMensaje(user.getPhone(),mensaje);
+                                String mensaje = "Tengo una emergencia, por favor comunícate conmigo. Mi ubicación: ";
+                                enviarMensaje(user.getPhone (),mensaje);
+                                enviarMensaje ( user.getPhone (), "https://maps.google.com/?q="+latitudUser+","+longitudUser );
                                 break;
                             }
                         }
@@ -187,10 +188,12 @@ public class EmergencyOptions extends AppCompatActivity {
     private void enviarMensaje(String numero , String mensaje) {
         try {
             SmsManager sms = SmsManager.getDefault ();
+            System.out.println ( numero );
+            System.out.println ( mensaje );
             sms.sendTextMessage ( numero , null , mensaje , null , null );
             Toast.makeText ( getApplicationContext () , "Mensaje Enviado." , Toast.LENGTH_LONG ).show ();
         } catch (Exception e) {
-            Toast.makeText ( getApplicationContext () , "Mensaje no enviado, datos incorrectos", Toast.LENGTH_LONG).show();
+            Toast.makeText ( getApplicationContext () , "Mensaje no enviado, datos incorrectos ", Toast.LENGTH_LONG).show();
                         e.printStackTrace ();
         }
     }
