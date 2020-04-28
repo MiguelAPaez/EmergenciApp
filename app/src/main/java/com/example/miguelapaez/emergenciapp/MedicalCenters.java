@@ -143,16 +143,23 @@ public class MedicalCenters extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    boolean asigned = false;
                     PerfilXPrepagadaPersistence user;
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        user = snapshot.getValue(PerfilXPrepagadaPersistence.class);
-                        if (!user.getEmailPerfil().isEmpty() && user.getEmailPerfil().equals(email) && !user.getNombrePrepada().equals("Ninguna")) {
-                            cargarPrepagada(user.getNombrePrepada());
-                            break;
-                        } else {
-                            cargarEntidadEPS();
-                            break;
+                        if (snapshot.exists()) {
+                            user = snapshot.getValue(PerfilXPrepagadaPersistence.class);
+                            if (!user.getEmailPerfil().isEmpty() && user.getEmailPerfil().equals(email) && !user.getNombrePrepada().equals("Ninguna")) {
+                                if (user.getNombrePrepada().equals("Coomeva")) {
+                                    System.out.println(user.getNombrePrepada());
+                                    cargarPrepagada(user.getNombrePrepada());
+                                    asigned = true;
+                                    break;
+                                }
+                            }
                         }
+                    }
+                    if (!asigned) {
+                        cargarEntidadEPS();
                     }
                 }
             }
@@ -198,6 +205,7 @@ public class MedicalCenters extends AppCompatActivity {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         entidad = snapshot.getValue(EntidadPersistence.class);
                         if (!entidad.getNombre().isEmpty() && entidad.getNombre().equals(user.getNombreEPS())) {
+                            final EntidadPersistence finalEntidad = entidad;
                             mDatabaseEPS.child(snapshot.getKey()).child("Convenios").addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -207,7 +215,13 @@ public class MedicalCenters extends AppCompatActivity {
                                             convenio = snapshot.getValue(ReferenciaConvenioPersistence.class);
                                             if (!user.isPlanComplementario()) {
                                                 if (!convenio.isPlanC()) {
-                                                    cargarIPS(convenio.getIdIPS());
+                                                    if (finalEntidad.getNombre().equals("Nueva EPS")) {
+                                                        if (convenio.getRegimen().equals(user.getRegimen())) {
+                                                            cargarIPS(convenio.getIdIPS());
+                                                        }
+                                                    } else {
+                                                        cargarIPS(convenio.getIdIPS());
+                                                    }
                                                 }
                                             } else {
                                                 cargarIPS(convenio.getIdIPS());
@@ -221,6 +235,7 @@ public class MedicalCenters extends AppCompatActivity {
 
                                 }
                             });
+                            break;
                         }
                     }
                 }
@@ -280,14 +295,16 @@ public class MedicalCenters extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     IPSPersistence ips;
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        ips = snapshot.getValue(IPSPersistence.class);
-                        if (!ips.getId().isEmpty() && ips.getId().equals(id)) {
-                            String latitud = String.valueOf(ips.getLatitud());
-                            String longitud = String.valueOf(ips.getLongitud());
-                            EntityMedicalCenter med = new EntityMedicalCenter(ips.getNombre(), ips.getDireccion(), latitud, longitud, ips.getEdadMin(), ips.getEdadMax(), ips.getCalificacion());
-                            med.setId(ips.getId());
-                            verificarEdad(med, snapshot.getKey());
-                            break;
+                        if (snapshot.exists()) {
+                            ips = snapshot.getValue(IPSPersistence.class);
+                            if (!ips.getId().isEmpty() && ips.getId().equals(id)) {
+                                String latitud = String.valueOf(ips.getLatitud());
+                                String longitud = String.valueOf(ips.getLongitud());
+                                EntityMedicalCenter med = new EntityMedicalCenter(ips.getNombre(), ips.getDireccion(), latitud, longitud, ips.getEdadMin(), ips.getEdadMax(), ips.getCalificacion());
+                                med.setId(ips.getId());
+                                verificarEdad(med, snapshot.getKey());
+                                break;
+                            }
                         }
                     }
                 }
@@ -336,7 +353,7 @@ public class MedicalCenters extends AppCompatActivity {
                     Calendar calendar = Calendar.getInstance();
                     ArrayList<String> especialidades = new ArrayList<>();
                     ArrayList<String> copyListEsp = (ArrayList<String>) listEspecialidades.clone();
-                    int day = calendar.get(Calendar.DAY_OF_WEEK);
+                    int day = calendar.get(Calendar.DAY_OF_WEEK) - 1;
                     String dayS = String.valueOf(day);
                     int hora = calendar.get(Calendar.HOUR_OF_DAY);
                     EspecialidadPersistence especialidad;
@@ -350,13 +367,13 @@ public class MedicalCenters extends AppCompatActivity {
                             }
                         }
                     }
+                    System.out.println(med.getName());
+                    System.out.println(especialidades);
                     if (especialidades.containsAll(copyListEsp)) {
-                        System.out.println("2" + copyListEsp);
                         getDuracion(med);
                     } else {
                         copyListEsp.remove(0);
                         if (especialidades.containsAll(copyListEsp)) {
-                            System.out.println("2" + copyListEsp);
                             getDuracion(med);
                         }
                     }
@@ -432,11 +449,9 @@ public class MedicalCenters extends AppCompatActivity {
                     boolean carried = false;
                     CalificacionPersistence note;
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        System.out.println(snapshot.getKey());
                         if (snapshot.exists()) {
                             note = snapshot.getValue(CalificacionPersistence.class);
                             if (note.getIdIPS().equals(med.getId()) && note.getEmail().equals(email) && note.isCalificacion()) {
-                                System.out.println(med.getName());
                                 med.setQualificated(note.isCalificacion());
                                 listItems.add(0, med);
                                 adaptador.notifyDataSetChanged();
@@ -464,19 +479,6 @@ public class MedicalCenters extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void imprimirLista() {
-
-        System.out.println("----------------------");
-        for (int i = 0; i < listItems.size(); i++) {
-
-            System.out.println("Nombre: " + listItems.get(i).getName());
-            System.out.println("                                Duracion:     " + listItems.get(i).getDuration());
-            System.out.println("                                Calificación: " + listItems.get(i).getCalificacion());
-
-        }
-        System.out.println("----------------------");
     }
 
     private int indexPref() {
