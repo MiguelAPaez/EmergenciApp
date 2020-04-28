@@ -489,6 +489,25 @@ public class Profile extends AppCompatActivity {
             return false;
         }
 
+        //Validación Contraseña AlfaNumérica
+        if(!objValidar.isPassword ( passworda )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese una Contraseña Válida (Igual o mayor a 8 carácteres y alfanumérica)" , Toast.LENGTH_SHORT ).show ();
+                    password.setError("Campo Requerido");
+                    password.requestFocus();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
+            return false;
+        }
+
         //Validación Validar Contraseña
         String valPassword = validatePassword.getText().toString().trim();
         if (objValidar.Vacio(validatePassword)) {

@@ -369,6 +369,25 @@ private PerfilBasico crearPerfilBasico(){
             return false;
         }
 
+        //Validación Contraseña AlfaNumérica
+        if(!objValidar.isPassword ( password )){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText ( getApplicationContext () , "Ingrese una Contraseña Válida (Igual o mayor a 8 carácteres y alfanumérica)" , Toast.LENGTH_SHORT ).show ();
+                    ePassword.setError("Campo Requerido");
+                    ePassword.requestFocus();
+                    scrollView.post ( new Runnable () {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll ( ScrollView.FOCUS_UP );
+                        }
+                    } );
+                }
+            });
+            return false;
+        }
+
         //Validación Validar Contraseña
         String valPassword = eValidatePassword.getText().toString().trim();
         if(objValidar.Vacio ( eValidatePassword )){

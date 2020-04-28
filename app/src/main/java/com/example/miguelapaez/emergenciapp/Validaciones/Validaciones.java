@@ -60,4 +60,26 @@ public class Validaciones {
         return resultado;
     }
 
+    public boolean isPassword (String cadena){
+        boolean resultado = false;
+        boolean tieneLetras = false;
+        boolean tieneNumeros = false;
+        char letra;
+        if(cadena.length () >= 8 ){
+            for (byte i = 0; i < cadena.length(); i++) {
+                letra = cadena.charAt(i);
+                String passValue = String.valueOf(letra);
+                if (passValue.matches("[a-z]")) {
+                    tieneLetras = true;
+                } else if (passValue.matches("[0-9]")) {
+                    tieneNumeros = true;
+                }
+            }
+            if (tieneLetras && tieneNumeros){
+                resultado = true;
+            }
+        }
+        return resultado;
+    }
+
 }
