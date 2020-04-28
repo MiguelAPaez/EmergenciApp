@@ -59,6 +59,7 @@ public class MedicalCenters extends AppCompatActivity {
     private String distance = "";
     private String duration = "";
     private String email;
+    private String telefono = "";
     //private String answer;
     private DatabaseReference mDatabasePerfilEPS, mDatabasePerfilPrepagada, mDatabaseEPS, mDatabasePrepagada, mDatabaseIPS, mDatabaseBasic, mDatabaseCalificaciones;
     private ArrayList<String> listEspecialidades;
@@ -150,9 +151,14 @@ public class MedicalCenters extends AppCompatActivity {
                             user = snapshot.getValue(PerfilXPrepagadaPersistence.class);
                             if (!user.getEmailPerfil().isEmpty() && user.getEmailPerfil().equals(email) && !user.getNombrePrepada().equals("Ninguna")) {
                                 if (user.getNombrePrepada().equals("Coomeva")) {
-                                    System.out.println(user.getNombrePrepada());
                                     cargarPrepagada(user.getNombrePrepada());
                                     asigned = true;
+                                    break;
+                                } else if (user.getNombrePrepada().equals("Colsanitas")) {
+                                    cargarPrepagada(user.getNombrePrepada());
+                                    break;
+                                } else if (user.getNombrePrepada().equals("Emermedica")) {
+                                    telefono = "0313077089";
                                     break;
                                 }
                             }
@@ -258,6 +264,7 @@ public class MedicalCenters extends AppCompatActivity {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         entidad = snapshot.getValue(EntidadPersistence.class);
                         if (!entidad.getNombre().isEmpty() && entidad.getNombre().equals(nPrepagada)) {
+                            telefono = entidad.getTelefono();
                             mDatabasePrepagada.child(snapshot.getKey()).child("Convenios").addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
