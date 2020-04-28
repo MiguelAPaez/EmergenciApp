@@ -21,7 +21,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 
-public class HealthQuestion extends AppCompatActivity {
+public class HealthQuestionQuemaduras extends AppCompatActivity {
+
     private double latitudUser = 0;
     private double longitudUser = 0;
     GridLayout mainGrid;
@@ -32,12 +33,13 @@ public class HealthQuestion extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate ( savedInstanceState );
-        setContentView ( R.layout.activity_health_question );
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_health_question_quemaduras);
+
         getSupportActionBar ().hide ();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient ( this );
         email = getIntent ().getStringExtra ( "email" );
-        mainGrid = (GridLayout) findViewById ( R.id.gridLayoutQuestion1 );
+        mainGrid = (GridLayout) findViewById ( R.id.gridLayoutQuestionAccidentesQuemaduras);
         if (checkSelfPermission ( Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission ( Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    Activity#requestPermissions
@@ -49,7 +51,7 @@ public class HealthQuestion extends AppCompatActivity {
             return;
         }
         mFusedLocationClient.getLastLocation ().addOnSuccessListener (
-                this , new OnSuccessListener <Location> () {
+                this , new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
                         Log.i ( "LOCATION" , "onSuccess location" );
@@ -61,6 +63,8 @@ public class HealthQuestion extends AppCompatActivity {
                 } );
         setSingleEvent(mainGrid);
     }
+
+
 
     private void setSingleEvent(GridLayout mainGrid) {
         //Loop all child item of Main Grid
@@ -75,59 +79,30 @@ public class HealthQuestion extends AppCompatActivity {
                             +finalI, Toast.LENGTH_SHORT).show ();
                     String latUser = String.valueOf(latitudUser);
                     String lonUser = String.valueOf(longitudUser);
+
                     if(finalI == 0){
-                        Intent intent = new Intent ( HealthQuestion.this, HealthQuestionsFace.class);
+                        Intent intent = new Intent ( HealthQuestionQuemaduras.this, MedicalCenters.class);
                         //intent.putExtra("info","This is activity from card item index  "+finalI);
+                        ArrayList<String> especialidades = new ArrayList<>();
+                        especialidades.add("cirugia plastica");
+                        intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("latitud",latUser);
                         intent.putExtra("longitud",lonUser);
                         intent.putExtra("email",email);
                         startActivity(intent);
                     }
                     if(finalI == 1){
-                        Intent intent = new Intent ( HealthQuestion.this, MedicalCenters.class);
-                        ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("cardiología");
-                        especialidades.add("neumología");
-                        especialidades.add("gastroenterología");
-                        intent.putStringArrayListExtra("especialidades",especialidades);
+                        Intent intent = new Intent ( HealthQuestionQuemaduras.this, MedicalCenters.class);
                         //intent.putExtra("info","This is activity from card item index  "+finalI);
-                       // intent.putExtra("answer1","Cardiologo/Neumologo/Gastroenterologo");
+                        // intent.putExtra("answer1","Cardiologo/Neumologo/Gastroenterologo");
                         intent.putExtra("latitud",latUser);
                         intent.putExtra("longitud",lonUser);
                         intent.putExtra("email",email);
                         startActivity(intent);
                     }
-                    if(finalI == 2){
-                        Intent intent = new Intent ( HealthQuestion.this, HealthQuestionsPelvis.class);
-                        ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("Nefrologo");
-                        especialidades.add("Gastroenterologo");
-                        especialidades.add("Urologo");
-                        intent.putStringArrayListExtra("especialidades",especialidades);
-                        intent.putExtra("info","This is activity from card item index  "+finalI);
-                        intent.putExtra("answer1","Nefrologo/Gastroenterologo/Urologo");
-                        intent.putExtra("latitud",latUser);
-                        intent.putExtra("longitud",lonUser);
-                        intent.putExtra("email",email);
-                        startActivity(intent);
-                    }
-                    if(finalI == 3){
-                        Intent intent = new Intent ( HealthQuestion.this, MedicalCenters.class);
-                        ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("ortopedia");
-                        especialidades.add("neurología");
-                        especialidades.add("cardiología");
-                        intent.putStringArrayListExtra("especialidades",especialidades);
-                        //intent.putExtra("info","This is activity from card item index  "+finalI);
-                       //intent.putExtra("answer1","Ortopedista/Neurologo/Cardiologo");
-                        intent.putExtra("latitud",latUser);
-                        intent.putExtra("longitud",lonUser);
-                        intent.putExtra("email",email);
-                        startActivity(intent);
-                    }
+
                 }
             });
         }
     }
-
 }

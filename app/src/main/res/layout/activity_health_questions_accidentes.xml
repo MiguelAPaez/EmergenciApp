@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".HealthQuestionsAccidentes">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutTitleMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@color/colorWhite"
+            android:color="@color/colorBlack"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.538"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/titleMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/QuestionAccidenteGeneral"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="28dp" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <GridLayout
+                    android:id="@+id/gridLayoutQuestionAccidentes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="8dp"
+                    android:columnCount="1"
+                    android:rowCount="4"
+                    android:textAlignment="center">
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutAccidentesGeneralesLesiones"
+                        android:layout_width="match_parent"
+                        android:layout_height="161dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/shape_main_1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:textAlignment="center">
+
+                        <ImageView
+                            android:id="@+id/imageView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="82dp"
+                            android:layout_weight="0.2"
+                            app:srcCompat="@drawable/fracture" />
+
+                        <TextView
+                            android:id="@+id/titleAccidentesGeneralesLesiones"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text="@string/opcion_lesiones"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="34sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textViewAclaracionesLesiones"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text="@string/QuestionAccidenteLesionesAclaraciones"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutAccidentesGeneralesQuemaduras"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="161dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/shape_main_1"
+                        android:orientation="vertical"
+                        android:textAlignment="center">
+
+                        <ImageView
+                            android:id="@+id/imageView9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="82dp"
+                            android:layout_weight="0.2"
+                            app:srcCompat="@drawable/fire" />
+
+
+                        <TextView
+                            android:id="@+id/titleAccidentesGeneralesQuemaduras"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text="@string/opciones_quemaduras"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="34sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textViewAclaracionesQuemaduras"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text="@string/QuestionAccidenteQuemadurasAclaraciones"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutAccidentesGeneralesIntoxicaciones"
+                        android:layout_width="match_parent"
+                        android:layout_height="161dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/shape_main_1"
+                        android:orientation="vertical"
+                        android:textAlignment="center">
+
+                        <ImageView
+                            android:id="@+id/imageView10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="82dp"
+                            android:layout_weight="0.2"
+                            app:srcCompat="@drawable/opium" />
+
+
+                        <TextView
+                            android:id="@+id/titleAccidentesGeneralesIntoxicaciones"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text="@string/opciones_intoxicaciones"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="34sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textViewAclaracionesIntoxicaciones"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text="@string/QuestionAccidenteIntoxicacionesAclaraciones"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutAccidentesGeneralesOtro"
+                        android:layout_width="match_parent"
+                        android:layout_height="161dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/shape_main_1"
+                        android:orientation="vertical"
+                        android:textAlignment="center">
+
+                        <ImageView
+                            android:id="@+id/imageView11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="82dp"
+                            android:layout_weight="0.2"
+                            app:srcCompat="@drawable/stroke" />
+
+
+                        <TextView
+                            android:id="@+id/titleAccidentesGeneralesOtro"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text="@string/opciones_otros"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="34sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textViewOtro"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text="@string/QuestionAccidenteQtrosAclaraciones"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+
+                </GridLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

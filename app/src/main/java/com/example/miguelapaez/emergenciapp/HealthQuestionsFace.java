@@ -118,6 +118,7 @@ public class HealthQuestionsFace extends AppCompatActivity {
                         ArrayList<String> especialidades = new ArrayList<>();
                         especialidades.add("neumología");
                         especialidades.add("otorrinolaringología");
+                        especialidades.add("cardiología");
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("info","This is activity from card item index  "+finalI);
                         //intent.putExtra("answer1",answer1+"/Garganta");
