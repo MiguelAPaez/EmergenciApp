@@ -4,11 +4,13 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -66,6 +69,7 @@ public class MedicalCenters extends AppCompatActivity {
     ListView listItemsMedicalCenters;
     private AdapterMedicalCenters adaptador;
     ArrayList<EntityMedicalCenter> listItems = new ArrayList<>();
+    LinearLayout callButton;
 
 
     JsonObjectRequest jsonObjectRequest;
@@ -125,6 +129,15 @@ public class MedicalCenters extends AppCompatActivity {
             }
         });
 
+        callButton = findViewById ( R.id.buttonCallMedicalCenters );
+
+        callButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hacerLlamada ();
+            }
+        });
+
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    Activity#requestPermissions
@@ -136,6 +149,17 @@ public class MedicalCenters extends AppCompatActivity {
             return;
         }
 
+    }
+
+    private void hacerLlamada() {
+        if (ContextCompat.checkSelfPermission( MedicalCenters.this, Manifest.permission.CALL_PHONE)
+                == PackageManager.PERMISSION_GRANTED) {
+            if(telefono.equals ( "" )){
+                startActivity(new Intent( Intent.ACTION_CALL, Uri.parse("tel:321")));
+            }else{
+                startActivity(new Intent( Intent.ACTION_CALL, Uri.parse("tel:" + telefono)));
+            }
+        }
     }
 
     private void cargarEntidadPrepagada() {

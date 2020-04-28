@@ -38,7 +38,7 @@
                 android:text="@string/Question2Pelvis"
                 android:textAlignment="center"
                 android:textColor="@color/colorBlack"
-                android:textSize="28dp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <ScrollView
@@ -58,7 +58,7 @@
                 <GridLayout
                     android:id="@+id/gridLayoutQuestionPelvis"
                     android:layout_width="wrap_content"
-                    android:layout_height="489dp"
+                    android:layout_height="200dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="8dp"
@@ -97,7 +97,7 @@
                             android:text="@string/abdomen_inferior"
                             android:textAlignment="center"
                             android:textColor="@color/colorBlack"
-                            android:textSize="30sp"
+                            android:textSize="24sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -117,8 +117,8 @@
 
                         <ImageView
                             android:id="@+id/imageViewNariz"
-                            android:layout_width="154dp"
-                            android:layout_height="172dp"
+                            android:layout_width="122dp"
+                            android:layout_height="150dp"
                             android:layout_gravity="center"
                             android:layout_weight="0.8"
                             app:srcCompat="@drawable/penis" />
@@ -132,7 +132,7 @@
                             android:text="@string/chimbo"
                             android:textAlignment="center"
                             android:textColor="@color/colorBlack"
-                            android:textSize="30sp"
+                            android:textSize="24sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -44,8 +43,6 @@ public class HealthQuestionsPelvis extends AppCompatActivity {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText ( view.getContext (), "Seleccionaste a: "
-                            +finalI, Toast.LENGTH_SHORT).show ();
                     if(finalI == 0){
                         Intent intent = new Intent ( HealthQuestionsPelvis.this, MedicalCenters.class);
                         ArrayList<String> especialidades = new ArrayList<>();

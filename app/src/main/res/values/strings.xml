@@ -82,12 +82,12 @@
 
     <string name="Question1">¿Qué zona del cuerpo se encuentra afectada?</string>
     <string name="Question2Cabeza">¿Qué parte de la cabeza se encuentra afectada?</string>
-    <string name="Question2Pelvis">¿Qué parte de la cabeza se encuentra afectada?</string>
+    <string name="Question2Pelvis">¿Qué parte del abodomen bajo y pelvis se encuentra afectado?</string>
     <string name="cabeza">Cabeza y garganta</string>
 
     <string name="abdomen_bajo_y_pelvis">Abdomen bajo y pelvis</string>
-    <string name="torax">Torax</string>
-    <string name="extremidades">extremidades</string>
+    <string name="torax">Tórax</string>
+    <string name="extremidades">Extremidades</string>
 
     <string name="medicalcenters_title">Centros de Salud Cercanos</string>
     <string name="medicalcenters_message1">¿Necesitas atención médica inmediata?</string>
