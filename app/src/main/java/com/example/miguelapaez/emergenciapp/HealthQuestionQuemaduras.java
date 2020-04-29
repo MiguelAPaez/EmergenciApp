@@ -84,7 +84,7 @@ public class HealthQuestionQuemaduras extends AppCompatActivity {
                         Intent intent = new Intent ( HealthQuestionQuemaduras.this, MedicalCenters.class);
                         //intent.putExtra("info","This is activity from card item index  "+finalI);
                         ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("cirugia plastica");
+                        especialidades.add("cirugía plástica");
                         especialidades.add("oftalmología");
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("latitud",latUser);
@@ -97,7 +97,7 @@ public class HealthQuestionQuemaduras extends AppCompatActivity {
                         //intent.putExtra("info","This is activity from card item index  "+finalI);
                         // intent.putExtra("answer1","Cardiologo/Neumologo/Gastroenterologo");
                         ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("cirugia plastica");
+                        especialidades.add("cirugía plástica");
 
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("latitud",latUser);
@@ -110,7 +110,7 @@ public class HealthQuestionQuemaduras extends AppCompatActivity {
                         //intent.putExtra("info","This is activity from card item index  "+finalI);
                         // intent.putExtra("answer1","Cardiologo/Neumologo/Gastroenterologo");
                         ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("cirugia plastica");
+                        especialidades.add("cirugía plástica");
 
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("latitud",latUser);
@@ -123,7 +123,7 @@ public class HealthQuestionQuemaduras extends AppCompatActivity {
                         //intent.putExtra("info","This is activity from card item index  "+finalI);
                         // intent.putExtra("answer1","Cardiologo/Neumologo/Gastroenterologo");
                         ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("cirugia plastica");
+                        especialidades.add("cirugía plástica");
 
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("latitud",latUser);
@@ -136,7 +136,7 @@ public class HealthQuestionQuemaduras extends AppCompatActivity {
                         //intent.putExtra("info","This is activity from card item index  "+finalI);
                         // intent.putExtra("answer1","Cardiologo/Neumologo/Gastroenterologo");
                         ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("cirugia plastica");
+                        especialidades.add("cirugía plástica");
 
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("latitud",latUser);
