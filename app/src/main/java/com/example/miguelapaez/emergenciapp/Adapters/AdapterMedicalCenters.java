@@ -53,7 +53,7 @@ public class AdapterMedicalCenters extends BaseAdapter {
         direction.setText ( item.getDirection () );
         int min = (item.getDuration ()*1)/60;
         time.setText ( "Tiempo estimado: " + min + " minutos");
-        //eps.setText();
+        eps.setText(item.getEntity ());
 
         return view;
     }

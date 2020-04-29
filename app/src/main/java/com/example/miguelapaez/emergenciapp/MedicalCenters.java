@@ -247,14 +247,14 @@ public class MedicalCenters extends AppCompatActivity {
                                                 if (!convenio.isPlanC()) {
                                                     if (finalEntidad.getNombre().equals("Nueva EPS")) {
                                                         if (convenio.getRegimen().equals(user.getRegimen())) {
-                                                            cargarIPS(convenio.getIdIPS());
+                                                            cargarIPS(convenio.getIdIPS(), finalEntidad.getNombre ());
                                                         }
                                                     } else {
-                                                        cargarIPS(convenio.getIdIPS());
+                                                        cargarIPS(convenio.getIdIPS(), finalEntidad.getNombre ());
                                                     }
                                                 }
                                             } else {
-                                                cargarIPS(convenio.getIdIPS());
+                                                cargarIPS(convenio.getIdIPS(), finalEntidad.getNombre ());
                                             }
                                         }
                                     }
@@ -289,14 +289,15 @@ public class MedicalCenters extends AppCompatActivity {
                         entidad = snapshot.getValue(EntidadPersistence.class);
                         if (!entidad.getNombre().isEmpty() && entidad.getNombre().equals(nPrepagada)) {
                             telefono = entidad.getTelefono();
-                            mDatabasePrepagada.child(snapshot.getKey()).child("Convenios").addValueEventListener(new ValueEventListener() {
+                            final EntidadPersistence finalEntidad = entidad;
+                            mDatabasePrepagada.child( snapshot.getKey()).child( "Convenios").addValueEventListener( new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.exists()) {
                                         ReferenciaConvenioPersistence convenio;
                                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                             convenio = snapshot.getValue(ReferenciaConvenioPersistence.class);
-                                            cargarIPS(convenio.getIdIPS());
+                                            cargarIPS( convenio.getIdIPS(), finalEntidad.getNombre ());
                                         }
                                     }
                                 }
@@ -318,7 +319,7 @@ public class MedicalCenters extends AppCompatActivity {
         });
     }
 
-    private void cargarIPS(final String id) {
+    private void cargarIPS(final String id, final String nEntidad) {
         mDatabaseIPS.orderByChild("id").equalTo(id);
         mDatabaseIPS.addValueEventListener(new ValueEventListener() {
             @Override
@@ -333,6 +334,7 @@ public class MedicalCenters extends AppCompatActivity {
                                 String longitud = String.valueOf(ips.getLongitud());
                                 EntityMedicalCenter med = new EntityMedicalCenter(ips.getNombre(), ips.getDireccion(), latitud, longitud, ips.getEdadMin(), ips.getEdadMax(), ips.getCalificacion());
                                 med.setId(ips.getId());
+                                med.setEntity ( nEntidad );
                                 verificarEdad(med, snapshot.getKey());
                                 break;
                             }

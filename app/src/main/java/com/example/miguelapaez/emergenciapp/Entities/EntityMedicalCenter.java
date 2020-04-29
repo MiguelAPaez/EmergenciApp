@@ -7,6 +7,7 @@ import java.util.List;
 public class EntityMedicalCenter {
 
     private String name;
+    private String entity;
     private String direction;
     private String latitud;
     private String longitud;
@@ -86,5 +87,13 @@ public class EntityMedicalCenter {
 
     public void setQualificated(boolean qualificated) {
         this.qualificated = qualificated;
+    }
+
+    public String getEntity() {
+        return entity;
+    }
+
+    public void setEntity(String entity) {
+        this.entity = entity;
     }
 }
