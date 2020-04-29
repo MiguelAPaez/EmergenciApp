@@ -47,11 +47,13 @@ public class AdapterMedicalCenters extends BaseAdapter {
         TextView name = (TextView) view.findViewById ( R.id.nameMedicalCenter );
         TextView direction = (TextView) view.findViewById ( R.id.addressMedicalCenter );
         TextView time = (TextView) view.findViewById ( R.id.timeToMedicalCenter );
+        TextView eps = (TextView) view.findViewById ( R.id.epsMedicalCenter );
 
         name.setText ( item.getName () );
         direction.setText ( item.getDirection () );
         int min = (item.getDuration ()*1)/60;
         time.setText ( "Tiempo estimado: " + min + " minutos");
+        //eps.setText();
 
         return view;
     }

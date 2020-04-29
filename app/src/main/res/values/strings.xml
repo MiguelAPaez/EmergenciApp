@@ -119,8 +119,8 @@
     <string name="si">Si</string>
     <string name="QuestionAccidenteLesionesAclaraciones">(Golpes, fracturas, cortadas, etc)</string>
     <string name="QuestionAccidenteQuemadurasAclaraciones">(Por quimicos, fuego, etc)</string>
-    <string name="QuestionAccidenteQtrosAclaraciones">(Dolores corporales, visión borrosa, parálisis etc)</string>
-    <string name="QuestionAccidenteIntoxicacionesAclaraciones">(Químicos, venenos, alimentos en mal estado, etc)</string>
+    <string name="QuestionAccidenteQtrosAclaraciones">(Dolores corporales, visión borrosa, parálisis, etc)</string>
+    <string name="QuestionAccidenteIntoxicacionesAclaraciones">(Químicos, medicamentos, alimentos en mal estado, etc)</string>
 
     <string name="opcion_lesiones">Lesión</string>
     <string name="opciones_quemaduras">Quemaduras</string>

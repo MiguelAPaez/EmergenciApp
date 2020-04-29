@@ -16,13 +16,34 @@
         android:orientation="horizontal"
         android:textAlignment="center">
 
-        <ImageView
-            android:id="@+id/imageViewMedicalCenter"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+        <LinearLayout
+            android:id="@+id/linearLayoutMedicalCenterImage"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.3"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/hospital" />
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageViewMedicalCenter"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/hospital" />
+
+            <TextView
+                android:id="@+id/epsMedicalCenter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="EPS Prepagada"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:maxLength="20"
+                android:textColor="@color/colorGreen"
+                android:textSize="15sp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayoutMedicalCenterText"

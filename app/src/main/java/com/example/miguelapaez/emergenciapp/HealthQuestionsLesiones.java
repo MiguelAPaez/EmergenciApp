@@ -1,32 +1,22 @@
 package com.example.miguelapaez.emergenciapp;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 
 public class HealthQuestionsLesiones extends AppCompatActivity {
 
-    private double latitudUser = 0;
-    private double longitudUser = 0;
+    private String latUser;
+    private String lonUser;
     GridLayout mainGrid;
-    private FusedLocationProviderClient mFusedLocationClient;
     String email;
 
 
@@ -37,30 +27,10 @@ public class HealthQuestionsLesiones extends AppCompatActivity {
         setContentView(R.layout.activity_health_questions_lesiones);
 
         getSupportActionBar ().hide ();
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient ( this );
         email = getIntent ().getStringExtra ( "email" );
+        latUser = getIntent().getStringExtra("latitud");
+        lonUser = getIntent().getStringExtra("longitud");
         mainGrid = (GridLayout) findViewById ( R.id.gridLayoutQuestionLesiones );
-        if (checkSelfPermission ( Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission ( Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    Activity#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for Activity#requestPermissions for more details.
-            return;
-        }
-        mFusedLocationClient.getLastLocation ().addOnSuccessListener (
-                this , new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        Log.i ( "LOCATION" , "onSuccess location" );
-                        if (location != null) {
-                            longitudUser = location.getLongitude ();
-                            latitudUser = location.getLatitude ();
-                        }
-                    }
-                } );
         setSingleEvent(mainGrid);
     }
 
@@ -75,11 +45,6 @@ public class HealthQuestionsLesiones extends AppCompatActivity {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText ( view.getContext (), "Seleccionaste a: "
-                            +finalI, Toast.LENGTH_SHORT).show ();
-                    String latUser = String.valueOf(latitudUser);
-                    String lonUser = String.valueOf(longitudUser);
-
                     if(finalI == 0){
                         Intent intent = new Intent ( HealthQuestionsLesiones.this, MedicalCenters.class);
                         //intent.putExtra("info","This is activity from card item index  "+finalI);

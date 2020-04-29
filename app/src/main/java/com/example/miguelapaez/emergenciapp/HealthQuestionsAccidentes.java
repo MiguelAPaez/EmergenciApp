@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,8 +73,6 @@ public class HealthQuestionsAccidentes extends AppCompatActivity {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText ( view.getContext (), "Seleccionaste a: "
-                            +finalI, Toast.LENGTH_SHORT).show ();
                     String latUser = String.valueOf(latitudUser);
                     String lonUser = String.valueOf(longitudUser);
 

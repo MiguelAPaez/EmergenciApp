@@ -61,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:columnCount="1"
                     android:rowCount="4"
@@ -73,7 +73,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="145dp"
                         android:layout_marginStart="8dp"
-
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
                         android:layout_weight="0.5"
@@ -109,17 +108,15 @@
                             android:layout_weight="0.2"
                             android:gravity="center"
                             android:text="@string/QuestionAccidenteLesionesAclaraciones"
-                            android:textSize="18sp" />
+                            android:textSize="13sp" />
                     </LinearLayout>
 
 
                     <LinearLayout
                         android:id="@+id/linearLayoutAccidentesGeneralesQuemaduras"
-
                         android:layout_width="match_parent"
                         android:layout_height="145dp"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
                         android:layout_weight="0.5"
@@ -132,7 +129,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="82dp"
                             android:layout_weight="0.2"
-                            app:srcCompat="@drawable/fire" />
+                            app:srcCompat="@drawable/fire2" />
 
 
                         <TextView
@@ -155,7 +152,7 @@
                             android:layout_weight="0.2"
                             android:gravity="center"
                             android:text="@string/QuestionAccidenteQuemadurasAclaraciones"
-                            android:textSize="18sp" />
+                            android:textSize="13sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -163,7 +160,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="145dp"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
                         android:layout_weight="0.5"
@@ -199,7 +195,7 @@
                             android:layout_weight="0.2"
                             android:gravity="center"
                             android:text="@string/QuestionAccidenteIntoxicacionesAclaraciones"
-                            android:textSize="15sp" />
+                            android:textSize="11sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -207,7 +203,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="145dp"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
                         android:layout_weight="0.5"
@@ -243,7 +238,7 @@
                             android:layout_weight="0.2"
                             android:gravity="center"
                             android:text="@string/QuestionAccidenteQtrosAclaraciones"
-                            android:textSize="15sp" />
+                            android:textSize="13sp" />
                     </LinearLayout>
 
 
