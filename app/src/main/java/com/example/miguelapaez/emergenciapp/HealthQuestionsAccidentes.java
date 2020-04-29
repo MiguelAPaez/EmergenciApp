@@ -19,6 +19,8 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.ArrayList;
+
 public class HealthQuestionsAccidentes extends AppCompatActivity {
 
     private double latitudUser = 0;
@@ -86,6 +88,26 @@ public class HealthQuestionsAccidentes extends AppCompatActivity {
                         startActivity(intent);
                     }
                     if(finalI == 1){
+                        Intent intent = new Intent ( HealthQuestionsAccidentes.this, HealthQuestionQuemaduras.class);
+                        //intent.putExtra("info","This is activity from card item index  "+finalI);
+                        // intent.putExtra("answer1","Cardiologo/Neumologo/Gastroenterologo");
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
+                    if(finalI == 2){
+                        Intent intent = new Intent ( HealthQuestionsAccidentes.this, MedicalCenters.class);
+                        ArrayList<String> especialidades = new ArrayList<>();
+                        especialidades.add("toxicología");
+                        especialidades.add("gastroenterología");
+                        intent.putStringArrayListExtra("especialidades",especialidades);
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
+                    if(finalI == 3){
                         Intent intent = new Intent ( HealthQuestionsAccidentes.this, HealthQuestion.class);
                         //intent.putExtra("info","This is activity from card item index  "+finalI);
                         // intent.putExtra("answer1","Cardiologo/Neumologo/Gastroenterologo");

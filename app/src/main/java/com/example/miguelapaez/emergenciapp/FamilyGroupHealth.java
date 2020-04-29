@@ -47,7 +47,7 @@ public class FamilyGroupHealth extends AppCompatActivity {
             public void onItemClick(AdapterView <?> adapterView , View view , int i , long l) {
                 Toast.makeText ( adapterView.getContext (), "Seleccionaste a: "
                         +listItems.get(i).getName(), Toast.LENGTH_SHORT).show ();
-                Intent intent = new Intent ( FamilyGroupHealth.this , HealthQuestion.class );
+                Intent intent = new Intent ( FamilyGroupHealth.this , HealthQuestionsAccidentes.class );
                 intent.putExtra("email", listItems.get(i).getEmail());
                 startActivityForResult ( intent , 0 );
             }

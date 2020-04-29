@@ -39,7 +39,7 @@ public class HealthQuestionsLesiones extends AppCompatActivity {
         getSupportActionBar ().hide ();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient ( this );
         email = getIntent ().getStringExtra ( "email" );
-        mainGrid = (GridLayout) findViewById ( R.id.gridLayoutQuestionAccidentesLesiones );
+        mainGrid = (GridLayout) findViewById ( R.id.gridLayoutQuestionLesiones );
         if (checkSelfPermission ( Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission ( Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    Activity#requestPermissions
@@ -85,6 +85,7 @@ public class HealthQuestionsLesiones extends AppCompatActivity {
                         //intent.putExtra("info","This is activity from card item index  "+finalI);
                         ArrayList<String> especialidades = new ArrayList<>();
                         especialidades.add("ortopedia");
+                        especialidades.add("neurología");
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("latitud",latUser);
                         intent.putExtra("longitud",lonUser);
@@ -95,6 +96,47 @@ public class HealthQuestionsLesiones extends AppCompatActivity {
                         Intent intent = new Intent ( HealthQuestionsLesiones.this, HealthQuestionQuemaduras.class);
                         //intent.putExtra("info","This is activity from card item index  "+finalI);
                         // intent.putExtra("answer1","Cardiologo/Neumologo/Gastroenterologo");
+                        ArrayList<String> especialidades = new ArrayList<>();
+                        especialidades.add("ortopedia");
+                        intent.putStringArrayListExtra("especialidades",especialidades);
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
+
+                    if(finalI == 2){
+                        Intent intent = new Intent ( HealthQuestionsLesiones.this, MedicalCenters.class);
+                        //intent.putExtra("info","This is activity from card item index  "+finalI);
+                        ArrayList<String> especialidades = new ArrayList<>();
+                        especialidades.add("ortopedia");
+
+                        intent.putStringArrayListExtra("especialidades",especialidades);
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
+                    if(finalI == 3){
+                        Intent intent = new Intent ( HealthQuestionsLesiones.this, MedicalCenters.class);
+                        //intent.putExtra("info","This is activity from card item index  "+finalI);
+                        // intent.putExtra("answer1","Cardiologo/Neumologo/Gastroenterologo");
+                        ArrayList<String> especialidades = new ArrayList<>();
+                        especialidades.add("ortopedia");
+                        intent.putStringArrayListExtra("especialidades",especialidades);
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
+                    if(finalI == 4){
+                        Intent intent = new Intent ( HealthQuestionsLesiones.this, MedicalCenters.class);
+                        //intent.putExtra("info","This is activity from card item index  "+finalI);
+                        // intent.putExtra("answer1","Cardiologo/Neumologo/Gastroenterologo");
+                        ArrayList<String> especialidades = new ArrayList<>();
+                        especialidades.add("ortopedia");
+                        especialidades.add("neurología");
+                        intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("latitud",latUser);
                         intent.putExtra("longitud",lonUser);
                         intent.putExtra("email",email);

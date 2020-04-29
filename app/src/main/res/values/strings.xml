@@ -106,6 +106,7 @@
     <string name="nariz">Nariz</string>
     <string name="boca">Boca</string>
     <string name="garganta">Garganta</string>
+    <string name="espalda">Espalda y Nuca</string>
 
     <string name="chimbo">Genitales</string>
     <string name="abdomen_inferior">Abdomen Inferior</string>
@@ -129,6 +130,8 @@
     <string name="aclaracion_quemaduras">Otro padecimiento</string>
     <string name="aclaracion_intoxicaciones">Otro padecimiento</string>
     <string name="aclaracion_otro">Otro padecimiento</string>
+    <string name="QuestionsQuemaduras">¿Cual es la zona quemada?</string>
+    <string name="QuestionsLesiones">¿Cual es la zona lesionada?</string>
 
 
 </resources>

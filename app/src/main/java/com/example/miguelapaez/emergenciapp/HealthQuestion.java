@@ -122,6 +122,20 @@ public class HealthQuestion extends AppCompatActivity {
                         intent.putExtra("email",email);
                         startActivity(intent);
                     }
+
+                    if(finalI == 4){
+                        Intent intent = new Intent ( HealthQuestion.this, MedicalCenters.class);
+                        ArrayList<String> especialidades = new ArrayList<>();
+                        especialidades.add("ortopedia");
+                        especialidades.add("neurología");
+                        intent.putStringArrayListExtra("especialidades",especialidades);
+                        //intent.putExtra("info","This is activity from card item index  "+finalI);
+                        //intent.putExtra("answer1","Ortopedista/Neurologo/Cardiologo");
+                        intent.putExtra("latitud",latUser);
+                        intent.putExtra("longitud",lonUser);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+                    }
                 }
             });
         }
