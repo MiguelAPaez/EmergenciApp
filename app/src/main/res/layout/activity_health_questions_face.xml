@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical"
+    tools:context=".HealthQuestionsFace">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutTitleMain"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal"
+                android:color="@color/colorBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.538"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/titleMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/Question2Cabeza"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="28dp" />
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <GridLayout
+                        android:id="@+id/gridLayoutQuestionFace"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="8dp"
+                        android:columnCount="2"
+                        android:rowCount="4"
+                        android:textAlignment="center">
+
+
+
+
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutCerebro"
+                            android:layout_width="155dp"
+                            android:layout_height="200dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/shape_main_1"
+                            android:orientation="vertical"
+                            android:textAlignment="center">
+
+                            <ImageView
+                                android:id="@+id/imageViewCabeza"
+                                android:layout_width="122dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.8"
+                                app:srcCompat="@drawable/brain" />
+
+                            <TextView
+                                android:id="@+id/titleCabeza"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.2"
+                                android:text="@string/cerebro"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutNariz"
+                            android:layout_width="155dp"
+                            android:layout_height="200dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/shape_main_1"
+                            android:orientation="vertical"
+                            android:textAlignment="center">
+
+                            <ImageView
+                                android:id="@+id/imageViewNariz"
+                                android:layout_width="90dp"
+                                android:layout_height="172dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.8"
+                                app:srcCompat="@drawable/nose" />
+
+                            <TextView
+                                android:id="@+id/titleNariz"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.2"
+                                android:text="@string/nariz"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="28dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/linearLayoutOidos"
+                            android:layout_width="155dp"
+                            android:layout_height="200dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/shape_main_1"
+                            android:orientation="vertical"
+                            android:textAlignment="center">
+
+                            <ImageView
+                                android:id="@+id/imageViewPecho"
+                                android:layout_width="110dp"
+                                android:layout_height="139dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.8"
+                                app:srcCompat="@drawable/ear" />
+
+                            <TextView
+                                android:id="@+id/titlePecho"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.2"
+                                android:text="@string/oidos"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="28dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutBoca"
+                            android:layout_width="155dp"
+                            android:layout_height="200dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/shape_main_1"
+                            android:orientation="vertical"
+                            android:textAlignment="center">
+
+                            <ImageView
+                                android:id="@+id/imageViewBoca"
+                                android:layout_width="110dp"
+                                android:layout_height="139dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.8"
+                                app:srcCompat="@drawable/teeth" />
+
+                            <TextView
+                                android:id="@+id/titleBoca"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.2"
+                                android:text="@string/boca"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="28dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+
+
+
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutOjos"
+                            android:layout_width="155dp"
+                            android:layout_height="200dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/shape_main_1"
+                            android:orientation="vertical"
+                            android:textAlignment="center">
+
+                            <ImageView
+                                android:id="@+id/imageViewCorazon"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.8"
+                                app:srcCompat="@drawable/ojo" />
+
+                            <TextView
+                                android:id="@+id/titleCorazon"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.2"
+                                android:text="@string/ojos"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutGarganta"
+                            android:layout_width="155dp"
+                            android:layout_height="200dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/shape_main_1"
+                            android:orientation="vertical"
+                            android:textAlignment="center">
+
+                            <ImageView
+                                android:id="@+id/imageViewGarganta"
+                                android:layout_width="111dp"
+                                android:layout_height="133dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.8"
+                                app:srcCompat="@drawable/sore_throat" />
+
+                            <TextView
+                                android:id="@+id/titleGarganta"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.2"
+                                android:text="@string/garganta"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+
+
+
+                    </GridLayout>
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

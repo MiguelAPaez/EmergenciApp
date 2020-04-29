@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="idType">
+        <item>Tipo de Identificación</item>
+        <item>CC</item>
+        <item>TI</item>
+        <item>RC</item>
+        <item>Cédula de Extranjería</item>
+        <item>Pasaporte</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item>Género</item>
+        <item>Femenino</item>
+        <item>Masculino</item>
+    </string-array>
+
+    <string-array name="parentesco">
+        <item>Parentesco</item>
+        <item>Padre/Madre</item>
+        <item>Hijo(a)</item>
+        <item>Abuelo(a)</item>
+        <item>Familiar</item>
+    </string-array>
+
+    <string-array name="eps">
+        <item>EPS</item>
+        <item>Nueva EPS</item>
+        <item>Compensar</item>
+        <item>Coomeva</item>
+    </string-array>
+
+    <string-array name="eps_regime">
+        <item>Régimen de Afiliación EPS</item>
+        <item>Subsidiado</item>
+        <item>Contributivo</item>
+    </string-array>
+
+    <string-array name="prepaid_medicine">
+        <item>Medicina Prepagada</item>
+        <item>Ninguna</item>
+        <item>Emermédica</item>
+        <item>Coomeva</item>
+        <item>Colsanitas</item>
+    </string-array>
+
+    <string-array name="blood_type">
+        <item>Tipo de Sangre</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>O+</item>
+        <item>O-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+    </string-array>
+
+    <string-array name="disease">
+        <item>¿Tienes alguna Enfermedad Crónica?</item>
+        <item>Ninguna</item>
+        <item>Cardiovascular</item>
+        <item>Obesidad</item>
+        <item>Diabetes</item>
+        <item>Cáncer</item>
+        <item>Asma</item>
+        <item>Estrés</item>
+    </string-array>
+
+    <string-array name="environment_allergy">
+        <item>¿Posees alguna Alergía Ambiental?</item>
+        <item>Ninguna</item>
+        <item>Polen</item>
+        <item>Ácaros</item>
+        <item>Alimentos</item>
+        <item>Animales</item>
+        <item>Sol</item>
+        <item>Picaduras de Insectos</item>
+        <item>Níquel</item>
+    </string-array>
+
+    <string-array name="medicines_allergy">
+        <item>¿Posees alguna Alergía a un Medicamento?</item>
+        <item>Ninguna</item>
+        <item>Penicilina y antibióticos conexos</item>
+        <item>Anticonvulsivos</item>
+        <item>Insulina</item>
+        <item>Sulfamidas</item>
+    </string-array>
+
+    <string-array name="medicines">
+        <item>¿Tomas algún Medicamento?</item>
+        <item>Ninguno</item>
+        <item>Lágrimas Artificiales</item>
+        <item>Metformina</item>
+        <item>Pregabalina</item>
+        <item>Paracetamol</item>
+        <item>Rituximab</item>
+        <item>Tamsulosina</item>
+    </string-array>
+
+</resources>

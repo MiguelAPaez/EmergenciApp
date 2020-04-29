@@ -1,3 +1,138 @@
 <resources>
     <string name="app_name">EmergenciApp</string>
+    <string name="email">Correo Electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Ingresar</string>
+    <string name="message_intro">¿No tienes una cuenta aún?</string>
+    <string name="signup"><u>Regístrate</u></string>
+    <string name="rights">All rigths reserved - EmergenciApp 2020</string>
+    <string name="logo_description">Logo de EmergenciApp</string>
+
+    <string name="register_title">Registro Usuarios</string>
+    <string name="register_health_title">Registro de Salud</string>
+    <string name="name">Nombres</string>
+    <string name="last_name">Apellidos</string>
+    <string name="id_type">Tipo de Identificación</string>
+    <string name="id_number">Número de Identificación</string>
+    <string name="date_birth">Fecha de Nacimiento</string>
+    <string name="add">Agregar</string>
+    <string name="validate_password">Confirmar Contraseña</string>
+    <string name="phone">Celular</string>
+    <string name="complementary_plan">¿Tienes Plan Complementario con tu EPS?</string>
+    <string name="weight">Peso (Kg)</string>
+    <string name="height">Estatura (Cm)</string>
+    <string name="organ_donor">¿Eres Donador de Órganos?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="age">Edad</string>
+    <string name="gender">Género</string>
+    <string name="my_dates">Mis Datos Médicos</string>
+    <string name="medical_dates">Datos Médicos</string>
+    <string name="eps">EPS</string>
+    <string name="affiliation">Régimen de Afiliación</string>
+    <string name="plan_complementary">Plan Complementario</string>
+    <string name="prepaid_medicine">Medicina Prepagada</string>
+    <string name="rh">Tipo de Sangre</string>
+    <string name="disease">Enfermedad Crónica</string>
+    <string name="environment_allergy">Alergía Ambiental</string>
+    <string name="medicine_allergy">Alergía Medicamento</string>
+    <string name="medicine">Medicamento Consumido</string>
+    <string name="next">Perfil Médico ></string>
+    <string name="sign_up">Registrar</string>
+    <string name="sign_up_family">Registrar Familiar</string>
+
+    <string name="emergency">Emergencia</string>
+    <string name="line_emergency">Llamar al 123</string>
+    <string name="profile">Perfil</string>
+    <string name="group_profile">Grupo Familiar</string>
+    <string name="log_out">Cerrar Sesión</string>
+
+    <string name="profile_activity">Mi Perfil</string>
+    <string name="profile_question">¿Deseas editar tu información?</string>
+    <string name="profile_edit"><u>Edítala</u></string>
+    <string name="actual_password">Contraseña Actual</string>
+    <string name="new_password">Contraseña Nueva</string>
+    <string name="validate_new_password">Confirmar Nueva Contraseña</string>
+    <string name="update_profile">Actualizar Información</string>
+    <string name="update">Actualizar</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="TituloPantallaEscogeremergencia">"Selecciona tu Emergencia"</string>
+
+    <string name="textoBottonESalud">Salud</string>
+    <string name="textoBottonESeguridad">Policia</string>
+    <string name="textoBottonEBomberos">Bomberos</string>
+    <string name="textoBottonECasera">Casera</string>
+    <string name="titleBuscarFamiliar">Agregar Familiar</string>
+    <string name="buscarUsuario">¿Tú familiar ya está registrado en EmergenciApp?</string>
+    <string name="celular">Celular</string>
+    <string name="buscar">Buscar</string>
+
+    <string name="no_tiene_cuenta">¿Tú familiar no tiene una cuenta?</string>
+    <string name="registro_familiar_titulo">Registro de Familiar</string>
+    <string name="perfil_medico_familiar">Perfil médico del familiar</string>
+    <string name="perfil_medico_familiar_2">Perfil Médico Familiar</string>
+    <string name="seguros_familiar">Seguros del familiar</string>
+    <string name="perfilMedico">Perfil Médico</string>
+    <string name="signUpBuscarFamiliar"><u>Regístralo</u></string>
+
+    <string name="FamilyGroup_title">Grupo Familiar</string>
+    <string name="FamilyGroup_add">¿Deseas Agregar un Familiar?</string>
+    <string name="FamilyGroup_add2"><u>Agrégalo</u></string>
+    <string name="familyGroup_question">¿Quién tiene la Emergencia?</string>
+
+    <string name="Question1">¿Qué zona del cuerpo se encuentra afectada?</string>
+    <string name="Question2Cabeza">¿Qué parte de la cabeza se encuentra afectada?</string>
+    <string name="Question2Pelvis">¿Qué parte del abodomen bajo y pelvis se encuentra afectado?</string>
+    <string name="cabeza">Cabeza y garganta</string>
+
+    <string name="abdomen_bajo_y_pelvis">Abdomen bajo y pelvis</string>
+    <string name="torax">Tórax</string>
+    <string name="extremidades">Extremidades</string>
+
+    <string name="medicalcenters_title">Centros de Salud Cercanos</string>
+    <string name="medicalcenters_message1">¿Necesitas atención médica inmediata?</string>
+    <string name="LlamarSeguroMedico">Llama a tú seguro médico</string>
+    <string name="medicalcenters_message2">Llamar</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="mail_a_buscar">Ingrese el email de la persona</string>
+    <string name="familiares_encontrados_title">Resultados</string>
+    <string name="agregar_familiar_encontrado">Agregar</string>
+    <string name="notificaciones">Notificaciones </string>
+    <string name="Confirmar">✓</string>
+    <string name="Eliminar">X</string>
+
+    <string name="cerebro">Cerebro</string>
+    <string name="ojos">Ojos</string>
+    <string name="oidos">Oidos</string>
+    <string name="nariz">Nariz</string>
+    <string name="boca">Boca</string>
+    <string name="garganta">Garganta</string>
+    <string name="espalda">Espalda y Nuca</string>
+
+    <string name="chimbo">Genitales</string>
+    <string name="abdomen_inferior">Abdomen Inferior</string>
+
+    <string name="actMap">Actualizar Ubicación</string>
+    <string name="endEmergency">Finalizar Emergencia</string>
+    <string name="QuestionAccidenteGeneral">¿Qué sucedió?</string>
+    <string name="QuestionAccidenteGeneralAclaraciones">(Accidente de trafico, quemaduras, intoxicacion)</string>
+    <string name="si">Si</string>
+    <string name="QuestionAccidenteLesionesAclaraciones">(Golpes, fracturas, cortadas, etc)</string>
+    <string name="QuestionAccidenteQuemadurasAclaraciones">(Por quimicos, fuego, etc)</string>
+    <string name="QuestionAccidenteQtrosAclaraciones">(Dolores corporales, visión borrosa, parálisis, etc)</string>
+    <string name="QuestionAccidenteIntoxicacionesAclaraciones">(Químicos, medicamentos, alimentos en mal estado, etc)</string>
+
+    <string name="opcion_lesiones">Lesión</string>
+    <string name="opciones_quemaduras">Quemaduras</string>
+    <string name="opciones_intoxicaciones">Intoxicación</string>
+    <string name="opciones_otros">Otro padecimiento</string>
+
+    <string name="aclaracion_lesiones">Otro padecimiento</string>
+    <string name="aclaracion_quemaduras">Otro padecimiento</string>
+    <string name="aclaracion_intoxicaciones">Otro padecimiento</string>
+    <string name="aclaracion_otro">Otro padecimiento</string>
+    <string name="QuestionsQuemaduras">¿Cuál es la zona quemada?</string>
+    <string name="QuestionsLesiones">¿Cuál es la zona lesionada?</string>
+
+
 </resources>
