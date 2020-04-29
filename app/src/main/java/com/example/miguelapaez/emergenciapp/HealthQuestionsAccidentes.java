@@ -99,7 +99,7 @@ public class HealthQuestionsAccidentes extends AppCompatActivity {
                     if(finalI == 2){
                         Intent intent = new Intent ( HealthQuestionsAccidentes.this, MedicalCenters.class);
                         ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("toxicología");
+                        //especialidades.add("toxicología");
                         especialidades.add("gastroenterología");
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("latitud",latUser);

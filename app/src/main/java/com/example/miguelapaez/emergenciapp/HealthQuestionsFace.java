@@ -116,6 +116,7 @@ public class HealthQuestionsFace extends AppCompatActivity {
                         especialidades.add("neumología");
                         especialidades.add("otorrinolaringología");
                         especialidades.add("cardiología");
+                        especialidades.add("gastroenterología");
                         intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("info","This is activity from card item index  "+finalI);
                         //intent.putExtra("answer1",answer1+"/Garganta");

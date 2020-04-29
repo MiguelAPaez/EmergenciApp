@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".HealthQuestionsLesiones">
 
 
@@ -215,11 +216,11 @@ tools:ignore="MissingConstraints">
 
                 <ImageView
                     android:id="@+id/imageViewEspalda"
-                    android:layout_width="110dp"
-                    android:layout_height="139dp"
+                    android:layout_width="120dp"
+                    android:layout_height="150dp"
                     android:layout_gravity="center"
                     android:layout_weight="0.8"
-                    app:srcCompat="@drawable/espalda" />
+                    app:srcCompat="@drawable/espalda2" />
 
                 <TextView
                     android:id="@+id/titleEspalda"
@@ -230,7 +231,7 @@ tools:ignore="MissingConstraints">
                     android:text="@string/espalda"
                     android:textAlignment="center"
                     android:textColor="@color/colorBlack"
-                    android:textSize="22dp"
+                    android:textSize="18dp"
                     android:textStyle="bold" />
             </LinearLayout>
 

@@ -402,11 +402,6 @@ public class MedicalCenters extends AppCompatActivity {
                     System.out.println(especialidades);
                     if (especialidades.containsAll(copyListEsp)) {
                         getDuracion(med);
-                    } else {
-                        copyListEsp.remove(0);
-                        if (especialidades.containsAll(copyListEsp)) {
-                            getDuracion(med);
-                        }
                     }
 
                 }

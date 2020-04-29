@@ -86,11 +86,11 @@
                 android:id="@+id/textCallMedicalCenter"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="Llamar"
+                android:text="@string/LlamarSeguroMedico"
                 android:layout_weight="0.5"
                 android:layout_gravity="center"
                 android:textColor="@color/colorBlack"
-                android:textSize="22sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 

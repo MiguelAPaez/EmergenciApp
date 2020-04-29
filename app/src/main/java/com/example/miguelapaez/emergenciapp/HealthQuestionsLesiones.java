@@ -81,7 +81,7 @@ public class HealthQuestionsLesiones extends AppCompatActivity {
                     String lonUser = String.valueOf(longitudUser);
 
                     if(finalI == 0){
-                        Intent intent = new Intent ( HealthQuestionsLesiones.this, HealthQuestionQuemaduras.class);
+                        Intent intent = new Intent ( HealthQuestionsLesiones.this, MedicalCenters.class);
                         //intent.putExtra("info","This is activity from card item index  "+finalI);
                         ArrayList<String> especialidades = new ArrayList<>();
                         especialidades.add("ortopedia");
@@ -93,7 +93,7 @@ public class HealthQuestionsLesiones extends AppCompatActivity {
                         startActivity(intent);
                     }
                     if(finalI == 1){
-                        Intent intent = new Intent ( HealthQuestionsLesiones.this, HealthQuestionQuemaduras.class);
+                        Intent intent = new Intent ( HealthQuestionsLesiones.this, MedicalCenters.class);
                         //intent.putExtra("info","This is activity from card item index  "+finalI);
                         // intent.putExtra("answer1","Cardiologo/Neumologo/Gastroenterologo");
                         ArrayList<String> especialidades = new ArrayList<>();

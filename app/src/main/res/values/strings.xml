@@ -91,7 +91,8 @@
 
     <string name="medicalcenters_title">Centros de Salud Cercanos</string>
     <string name="medicalcenters_message1">¿Necesitas atención médica inmediata?</string>
-    <string name="medicalcenters_message2">Llama</string>
+    <string name="LlamarSeguroMedico">Llama a tú seguro médico</string>
+    <string name="medicalcenters_message2">Llamar</string>
     <string name="title_activity_maps">Map</string>
     <string name="mail_a_buscar">Ingrese el email de la persona</string>
     <string name="familiares_encontrados_title">Resultados</string>
@@ -113,25 +114,25 @@
 
     <string name="actMap">Actualizar Ubicación</string>
     <string name="endEmergency">Finalizar Emergencia</string>
-    <string name="QuestionAccidenteGeneral">¿Que te sucedio?</string>
+    <string name="QuestionAccidenteGeneral">¿Qué sucedió?</string>
     <string name="QuestionAccidenteGeneralAclaraciones">(Accidente de trafico, quemaduras, intoxicacion)</string>
     <string name="si">Si</string>
-    <string name="QuestionAccidenteLesionesAclaraciones"> golpes, fracturas, cortadas, etc</string>
-    <string name="QuestionAccidenteQuemadurasAclaraciones">por quimicos, fuego, etc</string>
-    <string name="QuestionAccidenteQtrosAclaraciones">dolores corporales, visión borrosa, paralisis etc.</string>
-    <string name="QuestionAccidenteIntoxicacionesAclaraciones">tal como quimicos, venenos, alimentos en mal estado, etc</string>
+    <string name="QuestionAccidenteLesionesAclaraciones">(Golpes, fracturas, cortadas, etc)</string>
+    <string name="QuestionAccidenteQuemadurasAclaraciones">(Por quimicos, fuego, etc)</string>
+    <string name="QuestionAccidenteQtrosAclaraciones">(Dolores corporales, visión borrosa, parálisis etc)</string>
+    <string name="QuestionAccidenteIntoxicacionesAclaraciones">(Químicos, venenos, alimentos en mal estado, etc)</string>
 
-    <string name="opcion_lesiones">Me lesione</string>
-    <string name="opciones_quemaduras">Tengo quemaduras</string>
-    <string name="opciones_intoxicaciones">Consumí algo toxico</string>
+    <string name="opcion_lesiones">Lesión</string>
+    <string name="opciones_quemaduras">Quemaduras</string>
+    <string name="opciones_intoxicaciones">Intoxicación</string>
     <string name="opciones_otros">Otro padecimiento</string>
 
     <string name="aclaracion_lesiones">Otro padecimiento</string>
     <string name="aclaracion_quemaduras">Otro padecimiento</string>
     <string name="aclaracion_intoxicaciones">Otro padecimiento</string>
     <string name="aclaracion_otro">Otro padecimiento</string>
-    <string name="QuestionsQuemaduras">¿Cual es la zona quemada?</string>
-    <string name="QuestionsLesiones">¿Cual es la zona lesionada?</string>
+    <string name="QuestionsQuemaduras">¿Cuál es la zona quemada?</string>
+    <string name="QuestionsLesiones">¿Cuál es la zona lesionada?</string>
 
 
 </resources>

@@ -96,11 +96,6 @@ public class HealthQuestion extends AppCompatActivity {
                     }
                     if(finalI == 2){
                         Intent intent = new Intent ( HealthQuestion.this, HealthQuestionsPelvis.class);
-                        ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("Nefrologo");
-                        especialidades.add("Gastroenterologo");
-                        especialidades.add("Urologo");
-                        intent.putStringArrayListExtra("especialidades",especialidades);
                         intent.putExtra("info","This is activity from card item index  "+finalI);
                         intent.putExtra("answer1","Nefrologo/Gastroenterologo/Urologo");
                         intent.putExtra("latitud",latUser);
@@ -111,7 +106,6 @@ public class HealthQuestion extends AppCompatActivity {
                     if(finalI == 3){
                         Intent intent = new Intent ( HealthQuestion.this, MedicalCenters.class);
                         ArrayList<String> especialidades = new ArrayList<>();
-                        especialidades.add("ortopedia");
                         especialidades.add("neurología");
                         especialidades.add("cardiología");
                         intent.putStringArrayListExtra("especialidades",especialidades);
