@@ -93,20 +93,13 @@ public class MedicalCenters extends AppCompatActivity {
         //answer =  getIntent().getStringExtra("answer1");
         listEspecialidades = getIntent().getStringArrayListExtra("especialidades");
         //Firebase
-        mDatabasePerfilEPS = FirebaseDatabase.getInstance().getReference("PerfilesXEPS");
-        mDatabasePerfilEPS.orderByChild("emailPerfil").equalTo(email);
-        mDatabasePerfilPrepagada = FirebaseDatabase.getInstance().getReference("PerfilesXPrepagada");
-        mDatabasePerfilPrepagada.orderByChild("emailPerfil").equalTo(email);
-        mDatabaseEPS = FirebaseDatabase.getInstance().getReference("EPSs");
-        mDatabasePrepagada = FirebaseDatabase.getInstance().getReference("Prepagadas");
         mDatabaseIPS = FirebaseDatabase.getInstance().getReference("IPSs");
-        mDatabaseBasic = FirebaseDatabase.getInstance().getReference("Perfiles Basicos");
-        mDatabaseCalificaciones = FirebaseDatabase.getInstance().getReference("Calificaciones");
+
 
         listItemsMedicalCenters = findViewById(R.id.listViewMedicalCenters);
         adaptador = new AdapterMedicalCenters(this, listItems);
         listItemsMedicalCenters.setAdapter(adaptador);
-        cargarEntidadPrepagada();
+        cargarIPS();
 
         listItemsMedicalCenters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -129,12 +122,12 @@ public class MedicalCenters extends AppCompatActivity {
             }
         });
 
-        callButton = findViewById ( R.id.buttonCallMedicalCenters );
+        callButton = findViewById(R.id.buttonCallMedicalCenters);
 
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hacerLlamada ();
+                hacerLlamada();
             }
         });
 
@@ -152,175 +145,17 @@ public class MedicalCenters extends AppCompatActivity {
     }
 
     private void hacerLlamada() {
-        if (ContextCompat.checkSelfPermission( MedicalCenters.this, Manifest.permission.CALL_PHONE)
+        if (ContextCompat.checkSelfPermission(MedicalCenters.this, Manifest.permission.CALL_PHONE)
                 == PackageManager.PERMISSION_GRANTED) {
-            if(telefono.equals ( "" )){
-                startActivity(new Intent( Intent.ACTION_CALL, Uri.parse("tel:321")));
-            }else{
-                startActivity(new Intent( Intent.ACTION_CALL, Uri.parse("tel:" + telefono)));
+            if (telefono.equals("")) {
+                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:321")));
+            } else {
+                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + telefono)));
             }
         }
     }
 
-    private void cargarEntidadPrepagada() {
-        mDatabasePerfilPrepagada.orderByChild("emailPerfil").equalTo(email);
-        mDatabasePerfilPrepagada.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    boolean asigned = false;
-                    PerfilXPrepagadaPersistence user;
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if (snapshot.exists()) {
-                            user = snapshot.getValue(PerfilXPrepagadaPersistence.class);
-                            if (!user.getEmailPerfil().isEmpty() && user.getEmailPerfil().equals(email) && !user.getNombrePrepada().equals("Ninguna")) {
-                                if (user.getNombrePrepada().equals("Coomeva")) {
-                                    cargarPrepagada(user.getNombrePrepada());
-                                    asigned = true;
-                                    break;
-                                } else if (user.getNombrePrepada().equals("Colsanitas")) {
-                                    cargarPrepagada(user.getNombrePrepada());
-                                    break;
-                                } else if (user.getNombrePrepada().equals("Emermedica")) {
-                                    telefono = "0313077089";
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if (!asigned) {
-                        cargarEntidadEPS();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void cargarEntidadEPS() {
-        mDatabasePerfilEPS.orderByChild("emailPerfil").equalTo(email);
-        mDatabasePerfilEPS.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    PerfilXEPSPersistence user;
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        user = snapshot.getValue(PerfilXEPSPersistence.class);
-                        if (!user.getEmailPerfil().isEmpty() && user.getEmailPerfil().equals(email)) {
-                            cargarEPS(user);
-                            break;
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void cargarEPS(final PerfilXEPSPersistence user) {
-        mDatabaseEPS.orderByChild("nombre").equalTo(user.getNombreEPS());
-        mDatabaseEPS.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    EntidadPersistence entidad;
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        entidad = snapshot.getValue(EntidadPersistence.class);
-                        if (!entidad.getNombre().isEmpty() && entidad.getNombre().equals(user.getNombreEPS())) {
-                            final EntidadPersistence finalEntidad = entidad;
-                            mDatabaseEPS.child(snapshot.getKey()).child("Convenios").addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if (dataSnapshot.exists()) {
-                                        ReferenciaConvenioPersistence convenio;
-                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                            convenio = snapshot.getValue(ReferenciaConvenioPersistence.class);
-                                            if (!user.isPlanComplementario()) {
-                                                if (!convenio.isPlanC()) {
-                                                    if (finalEntidad.getNombre().equals("Nueva EPS")) {
-                                                        if (convenio.getRegimen().equals(user.getRegimen())) {
-                                                            cargarIPS(convenio.getIdIPS(), finalEntidad.getNombre ());
-                                                        }
-                                                    } else {
-                                                        cargarIPS(convenio.getIdIPS(), finalEntidad.getNombre ());
-                                                    }
-                                                }
-                                            } else {
-                                                cargarIPS(convenio.getIdIPS(), finalEntidad.getNombre ());
-                                            }
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
-                            break;
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void cargarPrepagada(final String nPrepagada) {
-        mDatabasePrepagada.orderByChild("nombre").equalTo(nPrepagada);
-        mDatabasePrepagada.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    EntidadPersistence entidad;
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        entidad = snapshot.getValue(EntidadPersistence.class);
-                        if (!entidad.getNombre().isEmpty() && entidad.getNombre().equals(nPrepagada)) {
-                            telefono = entidad.getTelefono();
-                            final EntidadPersistence finalEntidad = entidad;
-                            mDatabasePrepagada.child( snapshot.getKey()).child( "Convenios").addValueEventListener( new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if (dataSnapshot.exists()) {
-                                        ReferenciaConvenioPersistence convenio;
-                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                            convenio = snapshot.getValue(ReferenciaConvenioPersistence.class);
-                                            cargarIPS( convenio.getIdIPS(), finalEntidad.getNombre ());
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void cargarIPS(final String id, final String nEntidad) {
-        mDatabaseIPS.orderByChild("id").equalTo(id);
+    private void cargarIPS() {
         mDatabaseIPS.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -329,14 +164,12 @@ public class MedicalCenters extends AppCompatActivity {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         if (snapshot.exists()) {
                             ips = snapshot.getValue(IPSPersistence.class);
-                            if (!ips.getId().isEmpty() && ips.getId().equals(id)) {
+                            if (!ips.getId().isEmpty()) {
                                 String latitud = String.valueOf(ips.getLatitud());
                                 String longitud = String.valueOf(ips.getLongitud());
                                 EntityMedicalCenter med = new EntityMedicalCenter(ips.getNombre(), ips.getDireccion(), latitud, longitud, ips.getEdadMin(), ips.getEdadMax(), ips.getCalificacion());
                                 med.setId(ips.getId());
-                                med.setEntity ( nEntidad );
-                                verificarEdad(med, snapshot.getKey());
-                                break;
+                                getDuracion(med); 
                             }
                         }
                     }
@@ -350,71 +183,6 @@ public class MedicalCenters extends AppCompatActivity {
         });
     }
 
-    private void verificarEdad(final EntityMedicalCenter med, final String id) {
-        mDatabaseBasic.orderByChild("email").equalTo(email);
-        mDatabaseBasic.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    PerfilBasicoPersistence user;
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        user = snapshot.getValue(PerfilBasicoPersistence.class);
-                        if (!user.getEmail().isEmpty() && user.getEmail().equals(email)) {
-                            int edad = Integer.parseInt(user.getAge());
-                            if (edad > med.getEdadMin() && edad < med.getEdadMax()) {
-                                verificarEspecialidades(med, id);
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void verificarEspecialidades(final EntityMedicalCenter med, String id) {
-        mDatabaseIPS.child(id).child("Especialidades").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    String[] days;
-                    Calendar calendar = Calendar.getInstance();
-                    ArrayList<String> especialidades = new ArrayList<>();
-                    ArrayList<String> copyListEsp = (ArrayList<String>) listEspecialidades.clone();
-                    int day = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-                    String dayS = String.valueOf(day);
-                    int hora = calendar.get(Calendar.HOUR_OF_DAY);
-                    EspecialidadPersistence especialidad;
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if (snapshot.exists()) {
-                            especialidad = snapshot.getValue(EspecialidadPersistence.class);
-                            days = especialidad.getDias().split(",");
-                            List<String> listDays = new ArrayList<>(Arrays.asList(days));
-                            if (listDays.contains(dayS) && hora > especialidad.gethInicio() && hora < especialidad.gethFin()) {
-                                especialidades.add(especialidad.getEspecialidad());
-                            }
-                        }
-                    }
-                    System.out.println(med.getName());
-                    System.out.println(especialidades);
-                    if (especialidades.containsAll(copyListEsp)) {
-                        getDuracion(med);
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     private void getDuracion(final EntityMedicalCenter med) {
         final String[] url = {"https://maps.googleapis.com/maps/api/directions/json?origin=" + latitudUser + "," + longitudUser
@@ -444,7 +212,8 @@ public class MedicalCenters extends AppCompatActivity {
                     }
 
                     med.setDuration(duracionIPS);
-                    getCalificationUser(med);
+                    listItems.add(med);
+                    adaptador.notifyDataSetChanged();
                     //Algoritmo de alejo
                     /*listItems.add(med);
                     algortimoOrdenamientoTiempoAcceso(0, listItems.size() - 1);
@@ -466,173 +235,6 @@ public class MedicalCenters extends AppCompatActivity {
         }
         );
         request.add(jsonObjectRequest);
-    }
-
-    private void getCalificationUser(final EntityMedicalCenter med) {
-        mDatabaseCalificaciones.orderByChild("email").equalTo(email);
-        mDatabaseCalificaciones.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    boolean carried = false;
-                    CalificacionPersistence note;
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if (snapshot.exists()) {
-                            note = snapshot.getValue(CalificacionPersistence.class);
-                            if (note.getIdIPS().equals(med.getId()) && note.getEmail().equals(email) && note.isCalificacion()) {
-                                med.setQualificated(note.isCalificacion());
-                                listItems.add(0, med);
-                                adaptador.notifyDataSetChanged();
-                                carried = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (!carried) {
-                        listItems.add(med);
-                        adaptador.notifyDataSetChanged();
-                        algortimoOrdenamientoTiempoAcceso(indexPref(), listItems.size() - 1);
-                        algoritmoOrdenamientoPuntuacionGoogle(indexDeIpsAUnMaximoDeVeinteMins());
-                    }
-                } else {
-                    listItems.add(med);
-                    adaptador.notifyDataSetChanged();
-                    algortimoOrdenamientoTiempoAcceso(indexPref(), listItems.size() - 1);
-                    algoritmoOrdenamientoPuntuacionGoogle(indexDeIpsAUnMaximoDeVeinteMins());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private int indexPref() {
-        for (int i = 0; i < listItems.size(); i++) {
-            if (!listItems.get(i).isQualificated()) {
-                return i;
-            }
-        }
-        return 0;
-    }
-
-    private int indexDeIpsAUnMaximoDeVeinteMins() {
-
-        for (int i = indexPref(); i < listItems.size(); i++) {
-
-            if (listItems.get(i).getDuration() > (1200 + listItems.get(indexPref()).getDuration()) && i > 0) {
-
-                return i - 1;
-            } else if (listItems.get(i).getDuration() > (1200 + listItems.get(indexPref()).getDuration())) {
-
-                return i;
-            }
-        }
-        return 0;
-    }
-
-    private void algortimoOrdenamientoTiempoAcceso(int l, int r) {
-
-        if (l >= r) {
-            return;
-        }
-
-        // Choose pivot to be the last element in the subarray
-        double pivot = listItems.get(r).getDuration();
-
-        // Index indicating the "split" between elements smaller than pivot and
-        // elements greater than pivot
-        int cnt = l;
-
-        // Traverse through array from l to r
-        for (int i = l; i <= r; i++) {
-            // If an element less than or equal to the pivot is found...
-            if (listItems.get(i).getDuration() <= pivot) {
-                // Then swap arr[cnt] and arr[i] so that the smaller element arr[i]
-                // is to the left of all elements greater than pivot
-
-                EntityMedicalCenter medCentAuxiliar = listItems.get(i);
-                EntityMedicalCenter medCentAuxiliar2 = listItems.get(cnt);
-                listItems.set(cnt, medCentAuxiliar);
-                listItems.set(i, medCentAuxiliar2);
-
-                // Make sure to increment cnt so we can keep track of what to swap
-                // arr[i] with
-                cnt++;
-            }
-        }
-
-        // NOTE: cnt is currently at one plus the pivot's index
-        // (Hence, the cnt-2 when recursively sorting the left side of pivot)
-        algortimoOrdenamientoTiempoAcceso(l, cnt - 2); // Recursively sort the left side of pivot
-        algortimoOrdenamientoTiempoAcceso(cnt, r);   // Recursively sort the right side of pivot
-
-        adaptador.notifyDataSetChanged();
-    }
-
-    private void algoritmoOrdenamientoPuntuacionGoogle(int n) {
-
-        for (int i = 0; i < (n); i++) {
-            for (int j = 0; j < n - i; j++) {
-                if (listItems.get(j).getCalificacion() + 0.8 < listItems.get(j + 1).getCalificacion()) {
-                    /*
-                    temp = array[j];
-                    array[j] = array[j+1];
-                    array[j+1] = temp;
-*/
-                    EntityMedicalCenter medCentAuxiliar = listItems.get(j);
-                    EntityMedicalCenter medCentAuxiliar2 = listItems.get(j + 1);
-                    listItems.set(j, medCentAuxiliar2);
-                    listItems.set(j + 1, medCentAuxiliar);
-                }
-            }
-        }
-
-    }
-
-    private void algortimoOrdenamientoPuntuacionGoogle(int l, int r) {
-
-
-        if (l >= r) {
-            return;
-        }
-
-        // Choose pivot to be the last element in the subarray
-        double pivot = listItems.get(r).getCalificacion();
-        double pivot2 = pivot + 0.8;
-        boolean bandera = listItems.get(0).getCalificacion() >= (pivot + 0.8);
-
-        // Index indicating the "split" between elements smaller than pivot and
-        // elements greater than pivot
-        int cnt = l;
-
-        // Traverse through array from l to r
-        for (int i = l; i <= r; i++) {
-            // If an element less than or equal to the pivot is found...
-            if (listItems.get(i).getCalificacion() >= (pivot)) {
-                // Then swap arr[cnt] and arr[i] so that the smaller element arr[i]
-                // is to the left of all elements greater than pivot
-
-                EntityMedicalCenter medCentAuxiliar = listItems.get(i);
-                EntityMedicalCenter medCentAuxiliar2 = listItems.get(cnt);
-                listItems.set(cnt, medCentAuxiliar);
-                listItems.set(i, medCentAuxiliar2);
-
-                // Make sure to increment cnt so we can keep track of what to swap
-                // arr[i] with
-                cnt++;
-            }
-        }
-
-        // NOTE: cnt is currently at one plus the pivot's index
-        // (Hence, the cnt-2 when recursively sorting the left side of pivot)
-        algortimoOrdenamientoPuntuacionGoogle(l, cnt - 2); // Recursively sort the left side of pivot
-        algortimoOrdenamientoPuntuacionGoogle(cnt, r);   // Recursively sort the right side of pivot
-
-
-        adaptador.notifyDataSetChanged();
     }
 
     private void webServiceObtenerRuta(String latitudInicial, String longitudInicial, String latitudFinal, String longitudFinal) {
