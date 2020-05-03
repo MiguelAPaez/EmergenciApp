@@ -387,6 +387,9 @@ public class MedicalCenters extends AppCompatActivity {
                     ArrayList<String> especialidades = new ArrayList<>();
                     ArrayList<String> copyListEsp = (ArrayList<String>) listEspecialidades.clone();
                     int day = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+                    if(day == 0){
+                        day = 7;
+                    }
                     String dayS = String.valueOf(day);
                     int hora = calendar.get(Calendar.HOUR_OF_DAY);
                     EspecialidadPersistence especialidad;

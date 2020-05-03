@@ -217,7 +217,7 @@ public class Notificaciones extends AppCompatActivity {
     private void eliminarSolicitud(String idSolicitud) {
         DatabaseReference mDatabaseSolicitud = FirebaseDatabase.getInstance().getReference().child("Solicitudes").child(idSolicitud);
         mDatabaseSolicitud.removeValue();
-        Intent intent = new Intent(getApplicationContext(), FamilyGroup.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra("emailActual", emailActual);
         startActivityForResult(intent, 0);
     }
