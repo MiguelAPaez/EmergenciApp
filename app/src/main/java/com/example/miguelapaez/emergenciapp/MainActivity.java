@@ -60,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
         checkNotify();
     }
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
